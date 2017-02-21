@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/dashboard/dashboard.iml" filepath="$PROJECT_DIR$/dashboard/dashboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/com.mechanitis.demo.sense.mood/com.mechanitis.demo.sense.mood.iml" filepath="$PROJECT_DIR$/src/com.mechanitis.demo.sense.mood/com.mechanitis.demo.sense.mood.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/com.mechanitis.demo.sense.service/com.mechanitis.demo.sense.service.iml" filepath="$PROJECT_DIR$/src/com.mechanitis.demo.sense.service/com.mechanitis.demo.sense.service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/com.mechanitis.demo.sense.twitter/com.mechanitis.demo.sense.twitter.iml" filepath="$PROJECT_DIR$/src/com.mechanitis.demo.sense.twitter/com.mechanitis.demo.sense.twitter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/com.mechanitis.demo.sense.user/com.mechanitis.demo.sense.user.iml" filepath="$PROJECT_DIR$/src/com.mechanitis.demo.sense.user/com.mechanitis.demo.sense.user.iml" />
       <module fileurl="file://$PROJECT_DIR$/empathy.iml" filepath="$PROJECT_DIR$/empathy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mood/mood.iml" filepath="$PROJECT_DIR$/mood/mood.iml" />
-      <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/twitter/twitter.iml" filepath="$PROJECT_DIR$/twitter/twitter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/user/user.iml" filepath="$PROJECT_DIR$/user/user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test/com.mechanitis.demo.sense.user/user-test.iml" filepath="$PROJECT_DIR$/test/com.mechanitis.demo.sense.user/user-test.iml" />
     </modules>
   </component>
 </project>
