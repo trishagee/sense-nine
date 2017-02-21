@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.service" scope="TEST" />
+    <orderEntry type="module" module-name="service-test" scope="TEST" />
   </component>
 </module>
