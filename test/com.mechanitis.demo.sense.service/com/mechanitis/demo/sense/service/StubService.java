@@ -14,7 +14,7 @@ public class StubService implements Runnable {
     private final Supplier<String> messageGenerator;
 
     public StubService(String path, int port, Supplier<String> messageGenerator) {
-        this.server = new WebSocketServer(path, port);
+        this.server = new WebSocketServer(path, port, serverEndpoint);
         this.messageGenerator = messageGenerator;
     }
 

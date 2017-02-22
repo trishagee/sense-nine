@@ -19,7 +19,7 @@ public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subs
 
     @Override
     public void onNext(T message) {
-        LOGGER.info(() -> "Endpoint received: " + message);
+        LOGGER.fine(() -> "Endpoint received: " + message);
         // TODO: do something with the message
     }
 
