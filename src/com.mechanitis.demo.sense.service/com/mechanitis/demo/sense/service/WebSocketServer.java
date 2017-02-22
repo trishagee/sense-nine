@@ -25,7 +25,7 @@ public class WebSocketServer implements Runnable {
     private final Endpoint endpoint;
     private final Server server;
 
-    WebSocketServer(String path, int port, Endpoint endpoint) {
+    public WebSocketServer(String path, int port, Endpoint endpoint) {
         this.path = path;
         this.port = port;
         this.endpoint = endpoint;
@@ -50,6 +50,10 @@ public class WebSocketServer implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void stop() throws Exception {
+        server.stop();
     }
 
     private ServletContextHandler initialiseJettyServer(int port) {

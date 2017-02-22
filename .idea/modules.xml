@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/empathy.iml" filepath="$PROJECT_DIR$/empathy.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/com.mechanitis.demo.sense.mood/mood-test.iml" filepath="$PROJECT_DIR$/test/com.mechanitis.demo.sense.mood/mood-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/com.mechanitis.demo.sense.service/service-test.iml" filepath="$PROJECT_DIR$/test/com.mechanitis.demo.sense.service/service-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test/com.mechanitis.demo.sense.twitter/twitter-test.iml" filepath="$PROJECT_DIR$/test/com.mechanitis.demo.sense.twitter/twitter-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/com.mechanitis.demo.sense.user/user-test.iml" filepath="$PROJECT_DIR$/test/com.mechanitis.demo.sense.user/user-test.iml" />
     </modules>
   </component>
