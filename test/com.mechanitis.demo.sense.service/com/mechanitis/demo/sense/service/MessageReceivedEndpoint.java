@@ -15,7 +15,6 @@ import static java.util.logging.Logger.getLogger;
 public class MessageReceivedEndpoint {
     private static final Logger LOGGER = getLogger(MessageReceivedEndpoint.class.getName());
     private CountDownLatch latch;
-    private String message;
 
     public MessageReceivedEndpoint(CountDownLatch latch) {
         this.latch = latch;
@@ -28,7 +27,6 @@ public class MessageReceivedEndpoint {
 
     @OnMessage
     public void onWebSocketText(String message) throws IOException {
-        this.message = message;
         latch.countDown();
         LOGGER.fine(() -> "Received TEXT message: " + message);
     }
@@ -39,7 +37,4 @@ public class MessageReceivedEndpoint {
         throwable.printStackTrace();
     }
 
-    public String getMessage() {
-        return message;
-    }
 }

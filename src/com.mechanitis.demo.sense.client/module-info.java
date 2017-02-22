@@ -20,7 +20,6 @@ module com.mechanitis.demo.sense.client {
     requires jetty.http;
 
     exports com.mechanitis.demo.sense.client;
-    exports com.mechanitis.demo.sense.client.service;
     //not sure this is what I want
     exports com.mechanitis.demo.sense.client.user;
 

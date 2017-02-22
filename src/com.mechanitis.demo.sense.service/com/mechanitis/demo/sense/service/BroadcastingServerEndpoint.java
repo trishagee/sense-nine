@@ -22,7 +22,7 @@ public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subs
 
     @Override
     public void onNext(T message) {
-        LOGGER.fine(() -> "Endpoint received: " + message);
+        LOGGER.finest(() -> "Endpoint received: " + message);
         sessions.stream()
                 .filter(Session::isOpen)
                 .forEach(session -> sendMessageToClient(message.toString(), session));

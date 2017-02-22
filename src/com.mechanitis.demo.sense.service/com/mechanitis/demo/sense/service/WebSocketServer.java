@@ -1,5 +1,6 @@
 package com.mechanitis.demo.sense.service;
 
+import com.mechanitis.demo.sense.service.config.SingletonEndpointConfigurator;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -54,6 +55,7 @@ public class WebSocketServer implements Runnable {
 
     public void stop() throws Exception {
         server.stop();
+        server.join();
     }
 
     private ServletContextHandler initialiseJettyServer(int port) {

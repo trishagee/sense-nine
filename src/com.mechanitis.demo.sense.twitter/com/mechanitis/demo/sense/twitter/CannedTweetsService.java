@@ -5,13 +5,13 @@ import com.mechanitis.demo.sense.service.WebSocketServer;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import static java.lang.ClassLoader.getSystemResource;
+import static java.lang.String.format;
+import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -34,35 +34,37 @@ public class CannedTweetsService implements Runnable {
         this.filePath = filePath;
     }
 
-    public static void main(String[] args) throws URISyntaxException {
-        new CannedTweetsService(get(getSystemResource("./tweetdata60-mins.txt").toURI())).run();
-    }
-
     @Override
     public void run() {
-        LOGGER.fine(() -> String.format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
+        LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
         executor.submit(server);
 
-        try (Stream<String> lines = Files.lines(filePath)) {
+        try (Stream<String> lines = lines(filePath)) {
             lines.filter(s -> !s.equals("OK"))
                  .peek(s -> this.addArtificialDelay())
                  .forEach(tweetsEndpoint::onNext);
 
         } catch (IOException e) {
             //TODO: do some error handling here!!!
+            LOGGER.severe(e::getMessage);
+            e.printStackTrace();
         }
     }
 
     private void addArtificialDelay() {
         try {
             //reading the file is FAST, add an artificial delay
-            MILLISECONDS.sleep(5000);
+            MILLISECONDS.sleep(1000);
         } catch (InterruptedException e) {
             LOGGER.log(WARNING, e.getMessage(), e);
         }
     }
 
-    public void stop() throws Exception {
+    public static void main(String[] args) throws URISyntaxException {
+        new CannedTweetsService(get("tweetdata60-mins.txt")).run();
+    }
+
+    void stop() throws Exception {
         server.stop();
         executor.shutdownNow();
     }
