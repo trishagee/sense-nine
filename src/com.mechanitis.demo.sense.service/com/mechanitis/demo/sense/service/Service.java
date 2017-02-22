@@ -37,7 +37,7 @@ public class Service implements Runnable {
             BroadcastingServerEndpoint<String> broadcastingServerEndpoint = new BroadcastingServerEndpoint<>();
 
             // create a client endpoint that connects to the given server endpoint and puts all messages through the message handler
-            clientEndpoint = new ClientEndpoint<String>(endpointToConnectTo, messageHandler);
+            clientEndpoint = new ClientEndpoint<>(endpointToConnectTo, messageHandler);
             clientEndpoint.addListener(broadcastingServerEndpoint);
             clientEndpoint.connect();
 
