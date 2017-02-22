@@ -8,6 +8,8 @@ module com.mechanitis.demo.sense.service {
 
     requires websocket.common;
     requires websocket.client;
+    requires websocket.server;
+    requires websocket.servlet;
     requires websocket.api;
 
     requires jetty.server;
@@ -16,6 +18,7 @@ module com.mechanitis.demo.sense.service {
     requires jetty.io;
     requires jetty.client;
     requires jetty.http;
+    requires jetty.security;
 
     exports com.mechanitis.demo.sense.service;
 }

@@ -20,7 +20,6 @@ public final class ServiceFixture {
         try {
             Session session = container.connectToServer(endpointInstance, path);
             success = latch.await(10, TimeUnit.SECONDS);
-            System.out.println("success = " + success);
             session.close();
         } finally {
             if (container instanceof LifeCycle) {
