@@ -1,0 +1,9 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Convert2streamapi" enabled="true" level="INFORMATION" enabled_by_default="true">
+      <option name="REPLACE_TRIVIAL_FOREACH" value="true" />
+      <option name="SUGGEST_FOREACH" value="true" />
+    </inspection_tool>
+  </profile>
+</component>

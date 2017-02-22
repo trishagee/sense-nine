@@ -9,6 +9,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Flow;
 import java.util.logging.Logger;
 
+import static java.lang.String.format;
+
 public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subscriber<T> {
     private static final Logger LOGGER = Logger.getLogger(BroadcastingServerEndpoint.class.getName());
     private final List<Session> sessions = new CopyOnWriteArrayList<>();
@@ -28,7 +30,8 @@ public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subs
 
     private void sendMessageToClient(String message, Session session) {
         try {
-            LOGGER.fine(() -> "MessageBroadcastingEndpoint sending: = [" + message + "]");
+            LOGGER.finest(() -> format("BroadcastingServerEndpoint sending '%s' to session: [%s]",
+                                       message, session.getId()));
             session.getBasicRemote().sendText(message);
         } catch (IOException e) {
             throw new RuntimeException(e);

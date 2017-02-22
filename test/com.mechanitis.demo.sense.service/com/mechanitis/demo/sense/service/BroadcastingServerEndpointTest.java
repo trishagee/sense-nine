@@ -21,7 +21,7 @@ class BroadcastingServerEndpointTest {
         // given:
         BroadcastingServerEndpoint<StubMessage> endpoint = new BroadcastingServerEndpoint<>();
         RemoteEndpoint.Basic remoteEndpoint = mock(RemoteEndpoint.Basic.class);
-        Session session = createMockSession(remoteEndpoint);
+        Session session = createMockSession("session", remoteEndpoint);
 
         endpoint.onOpen(session, null);
 
@@ -40,8 +40,8 @@ class BroadcastingServerEndpointTest {
         BroadcastingServerEndpoint<String> endpoint = new BroadcastingServerEndpoint<>();
         RemoteEndpoint.Basic remoteEndpoint1 = mock(RemoteEndpoint.Basic.class);
         RemoteEndpoint.Basic remoteEndpoint2 = mock(RemoteEndpoint.Basic.class);
-        Session session1 = createMockSession(remoteEndpoint1);
-        Session session2 = createMockSession(remoteEndpoint2);
+        Session session1 = createMockSession("1", remoteEndpoint1);
+        Session session2 = createMockSession("2", remoteEndpoint2);
 
         endpoint.onOpen(session1, null);
         endpoint.onOpen(session2, null);
@@ -61,7 +61,7 @@ class BroadcastingServerEndpointTest {
     void shouldNotForwardToClosedSessions() {
         // given:
         BroadcastingServerEndpoint<String> endpoint = new BroadcastingServerEndpoint<>();
-        Session session = createMockSession();
+        Session session = createMockSession("session");
 
         // when:
         endpoint.onNext("Some Tweet");
@@ -71,15 +71,16 @@ class BroadcastingServerEndpointTest {
                   () -> verify(session, never()).getBasicRemote());
     }
 
-    private static Session createMockSession(RemoteEndpoint.Basic remoteEndpoint) {
-        Session session = createMockSession();
+    private static Session createMockSession(String id, RemoteEndpoint.Basic remoteEndpoint) {
+        Session session = createMockSession(id);
         when(session.getBasicRemote()).thenReturn(remoteEndpoint);
         return session;
     }
 
-    private static Session createMockSession() {
+    private static Session createMockSession(String id) {
         Session session = mock(Session.class);
         when(session.isOpen()).thenReturn(true);
+        when(session.getId()).thenReturn(id);
         return session;
     }
 
