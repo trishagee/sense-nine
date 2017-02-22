@@ -37,7 +37,12 @@ public class MoodAnalyser {
 
     public static String analyseMood(String fullMessage) {
         String[] wordsInMessage = getTweetMessageFrom(fullMessage).split("\\s");
-        //TODO: figure out the unique moods in this message and return as CSV
-        return null;
+        return Stream.of(wordsInMessage)
+                     .map(String::toLowerCase)
+                     .map(WORD_TO_MOOD::get)
+                     .filter(Objects::nonNull)
+                     .distinct()
+                     .map(Enum::name)
+                     .collect(Collectors.joining(","));
     }
 }

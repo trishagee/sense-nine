@@ -1,7 +1,6 @@
 package com.mechanitis.demo.sense.user;
 
 import com.mechanitis.demo.sense.mood.MoodAnalyser;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,6 @@ class MoodAnalyserTest {
                                                            "\"text\":\"%s\",\"source\":\"twitter\"}";
 
 
-    @Disabled
     @Test
     @DisplayName("should correctly identify happy messages")
     void shouldFindHappyMessages() {
@@ -23,7 +21,6 @@ class MoodAnalyserTest {
         assertEquals("HAPPY", mood);
     }
 
-    @Disabled
     @Test
     @DisplayName("should correctly identify happy messages that are not lower case")
     void shouldIdentifyThoseThatAreNotLowerCase() {
@@ -32,7 +29,6 @@ class MoodAnalyserTest {
         assertEquals("HAPPY", mood);
     }
 
-    @Disabled
     @Test
     @DisplayName("should correctly identify sad messages")
     void ShouldIdentifySadMessages() {
@@ -41,7 +37,6 @@ class MoodAnalyserTest {
         assertEquals("SAD", mood);
     }
 
-    @Disabled
     @Test
     @DisplayName("should correctly identify mixed messages")
     void shouldIdentifyMixedMessages() {
@@ -50,7 +45,6 @@ class MoodAnalyserTest {
         assertEquals("SAD,HAPPY", mood);
     }
 
-    @Disabled
     @Test
     @DisplayName("should correctly identify mixed messages with multiple moods")
     void shouldIdentifyMultipleMoods() {
@@ -59,7 +53,6 @@ class MoodAnalyserTest {
         assertEquals("SAD,HAPPY", mood);
     }
 
-    @Disabled
     @Test
     @DisplayName("should not have any mood for messages that are neither happy or sad")
     void shouldNotHaveMoodsForOtherMessages() {
