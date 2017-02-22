@@ -3,6 +3,7 @@ package com.mechanitis.demo.sense.service;
 import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Session;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Flow;
@@ -20,7 +21,18 @@ public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subs
     @Override
     public void onNext(T message) {
         LOGGER.fine(() -> "Endpoint received: " + message);
-        // TODO: do something with the message
+        sessions.stream()
+                .filter(Session::isOpen)
+                .forEach(session -> sendMessageToClient(message.toString(), session));
+    }
+
+    private void sendMessageToClient(String message, Session session) {
+        try {
+            LOGGER.fine(() -> "MessageBroadcastingEndpoint sending: = [" + message + "]");
+            session.getBasicRemote().sendText(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
