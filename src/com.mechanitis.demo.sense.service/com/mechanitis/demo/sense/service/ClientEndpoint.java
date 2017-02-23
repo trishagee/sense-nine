@@ -19,7 +19,7 @@ import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 @javax.websocket.ClientEndpoint
-public class ClientEndpoint<T> {
+public class ClientEndpoint<T> implements Flow.Publisher {
     private static final Logger LOGGER = Logger.getLogger(ClientEndpoint.class.getName());
 
     private final List<Flow.Subscriber<T>> listeners = new ArrayList<>();
@@ -87,5 +87,10 @@ public class ClientEndpoint<T> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void subscribe(Flow.Subscriber subscriber) {
+
     }
 }

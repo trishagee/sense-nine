@@ -3,4 +3,5 @@ module com.mechanitis.demo.sense.mood {
     requires javax.websocket.api;
     requires com.mechanitis.demo.sense.twitter;
     requires rxjava;
+    requires reactive.streams;
 }
