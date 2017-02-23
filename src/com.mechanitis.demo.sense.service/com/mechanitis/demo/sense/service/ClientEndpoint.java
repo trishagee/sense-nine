@@ -9,33 +9,34 @@ import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Flow;
-import java.util.function.Function;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 @javax.websocket.ClientEndpoint
-public class ClientEndpoint<T> implements Flow.Publisher {
+public class ClientEndpoint implements Flow.Publisher<String> {
     private static final Logger LOGGER = Logger.getLogger(ClientEndpoint.class.getName());
 
-    private final List<Flow.Subscriber<T>> listeners = new ArrayList<>();
+    private final List<Flow.Subscriber<? super String>> subscribers = new CopyOnWriteArrayList<>();
     private final URI serverEndpoint;
-    private final Function<String, T> messageHandler;
     private Session session;
 
-    public ClientEndpoint(String serverEndpoint, Function<String, T> messageHandler) {
+    public ClientEndpoint(String serverEndpoint) {
         this.serverEndpoint = URI.create(serverEndpoint);
-        this.messageHandler = messageHandler;
+    }
+
+    @Override
+    public void subscribe(Flow.Subscriber<? super String> subscriber) {
+        subscribers.add(subscriber);
     }
 
     @OnMessage
-    public void onWebSocketText(String fullTweet) throws IOException {
-        T message = messageHandler.apply(fullTweet);
-        listeners.forEach(messageListener -> messageListener.onNext(message));
+    public void onWebSocketText(String message) throws IOException {
+        subscribers.forEach(subscriber -> subscriber.onNext(message));
     }
 
     @OnError
@@ -51,10 +52,7 @@ public class ClientEndpoint<T> implements Flow.Publisher {
         naiveReconnectRetry();
     }
 
-    public void addListener(Flow.Subscriber<T> listener) {
-        listeners.add(listener);
-    }
-
+    //    @OnOpen
     public void connect() {
         LOGGER.fine(() -> format("Connecting to %s", serverEndpoint));
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
@@ -66,7 +64,7 @@ public class ClientEndpoint<T> implements Flow.Publisher {
         }
     }
 
-    public void close() {
+    void close() {
         if (session != null) {
             try {
                 session.close();
@@ -74,10 +72,6 @@ public class ClientEndpoint<T> implements Flow.Publisher {
                 LOGGER.warning(format("Error closing session: %s", e.getMessage()));
             }
         }
-    }
-
-    public static ClientEndpoint<String> createPassthroughEndpoint(String serverEndpoint) {
-        return new ClientEndpoint<>(serverEndpoint, originalText -> originalText);
     }
 
     private void naiveReconnectRetry() {
@@ -89,8 +83,4 @@ public class ClientEndpoint<T> implements Flow.Publisher {
         }
     }
 
-    @Override
-    public void subscribe(Flow.Subscriber subscriber) {
-
-    }
 }

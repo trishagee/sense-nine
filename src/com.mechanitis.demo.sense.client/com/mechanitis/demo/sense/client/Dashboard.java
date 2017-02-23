@@ -2,16 +2,12 @@ package com.mechanitis.demo.sense.client;
 
 import com.mechanitis.demo.sense.client.mood.HappinessChartData;
 import com.mechanitis.demo.sense.client.mood.MoodChartData;
-import com.mechanitis.demo.sense.client.mood.MoodsParser;
-import com.mechanitis.demo.sense.client.mood.TweetMood;
 import com.mechanitis.demo.sense.client.user.LeaderboardData;
 import com.mechanitis.demo.sense.service.ClientEndpoint;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.function.Function;
 
 public class Dashboard extends Application {
 
@@ -23,13 +19,13 @@ public class Dashboard extends Application {
         HappinessChartData happinessChartData = new HappinessChartData();
 
         // TODO: wire up the models to the services they're getting the data from
-        ClientEndpoint<String> userEndpoint = ClientEndpoint.createPassthroughEndpoint("ws://localhost:8083/users/");
-        userEndpoint.addListener(leaderboardData);
+        ClientEndpoint userEndpoint = new ClientEndpoint("ws://localhost:8083/users/");
+        userEndpoint.subscribe(leaderboardData);
         userEndpoint.connect();
 
-        ClientEndpoint<TweetMood> moodEndpoint = new ClientEndpoint<>("ws://localhost:8082/moods/", MoodsParser::parse);
-        moodEndpoint.addListener(moodChartData);
-        moodEndpoint.addListener(happinessChartData);
+        ClientEndpoint moodEndpoint = new ClientEndpoint("ws://localhost:8082/moods/");
+//        moodEndpoint.subscribe(moodChartData);
+//        moodEndpoint.subscribe(happinessChartData);
         moodEndpoint.connect();
 
         // initialise the UI

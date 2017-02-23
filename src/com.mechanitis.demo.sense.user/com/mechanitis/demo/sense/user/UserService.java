@@ -8,17 +8,13 @@ public class UserService implements Runnable {
     private final Service service;
 
     private UserService() {
-        service = new Service("ws://localhost:8081/tweets/", "/users/", PORT,
-                              TweetParser::getTwitterHandleFromTweet);
+        service = new Service("ws://localhost:8081/tweets/", "/users/", PORT);
+        service.addProcessor(TweetParser::getTwitterHandleFromTweet);
     }
 
     @Override
     public void run() {
         service.run();
-    }
-
-    public void stop() throws Exception {
-        service.stop();
     }
 
     public static void main(String[] args) {

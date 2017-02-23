@@ -2,6 +2,9 @@ package com.mechanitis.demo.sense.service;
 
 import javax.websocket.DeploymentException;
 import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Flow;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
@@ -15,19 +18,13 @@ public class Service implements Runnable {
     private final int servicePort;
 
     private WebSocketServer webSocketServer;
-    private ClientEndpoint<String> clientEndpoint;
-    private Function<String, String> messageHandler;
+    private ClientEndpoint clientEndpoint;
+    private List<Flow.Processor<String, String>> processors = new CopyOnWriteArrayList<>();
 
-    public Service(String endpointToConnectTo, String serviceEndpointPath, int servicePort,
-                   Function<String, String> messageHandler) {
+    public Service(String endpointToConnectTo, String servicePath, int servicePort) {
         this.endpointToConnectTo = endpointToConnectTo;
-        this.messageHandler = messageHandler;
-        this.serviceEndpointPath = serviceEndpointPath;
+        this.serviceEndpointPath = servicePath;
         this.servicePort = servicePort;
-    }
-
-    public static void main(String[] args) throws IOException, DeploymentException {
-        new Service("ws://localhost:8081/tweets/", "/testing/", 8090, originalText -> originalText).run();
     }
 
     @Override
@@ -35,10 +32,14 @@ public class Service implements Runnable {
         LOGGER.setLevel(FINE);
         try {
             BroadcastingServerEndpoint<String> broadcastingServerEndpoint = new BroadcastingServerEndpoint<>();
+            clientEndpoint = new ClientEndpoint(endpointToConnectTo);
 
-            // create a client endpoint that connects to the given server endpoint and puts all messages through the message handler
-            clientEndpoint = new ClientEndpoint<>(endpointToConnectTo, messageHandler);
-            clientEndpoint.addListener(broadcastingServerEndpoint);
+            // wire up the processors to subscribe to the ClientEndpoint and publish to the server endpoint
+            processors.forEach(processor -> {
+                clientEndpoint.subscribe(processor);
+                processor.subscribe(broadcastingServerEndpoint);
+            });
+
             clientEndpoint.connect();
 
             // run the Jetty server for the server endpoint that clients will connect to. Tne endpoint simply informs
@@ -54,5 +55,13 @@ public class Service implements Runnable {
     public void stop() throws Exception {
         clientEndpoint.close();
         webSocketServer.stop();
+    }
+
+    public void addProcessor(Function<String, String> function) {
+        processors.add(new ServiceProcessor(function));
+    }
+
+    public static void main(String[] args) throws IOException, DeploymentException {
+        new Service("ws://localhost:8081/tweets/", "/testing/", 8090).run();
     }
 }
