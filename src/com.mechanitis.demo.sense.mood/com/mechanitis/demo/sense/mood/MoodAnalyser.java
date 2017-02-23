@@ -2,9 +2,9 @@ package com.mechanitis.demo.sense.mood;
 
 import com.mechanitis.demo.sense.twitter.TweetParser;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 
 import java.util.Map;
-import java.util.StringJoiner;
 
 import static com.mechanitis.demo.sense.mood.Mood.HAPPY;
 import static com.mechanitis.demo.sense.mood.Mood.SAD;
@@ -34,18 +34,14 @@ public class MoodAnalyser {
     private MoodAnalyser() {
     }
 
-    public static String analyseMood(String fullMessage) {
-        StringJoiner csvCreator = new StringJoiner(",");
-
-        Flowable.just(fullMessage)
-                .map(TweetParser::getTweetMessageFrom)
-                .flatMap(s -> fromArray(s.split("\\s")))
-                .map(String::toLowerCase)
-                .filter(WORD_TO_MOOD::containsKey)
-                .map(WORD_TO_MOOD::get)
-                .distinct()
-                .subscribe(mood -> csvCreator.add(mood.name()));
-
-        return csvCreator.toString();
+    public static Maybe<String> analyseMood(Flowable<String> fullMessage) {
+        return fullMessage.map(TweetParser::getTweetMessageFrom)
+                          .flatMap(s -> fromArray(s.split("\\s")))
+                          .map(String::toLowerCase)
+                          .filter(WORD_TO_MOOD::containsKey)
+                          .map(WORD_TO_MOOD::get)
+                          .distinct()
+                          .map(Enum::name)
+                          .reduce((m1, m2) -> m1 + "," + m2);
     }
 }

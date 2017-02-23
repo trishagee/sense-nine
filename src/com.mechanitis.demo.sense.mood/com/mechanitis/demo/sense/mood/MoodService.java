@@ -1,6 +1,7 @@
 package com.mechanitis.demo.sense.mood;
 
 import com.mechanitis.demo.sense.service.Service;
+import io.reactivex.Flowable;
 
 import javax.websocket.DeploymentException;
 import java.io.IOException;
@@ -10,17 +11,13 @@ public class MoodService implements Runnable {
     private final Service service;
 
     public MoodService() {
-        service = new Service("ws://localhost:8081/tweets/", "/moods/", PORT
-        );
+        service = new Service("ws://localhost:8081/tweets/", "/moods/", PORT);
+//        service.addProcessor(fullMessage -> MoodAnalyser.analyseMood(Flowable.just(fullMessage)));
     }
 
     @Override
     public void run() {
         service.run();
-    }
-
-    public void stop() throws Exception {
-        service.stop();
     }
 
     public static void main(String[] args) throws IOException, DeploymentException {
