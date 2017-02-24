@@ -7,6 +7,8 @@ module com.mechanitis.demo.sense.twitter {
 
     requires jetty.http;
     requires jetty.security;
+    requires rxjava;
+    requires reactive.streams;
 
     exports com.mechanitis.demo.sense.twitter;
 }

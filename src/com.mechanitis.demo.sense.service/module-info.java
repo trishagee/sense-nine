@@ -20,5 +20,9 @@ module com.mechanitis.demo.sense.service {
     requires jetty.http;
     requires jetty.security;
 
+    //eventually remove this when RxJava supports j.u.c.Flow
+    requires reactive.streams;
+    exports com.mechanitis.demo.sense.service.flow;
+
     exports com.mechanitis.demo.sense.service;
 }
