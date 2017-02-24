@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Logger;
 
-import static com.mechanitis.demo.sense.service.flow.SubscriberFromFlowAdaptor.toSubscriber;
+import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
 import static java.lang.String.format;
 import static java.nio.file.Files.readAllLines;
 import static java.nio.file.Paths.get;

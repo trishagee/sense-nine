@@ -1,11 +1,11 @@
-package com.mechanitis.demo.sense.service.flow;
+package com.mechanitis.demo.sense.flow;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.concurrent.Flow;
 
-import static com.mechanitis.demo.sense.service.flow.SubscriptionAdaptor.toFlowSubscription;
+import static com.mechanitis.demo.sense.flow.SubscriptionAdaptor.toFlowSubscription;
 
 public class SubscriberFromFlowAdaptor<T> implements org.reactivestreams.Subscriber<T> {
     private Flow.Subscriber<T> delegate;

@@ -1,4 +1,4 @@
-package com.mechanitis.demo.sense.service.flow;
+package com.mechanitis.demo.sense.flow;
 
 import org.reactivestreams.Publisher;
 

@@ -1,7 +1,6 @@
 package com.mechanitis.demo.sense.user;
 
 import com.mechanitis.demo.sense.service.Service;
-import com.mechanitis.demo.sense.service.flow.PublisherFromFlowAdaptor;
 import com.mechanitis.demo.sense.twitter.TweetParser;
 import io.reactivex.Flowable;
 import org.reactivestreams.Publisher;
@@ -9,8 +8,8 @@ import org.reactivestreams.Subscriber;
 
 import java.util.concurrent.Flow;
 
-import static com.mechanitis.demo.sense.service.flow.PublisherFromFlowAdaptor.toPublisher;
-import static com.mechanitis.demo.sense.service.flow.SubscriberFromFlowAdaptor.toSubscriber;
+import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.toPublisher;
+import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
 
 public class UserService implements Runnable {
     private static final int PORT = 8083;
