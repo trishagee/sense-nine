@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Logger;
 
+import static com.mechanitis.demo.sense.service.flow.SubscriberFromFlowAdaptor.toSubscriber;
 import static java.lang.String.format;
 import static java.nio.file.Files.readAllLines;
 import static java.nio.file.Paths.get;
@@ -43,7 +44,7 @@ public class CannedTweetsService implements Runnable {
             Flowable.fromIterable(readAllLines(filePath))
                     .filter(s -> !s.equals("OK"))
                     .zipWith(tick, (s, aLong) -> s)
-                    .subscribe(tweetsEndpoint);
+                    .subscribe(toSubscriber(tweetsEndpoint));
 
         } catch (IOException e) {
             e.printStackTrace();
