@@ -10,10 +10,6 @@ import static java.util.logging.Level.FINE;
 public class Service implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(Service.class.getName());
 
-    private final String serviceEndpointPath;
-    private final int servicePort;
-
-    private WebSocketServer webSocketServer;
     private ClientEndpoint clientEndpoint;
     private BusinessLogic businessLogic;
     private BroadcastingServerEndpoint<String> broadcastingServerEndpoint;
@@ -23,33 +19,20 @@ public class Service implements Runnable {
     }
 
     public Service(String endpointToConnectTo, String servicePath, int servicePort, BusinessLogic businessLogic) {
-        this.serviceEndpointPath = servicePath;
-        this.servicePort = servicePort;
         clientEndpoint = new ClientEndpoint(endpointToConnectTo);
         this.businessLogic = businessLogic;
-        broadcastingServerEndpoint = new BroadcastingServerEndpoint<>();
+        broadcastingServerEndpoint = new BroadcastingServerEndpoint<>(servicePath, servicePort);
     }
 
     @Override
     public void run() {
         LOGGER.setLevel(FINE);
-        try {
-            businessLogic.doTheThing(clientEndpoint, broadcastingServerEndpoint);
-            clientEndpoint.connect();
-
-            // run the Jetty server for the server endpoint that clients will connect to. Tne endpoint simply informs
-            // all listeners of all messages
-            webSocketServer = new WebSocketServer(serviceEndpointPath, servicePort, broadcastingServerEndpoint);
-            webSocketServer.run();
-        } catch (Exception e) {
-            // This is where you'd do much more sensible error handling
-            LOGGER.severe(e.getMessage());
-        }
+        businessLogic.doTheThing(clientEndpoint, broadcastingServerEndpoint);
     }
 
     public void stop() throws Exception {
         clientEndpoint.close();
-        webSocketServer.stop();
+        broadcastingServerEndpoint.close();
     }
 
     public static void main(String[] args) throws IOException, DeploymentException {

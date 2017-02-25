@@ -21,12 +21,10 @@ public class Dashboard extends Application {
         // TODO: wire up the models to the services they're getting the data from
         ClientEndpoint userEndpoint = new ClientEndpoint("ws://localhost:8083/users/");
         userEndpoint.subscribe(leaderboardData);
-        userEndpoint.connect();
 
         ClientEndpoint moodEndpoint = new ClientEndpoint("ws://localhost:8082/moods/");
 //        moodEndpoint.subscribe(moodChartData);
 //        moodEndpoint.subscribe(happinessChartData);
-        moodEndpoint.connect();
 
         // initialise the UI
         FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/dashboard.fxml"));

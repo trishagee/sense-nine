@@ -1,20 +1,17 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
-import com.mechanitis.demo.sense.service.WebSocketServer;
 import io.reactivex.Flowable;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.util.concurrent.ExecutorService;
 import java.util.logging.Logger;
 
 import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
 import static java.lang.String.format;
 import static java.nio.file.Files.readAllLines;
 import static java.nio.file.Paths.get;
-import static java.util.concurrent.Executors.newSingleThreadExecutor;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.logging.Logger.getLogger;
 
@@ -24,10 +21,7 @@ import static java.util.logging.Logger.getLogger;
 public class CannedTweetsService implements Runnable {
     private static final Logger LOGGER = getLogger(CannedTweetsService.class.getName());
 
-    private final ExecutorService executor = newSingleThreadExecutor();
-    private final BroadcastingServerEndpoint<String> tweetsEndpoint = new BroadcastingServerEndpoint<>();
-    private final WebSocketServer server
-            = new WebSocketServer("/tweets/", 8081, tweetsEndpoint);
+    private final BroadcastingServerEndpoint<String> tweetsEndpoint = new BroadcastingServerEndpoint<>("/tweets/", 8081);
     private final Path filePath;
 
     CannedTweetsService(Path filePath) {
@@ -37,7 +31,6 @@ public class CannedTweetsService implements Runnable {
     @Override
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
-        executor.submit(server);
         Flowable<Long> tick = Flowable.interval(1000, MILLISECONDS);
 
         try {
@@ -56,7 +49,6 @@ public class CannedTweetsService implements Runnable {
     }
 
     void stop() throws Exception {
-        server.stop();
-        executor.shutdownNow();
+        tweetsEndpoint.close();
     }
 }

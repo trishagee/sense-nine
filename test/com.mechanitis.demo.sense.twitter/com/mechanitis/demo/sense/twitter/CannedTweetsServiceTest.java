@@ -35,7 +35,7 @@ class CannedTweetsServiceTest {
 
     @Test
     void shouldStop() throws Exception {
-        CannedTweetsService service = new CannedTweetsService(Paths.get("test/tweetdata-for-testing.txt"));
+        CannedTweetsService service = new CannedTweetsService(Paths.get("tweetdata60-mins.txt"));
         executor.submit(service);
 
         service.stop();

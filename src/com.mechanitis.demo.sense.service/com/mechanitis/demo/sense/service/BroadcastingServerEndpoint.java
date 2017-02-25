@@ -6,14 +6,28 @@ import javax.websocket.Session;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Flow;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
+import static java.util.concurrent.Executors.newSingleThreadExecutor;
 
 public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subscriber<T> {
     private static final Logger LOGGER = Logger.getLogger(BroadcastingServerEndpoint.class.getName());
     private final List<Session> sessions = new CopyOnWriteArrayList<>();
+    private final ExecutorService executor = newSingleThreadExecutor();
+    private WebSocketServer webSocketServer = null;
+
+    public BroadcastingServerEndpoint(String serviceEndpointPath, int servicePort) {
+        try {
+            webSocketServer = new WebSocketServer(serviceEndpointPath, servicePort, this);
+            executor.submit(webSocketServer);
+        } catch (Exception e) {
+            // This is where you'd do much more sensible error handling
+            LOGGER.severe(e.getMessage());
+        }
+    }
 
     @Override
     public void onOpen(Session session, EndpointConfig config) {
@@ -52,5 +66,15 @@ public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subs
     @Override
     public void onComplete() {
 
+    }
+
+    public void close() {
+        try {
+            webSocketServer.stop();
+        } catch (Exception e) {
+            // This is where you'd do much more sensible error handling
+            LOGGER.severe(e.getMessage());
+        }
+        executor.shutdownNow();
     }
 }

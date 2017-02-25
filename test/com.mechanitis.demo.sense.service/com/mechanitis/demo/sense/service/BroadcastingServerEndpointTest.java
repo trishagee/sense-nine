@@ -19,7 +19,7 @@ class BroadcastingServerEndpointTest {
     @DisplayName("should accept messages and publish the toString() representation")
     void shouldPublishToStringRepresentation() throws IOException {
         // given:
-        BroadcastingServerEndpoint<StubMessage> endpoint = new BroadcastingServerEndpoint<>();
+        BroadcastingServerEndpoint<StubMessage> endpoint = new BroadcastingServerEndpoint<>("/test/", 8081);
         RemoteEndpoint.Basic remoteEndpoint = mock(RemoteEndpoint.Basic.class);
         Session session = createMockSession("session", remoteEndpoint);
 
@@ -31,13 +31,16 @@ class BroadcastingServerEndpointTest {
 
         // then:
         verify(remoteEndpoint).sendText(message.toString());
+
+        // finally:
+        endpoint.close();
     }
 
     @Test
     @DisplayName("should forward messages to all open sessions")
     void shouldForwardToAllSessions() throws IOException {
         // given:
-        BroadcastingServerEndpoint<String> endpoint = new BroadcastingServerEndpoint<>();
+        BroadcastingServerEndpoint<String> endpoint = new BroadcastingServerEndpoint<>("/test/", 8082);
         RemoteEndpoint.Basic remoteEndpoint1 = mock(RemoteEndpoint.Basic.class);
         RemoteEndpoint.Basic remoteEndpoint2 = mock(RemoteEndpoint.Basic.class);
         Session session1 = createMockSession("1", remoteEndpoint1);
@@ -54,13 +57,16 @@ class BroadcastingServerEndpointTest {
         // then:
         assertAll(() -> verify(remoteEndpoint1).sendText(message),
                   () -> verify(remoteEndpoint2).sendText(message));
+
+        // finally:
+        endpoint.close();
     }
 
     @Test
     @DisplayName("should not try to forward messages to closed sessions")
     void shouldNotForwardToClosedSessions() {
         // given:
-        BroadcastingServerEndpoint<String> endpoint = new BroadcastingServerEndpoint<>();
+        BroadcastingServerEndpoint<String> endpoint = new BroadcastingServerEndpoint<>("/test/", 8083);
         Session session = createMockSession("session");
 
         // when:
@@ -69,6 +75,9 @@ class BroadcastingServerEndpointTest {
         // then:
         assertAll(() -> verify(session, never()).getAsyncRemote(),
                   () -> verify(session, never()).getBasicRemote());
+
+        // finally:
+        endpoint.close();
     }
 
     private static Session createMockSession(String id, RemoteEndpoint.Basic remoteEndpoint) {

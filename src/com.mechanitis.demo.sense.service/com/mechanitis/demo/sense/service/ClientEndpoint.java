@@ -28,6 +28,7 @@ public class ClientEndpoint implements Flow.Publisher<String> {
 
     public ClientEndpoint(String serverEndpoint) {
         this.serverEndpoint = URI.create(serverEndpoint);
+        connect();
     }
 
     @Override
@@ -61,8 +62,7 @@ public class ClientEndpoint implements Flow.Publisher<String> {
         naiveReconnectRetry();
     }
 
-    //    @OnOpen
-    public void connect() {
+    private void connect() {
         LOGGER.fine(() -> format("Connecting to %s", serverEndpoint));
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
         try {
