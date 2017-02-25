@@ -12,6 +12,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Flow;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
@@ -21,7 +22,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class ClientEndpoint implements Flow.Publisher<String> {
     private static final Logger LOGGER = Logger.getLogger(ClientEndpoint.class.getName());
 
-    private final List<Flow.Subscriber<? super String>> subscribers = new CopyOnWriteArrayList<>();
+    private final List<ClientEndpointSubscription> subscriptions = new CopyOnWriteArrayList<>();
     private final URI serverEndpoint;
     private Session session;
 
@@ -31,17 +32,25 @@ public class ClientEndpoint implements Flow.Publisher<String> {
 
     @Override
     public void subscribe(Flow.Subscriber<? super String> subscriber) {
-        subscribers.add(subscriber);
+        LOGGER.fine(() -> "subscriber = [" + subscriber + "]");
+        ClientEndpointSubscription subscription = new ClientEndpointSubscription(subscriber);
+        subscriptions.add(subscription);
+        subscriber.onSubscribe(subscription);
     }
 
     @OnMessage
     public void onWebSocketText(String message) throws IOException {
-        subscribers.forEach(subscriber -> subscriber.onNext(message));
+        subscriptions.stream()
+                     .filter(ClientEndpointSubscription::isActive)
+                     .forEach(subscription -> {
+                         subscription.n.decrementAndGet();
+                         subscription.subscriber.onNext(message);
+                     });
     }
 
     @OnError
     public void onError(Throwable error) {
-        LOGGER.warning("Error received: " + error.getMessage());
+        LOGGER.warning(() -> "Error received: " + error.getMessage());
         close();
         naiveReconnectRetry();
     }
@@ -83,4 +92,35 @@ public class ClientEndpoint implements Flow.Publisher<String> {
         }
     }
 
+    private static class ClientEndpointSubscription implements Flow.Subscription {
+        private Flow.Subscriber<? super String> subscriber;
+        private AtomicLong n = new AtomicLong(0);
+
+        private ClientEndpointSubscription(Flow.Subscriber<? super String> subscriber) {
+            this.subscriber = subscriber;
+        }
+
+        @Override
+        public void request(long n) {
+            LOGGER.finest(() -> "n = [" + n + "]");
+            this.n = new AtomicLong(n);
+        }
+
+        @Override
+        public void cancel() {
+            n = new AtomicLong(0);
+        }
+
+        @Override
+        public String toString() {
+            return "ClientEndpointSubscription{" +
+                   "subscriber=" + subscriber +
+                   ", n=" + n +
+                   '}';
+        }
+
+        private boolean isActive() {
+            return n.get() > 0;
+        }
+    }
 }

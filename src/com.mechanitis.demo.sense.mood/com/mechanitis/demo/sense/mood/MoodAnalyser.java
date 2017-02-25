@@ -2,7 +2,6 @@ package com.mechanitis.demo.sense.mood;
 
 import com.mechanitis.demo.sense.twitter.TweetParser;
 import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 
 import java.util.Map;
 
@@ -34,7 +33,8 @@ public class MoodAnalyser {
     private MoodAnalyser() {
     }
 
-    public static Maybe<String> analyseMood(Flowable<String> fullMessage) {
+    //not currently used, but needed for reference for testing
+    public static Flowable<String> analyseMood(Flowable<String> fullMessage) {
         return fullMessage.map(TweetParser::getTweetMessageFrom)
                           .flatMap(s -> fromArray(s.split("\\s")))
                           .map(String::toLowerCase)
@@ -42,6 +42,15 @@ public class MoodAnalyser {
                           .map(WORD_TO_MOOD::get)
                           .distinct()
                           .map(Enum::name)
-                          .reduce((m1, m2) -> m1 + "," + m2);
+                          .reduce((m1, m2) -> m1 + "," + m2)
+                          .toFlowable();
     }
+
+    static Flowable<String> coreAnalysis(Flowable<String> words) {
+        return words.map(String::toLowerCase)
+                    .filter(WORD_TO_MOOD::containsKey)
+                    .map(WORD_TO_MOOD::get)
+                    .map(Enum::name);
+    }
+
 }
