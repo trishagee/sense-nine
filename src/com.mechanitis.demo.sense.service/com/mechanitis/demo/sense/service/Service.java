@@ -15,12 +15,18 @@ public class Service implements Runnable {
 
     private WebSocketServer webSocketServer;
     private ClientEndpoint clientEndpoint;
+    private BusinessLogic businessLogic;
     private BroadcastingServerEndpoint<String> broadcastingServerEndpoint;
 
-    public Service(String endpointToConnectTo, String servicePath, int servicePort) {
+    private Service(String endpointToConnectTo, String servicePath, int servicePort) {
+        this(endpointToConnectTo, servicePath, servicePort, Flow.Publisher::subscribe);
+    }
+
+    public Service(String endpointToConnectTo, String servicePath, int servicePort, BusinessLogic businessLogic) {
         this.serviceEndpointPath = servicePath;
         this.servicePort = servicePort;
         clientEndpoint = new ClientEndpoint(endpointToConnectTo);
+        this.businessLogic = businessLogic;
         broadcastingServerEndpoint = new BroadcastingServerEndpoint<>();
     }
 
@@ -28,6 +34,7 @@ public class Service implements Runnable {
     public void run() {
         LOGGER.setLevel(FINE);
         try {
+            businessLogic.doTheThing(clientEndpoint, broadcastingServerEndpoint);
             clientEndpoint.connect();
 
             // run the Jetty server for the server endpoint that clients will connect to. Tne endpoint simply informs
@@ -49,11 +56,8 @@ public class Service implements Runnable {
         new Service("ws://localhost:8081/tweets/", "/testing/", 8090).run();
     }
 
-    public Flow.Publisher<String> getPublisher() {
-        return clientEndpoint;
-    }
-
-    public Flow.Subscriber<String> getSubscriber() {
-        return broadcastingServerEndpoint;
+    @FunctionalInterface
+    public interface  BusinessLogic {
+        void doTheThing(Flow.Publisher<String> publisher, Flow.Subscriber<String> subscriber);
     }
 }

@@ -1,17 +1,15 @@
 package com.mechanitis.demo.sense.mood;
 
-import com.mechanitis.demo.sense.twitter.TweetParser;
 import io.reactivex.Flowable;
 
 import java.util.Map;
 
 import static com.mechanitis.demo.sense.mood.Mood.HAPPY;
 import static com.mechanitis.demo.sense.mood.Mood.SAD;
-import static io.reactivex.Flowable.fromArray;
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
 
-public class MoodAnalyser {
+class MoodAnalyser {
     private static final Map<String, Mood> WORD_TO_MOOD =
             ofEntries(entry("happy", HAPPY),
                       entry("good", HAPPY),
@@ -33,20 +31,7 @@ public class MoodAnalyser {
     private MoodAnalyser() {
     }
 
-    //not currently used, but needed for reference for testing
-    public static Flowable<String> analyseMood(Flowable<String> fullMessage) {
-        return fullMessage.map(TweetParser::getTweetMessageFrom)
-                          .flatMap(s -> fromArray(s.split("\\s")))
-                          .map(String::toLowerCase)
-                          .filter(WORD_TO_MOOD::containsKey)
-                          .map(WORD_TO_MOOD::get)
-                          .distinct()
-                          .map(Enum::name)
-                          .reduce((m1, m2) -> m1 + "," + m2)
-                          .toFlowable();
-    }
-
-    static Flowable<String> coreAnalysis(Flowable<String> words) {
+    static Flowable<String> moodsForWords(Flowable<String> words) {
         return words.map(String::toLowerCase)
                     .filter(WORD_TO_MOOD::containsKey)
                     .map(WORD_TO_MOOD::get)
