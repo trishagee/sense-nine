@@ -1,15 +1,18 @@
 package com.mechanitis.demo.sense.client.user;
 
+import io.reactivex.Flowable;
 import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Flow;
 import java.util.stream.IntStream;
+import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.toPublisher;
 
+import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
 import static javafx.collections.FXCollections.observableArrayList;
 
-public class LeaderboardData {
+public class LeaderboardData implements Flow.Subscriber<TwitterUser> {
     private final Map<String, TwitterUser> allTwitterUsers = new HashMap<>();
     private final Flow.Publisher<String> publisher;
     private final ObservableList<TwitterUser> items = observableArrayList();
@@ -20,6 +23,48 @@ public class LeaderboardData {
         this.publisher = publisher;
         IntStream.range(0, numberToDisplay)
                 .forEach(value -> items.add(new TwitterUser("", 0)));
+    }
+
+    public void stream() {
+        Flowable.fromPublisher(toPublisher(publisher))
+                .map(twitterHandle -> allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new))
+                .doOnNext(TwitterUser::incrementCount)
+                .subscribe(toSubscriber(this));
+
+    }
+
+    void react(TwitterUser currentUser) {
+        if (userIsDisplayed(currentUser)) {
+            int currentIndex = items.indexOf(currentUser);
+            if (userNeedsToMoveUpwards(currentUser, currentIndex)) {
+                addUserToLeaderboard(currentUser, currentIndex);
+            }
+        }
+
+        double numberOfTweets = currentUser.getTweetCount();
+        if (!userIsDisplayed(currentUser) && numberOfTweets > minCountForDisplay) {
+            System.out.println("currentUser = " + currentUser.getTwitterHandle());
+            TwitterUser tempForMoving = null;
+            int positionForNewTwitterUser = -1;
+
+            for (int i = 0; i < items.size(); i++) {
+                TwitterUser twitterUser = items.get(i);
+                if (twitterUser.getTweetCount() < numberOfTweets) {
+                    positionForNewTwitterUser = i;
+                    items.set(i, currentUser);
+                    tempForMoving = twitterUser;
+                    break;
+                }
+            }
+            if (tempForMoving != null) {
+                for (int i = positionForNewTwitterUser + 1; i < items.size(); i++) {
+                    TwitterUser twitterUser = items.get(i);
+                    items.set(i, tempForMoving);
+                    tempForMoving = twitterUser;
+                }
+            }
+            minCountForDisplay = items.get(items.size() - 1).getTweetCount();
+        }
     }
 
     void doIt(String twitterHandle) {
@@ -63,5 +108,25 @@ public class LeaderboardData {
 
     ObservableList<TwitterUser> getItems() {
         return items;
+    }
+
+    @Override
+    public void onSubscribe(Flow.Subscription subscription) {
+        subscription.request(Long.MAX_VALUE);
+    }
+
+    @Override
+    public void onNext(TwitterUser item) {
+        react(item);
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
     }
 }

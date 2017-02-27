@@ -20,6 +20,8 @@ module com.mechanitis.demo.sense.client {
     requires jetty.io;
     requires jetty.client;
     requires jetty.http;
+    requires com.mechanitis.demo.sense.flow;
+    requires rxjava;
 
     exports com.mechanitis.demo.sense.client;
     //not sure this is what I want
