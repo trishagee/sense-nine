@@ -1,39 +1,32 @@
 package com.mechanitis.demo.sense.client.user;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Flow;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
 public class LeaderboardData {
-    private static final int NUMBER_OF_LEADERS = 17;
-    private final Map<String, Integer> allTwitterUsers = new HashMap<>();
+    private final Map<String, TwitterUser> allTwitterUsers = new HashMap<>();
     private final Flow.Publisher<String> publisher;
     private final ObservableList<TwitterUser> items = observableArrayList();
 
     private int minCountForDisplay = 0;
 
-    public LeaderboardData(Flow.Publisher<String> publisher) {
+    public LeaderboardData(Flow.Publisher<String> publisher, int numberToDisplay) {
         this.publisher = publisher;
-        IntStream.range(0, NUMBER_OF_LEADERS)
+        IntStream.range(0, numberToDisplay)
                 .forEach(value -> items.add(new TwitterUser("", 0)));
     }
 
     public void doIt(String twitterHandle) {
-//        Integer count = allTwitterUsers.putIfAbsent(twitterHandle, 1);
-//        allTwitterUsers.putIfAbsent(twitterHandle, 0);
-        Integer count = allTwitterUsers.compute(twitterHandle, (s, integer) -> integer == null ? 1 : integer + 1);
-        int numberOfTweets = count;
+        TwitterUser currentUser = allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new);
+        int numberOfTweets = currentUser.incrementCount();
 
-        if (!userIsDisplayed(twitterHandle) && count > minCountForDisplay) {
-            TwitterUser newTwitterUser = new TwitterUser(twitterHandle, numberOfTweets);
+        if (!userIsDisplayed(currentUser) && numberOfTweets > minCountForDisplay) {
             TwitterUser tempForMoving = null;
             int positionForNewTwitterUser = -1;
 
@@ -41,7 +34,7 @@ public class LeaderboardData {
                 TwitterUser twitterUser = items.get(i);
                 if (twitterUser.getTweetCount() < numberOfTweets) {
                     positionForNewTwitterUser = i;
-                    items.set(i, newTwitterUser);
+                    items.set(i, currentUser);
                     tempForMoving = twitterUser;
                     break;
                 }
@@ -57,10 +50,9 @@ public class LeaderboardData {
         }
     }
 
-    private boolean userIsDisplayed(String username) {
-        return items.contains(new TwitterUser(username));
+    private boolean userIsDisplayed(TwitterUser username) {
+        return items.contains(username);
     }
-
 
     ObservableList<TwitterUser> getItems() {
         return items;

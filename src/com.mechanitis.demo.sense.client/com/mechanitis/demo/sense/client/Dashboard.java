@@ -19,7 +19,7 @@ public class Dashboard extends Application {
 
         // wire up the models to the services they're getting the data from
         ClientEndpoint userEndpoint = new ClientEndpoint("ws://localhost:8083/users/");
-        LeaderboardData leaderboardData = new LeaderboardData(userEndpoint);
+        LeaderboardData leaderboardData = new LeaderboardData(userEndpoint, 17);
 
         ClientEndpoint moodEndpoint = new ClientEndpoint("ws://localhost:8082/moods/");
         moodEndpoint.subscribe(moodChartData);
