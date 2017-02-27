@@ -22,6 +22,7 @@ module com.mechanitis.demo.sense.client {
     requires jetty.http;
     requires com.mechanitis.demo.sense.flow;
     requires rxjava;
+    requires reactive.streams;
 
     exports com.mechanitis.demo.sense.client;
     //not sure this is what I want

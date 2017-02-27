@@ -60,4 +60,13 @@ public class TwitterUser {
     public int hashCode() {
         return twitterHandle.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "TwitterUser{" +
+               "twitterHandle=" + twitterHandle +
+               ", tweetCount=" + tweetCount +
+               ", count=" + count +
+               '}';
+    }
 }
