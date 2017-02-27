@@ -14,13 +14,12 @@ public class Dashboard extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // all models created in advance
-        LeaderboardData leaderboardData = new LeaderboardData();
         MoodChartData moodChartData = new MoodChartData();
         HappinessChartData happinessChartData = new HappinessChartData();
 
         // wire up the models to the services they're getting the data from
         ClientEndpoint userEndpoint = new ClientEndpoint("ws://localhost:8083/users/");
-        userEndpoint.subscribe(leaderboardData);
+        LeaderboardData leaderboardData = new LeaderboardData(userEndpoint);
 
         ClientEndpoint moodEndpoint = new ClientEndpoint("ws://localhost:8082/moods/");
         moodEndpoint.subscribe(moodChartData);

@@ -31,7 +31,7 @@ public class CannedTweetsService implements Runnable {
     @Override
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
-        Flowable<Long> tick = Flowable.interval(1000, MILLISECONDS);
+        Flowable<Long> tick = Flowable.interval(100, MILLISECONDS);
 
         try {
             Flowable.fromIterable(readAllLines(filePath))

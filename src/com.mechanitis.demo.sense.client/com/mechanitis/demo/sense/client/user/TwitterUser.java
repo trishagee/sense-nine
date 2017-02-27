@@ -8,10 +8,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TwitterUser {
     private final SimpleStringProperty twitterHandle = new SimpleStringProperty();
     private final SimpleIntegerProperty tweetCount = new SimpleIntegerProperty(0);
-    private AtomicInteger count = new AtomicInteger(0);
+    private AtomicInteger count;
 
     public TwitterUser(String twitterHandle) {
+        this(twitterHandle, 0);
+    }
+
+    public TwitterUser(String twitterHandle, int numberOfTweets) {
         this.twitterHandle.set(twitterHandle);
+        count = new AtomicInteger(numberOfTweets);
+        tweetCount.set(numberOfTweets);
     }
 
     public String getTwitterHandle() {
@@ -36,4 +42,22 @@ public class TwitterUser {
         return newValue;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TwitterUser that = (TwitterUser) o;
+
+        return twitterHandle.get().equals(that.twitterHandle.get());
+    }
+
+    @Override
+    public int hashCode() {
+        return twitterHandle.hashCode();
+    }
 }
