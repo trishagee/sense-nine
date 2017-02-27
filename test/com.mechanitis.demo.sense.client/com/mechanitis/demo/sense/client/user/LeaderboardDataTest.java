@@ -75,6 +75,22 @@ class LeaderboardDataTest {
         assertUserAt(leaderboardData, 2, "2", 2);
     }
 
+    @Test
+    @DisplayName("should resort the leaderboard if a user rises up")
+    void shouldResort() {
+        // given:
+        LeaderboardData leaderboardData = new LeaderboardData(null, 5);
+
+        // when:
+        leaderboardData.doIt("Someone else");
+        leaderboardData.doIt("Trisha");
+        leaderboardData.doIt("Trisha");
+
+        // then:
+        assertUserAt(leaderboardData, 2, "Trisha", 0);
+        assertUserAt(leaderboardData, 1, "Someone else", 1);
+    }
+
     private void assertUserAt(LeaderboardData leaderboardData, int expectedCount, String expectedUsername, int leaderboardPosition) {
         assertAll(() -> assertEquals(expectedCount, get(leaderboardData, leaderboardPosition).getTweetCount(),
                                      () -> "Count incorrect at " + leaderboardPosition),

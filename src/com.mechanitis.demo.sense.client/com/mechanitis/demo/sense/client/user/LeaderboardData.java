@@ -27,12 +27,20 @@ public class LeaderboardData {
         TwitterUser currentUser = allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new);
         currentUser.incrementCount();
 
+        if (userIsDisplayed(currentUser)) {
+            int currentIndex = items.indexOf(currentUser);
+            if (currentIndex != 0 && items.get(currentIndex - 1).getTweetCount() < currentUser.getTweetCount()) {
+                //resort
+                addUserToLeaderboard(currentUser, currentIndex);
+            }
+        }
+
         if (!userIsDisplayed(currentUser) && userCanBeDisplayed(currentUser)) {
-            addUserToLeaderboard(currentUser);
+            addUserToLeaderboard(currentUser, items.size() - 1);
         }
     }
 
-    private void addUserToLeaderboard(TwitterUser currentUser) {
+    private void addUserToLeaderboard(TwitterUser currentUser, int positionToRemove) {
         AtomicInteger index = new AtomicInteger(-1);
 
         //noinspection ResultOfMethodCallIgnored - simply using findFirst to stop the stream when the right place is found
@@ -42,7 +50,7 @@ public class LeaderboardData {
                     return twitterUser.getTweetCount() < currentUser.getTweetCount();
                 })
                 .findFirst();
-        items.remove(items.size() - 1);
+        items.remove(positionToRemove);
         items.add(index.get(), currentUser);
 
         minCountForDisplay = items.get(items.size() - 1).getTweetCount();
