@@ -1,13 +1,11 @@
 package com.mechanitis.demo.sense.client.user;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Flow;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import static javafx.collections.FXCollections.observableArrayList;
@@ -38,23 +36,19 @@ public class LeaderboardData {
         int numberOfTweets = currentUser.incrementCount();
 
         if (!userIsDisplayed(currentUser) && numberOfTweets > minCountForDisplay) {
-            List<TwitterUser> toDisplay = new ArrayList<>();
+            AtomicInteger index = new AtomicInteger(-1);
 
-            // Add everyone that's above the current user
+            //noinspection ResultOfMethodCallIgnored - simply using findFirst to stop the stream
             items.stream()
-                    .takeWhile(twitterUser -> twitterUser.getTweetCount() >= numberOfTweets)
-                    .forEach(toDisplay::add);
-            // Add current user
-            toDisplay.add(currentUser);
-            // Add everyone below the current user
-            items.stream()
-                    .dropWhile(twitterUser -> twitterUser.getTweetCount() >= numberOfTweets)
-                    .forEach(toDisplay::add);
+                    .filter(twitterUser -> {
+                        index.incrementAndGet();
+                        return twitterUser.getTweetCount() < numberOfTweets;
+                    })
+                    .findFirst();
+            items.remove(items.size() - 1);
+            items.add(index.get(), currentUser);
 
             minCountForDisplay = items.get(items.size() - 1).getTweetCount();
-
-            // replace with runLater
-            items.setAll(toDisplay.subList(0, numberToDisplay));
         }
     }
 
