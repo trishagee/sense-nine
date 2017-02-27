@@ -18,14 +18,6 @@ public class LeaderboardData implements Flow.Subscriber<String> {
 
     private ObservableList<TwitterUser> items = observableArrayList();
 
-    public ObservableList<TwitterUser> getItems() {
-        return items;
-    }
-
-    @Override
-    public void onSubscribe(Flow.Subscription subscription) {
-    }
-
     @Override
     public void onNext(String message) {
         TwitterUser twitterUser = allTwitterUsers.computeIfAbsent(message, TwitterUser::new);
@@ -41,6 +33,11 @@ public class LeaderboardData implements Flow.Subscriber<String> {
     }
 
     @Override
+    public void onSubscribe(Flow.Subscription subscription) {
+        subscription.request(Long.MAX_VALUE);
+    }
+
+    @Override
     public void onError(Throwable throwable) {
 
     }
@@ -48,5 +45,9 @@ public class LeaderboardData implements Flow.Subscriber<String> {
     @Override
     public void onComplete() {
 
+    }
+
+    ObservableList<TwitterUser> getItems() {
+        return items;
     }
 }

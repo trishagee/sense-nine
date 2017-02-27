@@ -1,7 +1,5 @@
-package com.mechanitis.demo.sense.client;
+package com.mechanitis.demo.sense.client.mood;
 
-import com.mechanitis.demo.sense.client.mood.MoodsParser;
-import com.mechanitis.demo.sense.client.mood.TweetMood;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

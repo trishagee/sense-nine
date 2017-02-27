@@ -10,7 +10,7 @@ import java.util.concurrent.Flow;
 import static java.time.LocalTime.now;
 import static java.util.stream.IntStream.range;
 
-public class HappinessChartData implements Flow.Subscriber<TweetMood> {
+public class HappinessChartData implements Flow.Subscriber<String> {
     private final XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
     private final Map<Integer, Integer> minuteToDataPosition = new HashMap<>();
 
@@ -25,8 +25,8 @@ public class HappinessChartData implements Flow.Subscriber<TweetMood> {
     }
 
     @Override
-    public void onNext(TweetMood message) {
-        if (message.isHappy()) {
+    public void onNext(String message) {
+        if ("HAPPY".equals(message)) {
             int x = now().getMinute();
 
             Integer dataIndex = minuteToDataPosition.get(x);
@@ -35,13 +35,9 @@ public class HappinessChartData implements Flow.Subscriber<TweetMood> {
         }
     }
 
-    XYChart.Series<String, Double> getDataSeries() {
-        return dataSeries;
-    }
-
     @Override
     public void onSubscribe(Flow.Subscription subscription) {
-
+        subscription.request(Long.MAX_VALUE);
     }
 
     @Override
@@ -52,6 +48,10 @@ public class HappinessChartData implements Flow.Subscriber<TweetMood> {
     @Override
     public void onComplete() {
 
+    }
+
+    XYChart.Series<String, Double> getDataSeries() {
+        return dataSeries;
     }
 }
 

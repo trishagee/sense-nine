@@ -7,37 +7,32 @@ import java.util.concurrent.Flow;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
-public class MoodChartData implements Flow.Subscriber<TweetMood> {
+public class MoodChartData implements Flow.Subscriber<String> {
     private final PieChart.Data sadPortion = new PieChart.Data("Sad", 0);
     private final PieChart.Data happyPortion = new PieChart.Data("Happy", 0);
-    private final PieChart.Data confusedPortion = new PieChart.Data("Errr...", 0);
-    private final ObservableList<PieChart.Data> pieChartData = observableArrayList(sadPortion, happyPortion, confusedPortion);
+    private final ObservableList<PieChart.Data> pieChartData = observableArrayList(sadPortion, happyPortion);
 
     ObservableList<PieChart.Data> getPieChartData() {
         return pieChartData;
     }
 
     @Override
-    public void onSubscribe(Flow.Subscription subscription) {
-
-    }
-
-    @Override
-    public void onNext(TweetMood mood) {
-        if (mood.isSad()) {
+    public void onNext(String mood) {
+        if ("SAD".equals(mood)) {
             incrementPie(sadPortion);
         }
-        if (mood.isHappy()) {
+        else if ("HAPPY".equals(mood)) {
             incrementPie(happyPortion);
         }
-        if (mood.isConfused()) {
-            incrementPie(confusedPortion);
-        }
-
     }
 
     private void incrementPie(PieChart.Data portion) {
         portion.setPieValue(portion.getPieValue() + 1);
+    }
+
+    @Override
+    public void onSubscribe(Flow.Subscription subscription) {
+        subscription.request(Long.MAX_VALUE);
     }
 
     @Override
@@ -48,5 +43,13 @@ public class MoodChartData implements Flow.Subscriber<TweetMood> {
     @Override
     public void onComplete() {
 
+    }
+
+    PieChart.Data getHappyPortion() {
+        return happyPortion;
+    }
+
+    PieChart.Data getSadPortion() {
+        return sadPortion;
     }
 }
