@@ -13,7 +13,6 @@ import static javafx.collections.FXCollections.observableArrayList;
 public class LeaderboardData {
     private final Map<String, TwitterUser> allTwitterUsers = new HashMap<>();
     private final Flow.Publisher<String> publisher;
-    private int numberToDisplay;
     private final ObservableList<TwitterUser> items = observableArrayList();
 
     private int minCountForDisplay = 0;
@@ -22,34 +21,35 @@ public class LeaderboardData {
         this.publisher = publisher;
         IntStream.range(0, numberToDisplay)
                 .forEach(value -> items.add(new TwitterUser("", 0)));
-        this.numberToDisplay = numberToDisplay;
     }
 
-    private void react(String twitterHandle) {
-//        Flowable.fromPublisher(toPublisher(publisher))
-//                .map(s -> allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new))
-//                .
-    }
-
-    public void doIt(String twitterHandle) {
+    void doIt(String twitterHandle) {
         TwitterUser currentUser = allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new);
-        int numberOfTweets = currentUser.incrementCount();
+        currentUser.incrementCount();
 
-        if (!userIsDisplayed(currentUser) && numberOfTweets > minCountForDisplay) {
-            AtomicInteger index = new AtomicInteger(-1);
-
-            //noinspection ResultOfMethodCallIgnored - simply using findFirst to stop the stream
-            items.stream()
-                    .filter(twitterUser -> {
-                        index.incrementAndGet();
-                        return twitterUser.getTweetCount() < numberOfTweets;
-                    })
-                    .findFirst();
-            items.remove(items.size() - 1);
-            items.add(index.get(), currentUser);
-
-            minCountForDisplay = items.get(items.size() - 1).getTweetCount();
+        if (!userIsDisplayed(currentUser) && userCanBeDisplayed(currentUser)) {
+            addUserToLeaderboard(currentUser);
         }
+    }
+
+    private void addUserToLeaderboard(TwitterUser currentUser) {
+        AtomicInteger index = new AtomicInteger(-1);
+
+        //noinspection ResultOfMethodCallIgnored - simply using findFirst to stop the stream when the right place is found
+        items.stream()
+                .filter(twitterUser -> {
+                    index.incrementAndGet();
+                    return twitterUser.getTweetCount() < currentUser.getTweetCount();
+                })
+                .findFirst();
+        items.remove(items.size() - 1);
+        items.add(index.get(), currentUser);
+
+        minCountForDisplay = items.get(items.size() - 1).getTweetCount();
+    }
+
+    private boolean userCanBeDisplayed(TwitterUser twitterUser) {
+        return twitterUser.getTweetCount() > minCountForDisplay;
     }
 
     private boolean userIsDisplayed(TwitterUser username) {
