@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Flow;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import static javafx.collections.FXCollections.observableArrayList;
@@ -29,8 +28,7 @@ public class LeaderboardData {
 
         if (userIsDisplayed(currentUser)) {
             int currentIndex = items.indexOf(currentUser);
-            if (currentIndex != 0 && items.get(currentIndex - 1).getTweetCount() < currentUser.getTweetCount()) {
-                //resort
+            if (userNeedsToMoveUpwards(currentUser, currentIndex)) {
                 addUserToLeaderboard(currentUser, currentIndex);
             }
         }
@@ -41,19 +39,18 @@ public class LeaderboardData {
     }
 
     private void addUserToLeaderboard(TwitterUser currentUser, int positionToRemove) {
-        AtomicInteger index = new AtomicInteger(-1);
-
-        //noinspection ResultOfMethodCallIgnored - simply using findFirst to stop the stream when the right place is found
-        items.stream()
-                .filter(twitterUser -> {
-                    index.incrementAndGet();
-                    return twitterUser.getTweetCount() < currentUser.getTweetCount();
-                })
-                .findFirst();
+        TwitterUser userCurrentlyInNewUserPosition = items.stream()
+                .filter(twitterUser -> twitterUser.getTweetCount() < currentUser.getTweetCount())
+                .findFirst().orElseThrow(() -> new RuntimeException("Should be a position in the list for new user"));
+        int index = items.indexOf(userCurrentlyInNewUserPosition);
         items.remove(positionToRemove);
-        items.add(index.get(), currentUser);
+        items.add(index, currentUser);
 
         minCountForDisplay = items.get(items.size() - 1).getTweetCount();
+    }
+
+    private boolean userNeedsToMoveUpwards(TwitterUser currentUser, int currentIndex) {
+        return currentIndex != 0 && items.get(currentIndex - 1).getTweetCount() < currentUser.getTweetCount();
     }
 
     private boolean userCanBeDisplayed(TwitterUser twitterUser) {
