@@ -5,6 +5,7 @@ import com.mechanitis.demo.sense.client.mood.MoodController;
 import com.mechanitis.demo.sense.client.user.LeaderboardController;
 import javafx.fxml.FXML;
 
+@SuppressWarnings("WeakerAccess") //can't be package private, JavaFX needs access
 public class DashboardController {
     @FXML private MoodController moodController;
     @FXML private HappinessController happyController;

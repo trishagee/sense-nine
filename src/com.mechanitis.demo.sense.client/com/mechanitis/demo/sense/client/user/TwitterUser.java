@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("WeakerAccess") //can't be package private, JavaFX needs access
 public class TwitterUser {
     private final SimpleStringProperty twitterHandle = new SimpleStringProperty();
     private final SimpleIntegerProperty tweetCount = new SimpleIntegerProperty(0);

@@ -4,8 +4,6 @@ import com.mechanitis.demo.sense.service.Service;
 import com.mechanitis.demo.sense.twitter.TweetParser;
 import io.reactivex.Flowable;
 
-import javax.websocket.DeploymentException;
-import java.io.IOException;
 import java.util.concurrent.Flow;
 
 import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.toPublisher;
@@ -41,7 +39,7 @@ class MoodService implements Runnable {
         return s.split("\\s*[^\\p{IsAlphabetic}]+\\s*");
     }
 
-    public static void main(String[] args) throws IOException, DeploymentException {
+    public static void main(String[] args) {
         new MoodService().run();
     }
 }
