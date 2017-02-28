@@ -26,6 +26,8 @@ public class TwitterOAuth {
     private String consumerKey;
     private String consumerSecret;
 
+//    private String _ = null;
+
     public TwitterOAuth() {
         this.timestampInSeconds = System.currentTimeMillis() / 1000;
         this.nonce = timestampInSeconds + (new Random()).nextInt();
