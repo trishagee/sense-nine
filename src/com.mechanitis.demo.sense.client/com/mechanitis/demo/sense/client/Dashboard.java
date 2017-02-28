@@ -14,7 +14,7 @@ public class Dashboard extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // all models created in advance
-        LeaderboardData leaderboardData = new LeaderboardData();
+        LeaderboardData leaderboardData = new LeaderboardData(17);
         MoodChartData moodChartData = new MoodChartData();
         HappinessChartData happinessChartData = new HappinessChartData();
 
