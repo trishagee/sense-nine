@@ -8,7 +8,7 @@ import java.util.concurrent.Flow;
 import static com.mechanitis.demo.sense.flow.SubscriptionAdaptor.toFlowSubscription;
 
 public class SubscriberFromFlowAdaptor<T> implements org.reactivestreams.Subscriber<T> {
-    private Flow.Subscriber<T> delegate;
+    private final Flow.Subscriber<T> delegate;
 
     private SubscriberFromFlowAdaptor(Flow.Subscriber<T> delegate) {
         this.delegate = delegate;
@@ -36,6 +36,6 @@ public class SubscriberFromFlowAdaptor<T> implements org.reactivestreams.Subscri
     }
 
     public static <T>Subscriber<T> toSubscriber(Flow.Subscriber<T> subscriber) {
-        return new SubscriberFromFlowAdaptor<T>(subscriber);
+        return new SubscriberFromFlowAdaptor<>(subscriber);
     }
 }

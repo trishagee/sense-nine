@@ -21,7 +21,7 @@ public class LeaderboardData implements Flow.Subscriber<String>{
 
     public LeaderboardData(int numberToDisplay) {
         IntStream.range(0, numberToDisplay)
-                 .forEach(value -> items.add(new TwitterUser("", 0)));
+                 .forEach(value -> items.add(new TwitterUser("")));
     }
 
     @Override

@@ -6,9 +6,9 @@ import java.util.logging.Logger;
 import static com.mechanitis.demo.sense.flow.SubscriptionAdaptor.toSubscription;
 import static java.lang.String.format;
 
-public class SubscriberToFlowAdaptor<T> implements Flow.Subscriber<T> {
+class SubscriberToFlowAdaptor<T> implements Flow.Subscriber<T> {
     private static final Logger LOGGER = Logger.getLogger(SubscriberToFlowAdaptor.class.getName());
-    private org.reactivestreams.Subscriber<T> delegate;
+    private final org.reactivestreams.Subscriber<T> delegate;
 
     SubscriberToFlowAdaptor(org.reactivestreams.Subscriber<T> delegate) {
         this.delegate = delegate;

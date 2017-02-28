@@ -10,9 +10,9 @@ import static java.util.logging.Level.FINE;
 public class Service implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(Service.class.getName());
 
-    private ClientEndpoint clientEndpoint;
-    private BusinessLogic businessLogic;
-    private BroadcastingServerEndpoint<String> broadcastingServerEndpoint;
+    private final ClientEndpoint clientEndpoint;
+    private final BusinessLogic businessLogic;
+    private final BroadcastingServerEndpoint<String> broadcastingServerEndpoint;
 
     private Service(String endpointToConnectTo, String servicePath, int servicePort) {
         this(endpointToConnectTo, servicePath, servicePort, Flow.Publisher::subscribe);
@@ -30,7 +30,7 @@ public class Service implements Runnable {
         businessLogic.doTheThing(clientEndpoint, broadcastingServerEndpoint);
     }
 
-    public void stop() throws Exception {
+    public void stop() {
         clientEndpoint.close();
         broadcastingServerEndpoint.close();
     }

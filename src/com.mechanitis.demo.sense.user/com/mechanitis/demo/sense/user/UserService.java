@@ -9,7 +9,7 @@ import java.util.concurrent.Flow;
 import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.toPublisher;
 import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
 
-public class UserService implements Runnable {
+class UserService implements Runnable {
     private static final int PORT = 8083;
     private final Service service;
 

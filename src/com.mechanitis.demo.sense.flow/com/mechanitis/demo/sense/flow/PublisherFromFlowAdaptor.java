@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class PublisherFromFlowAdaptor<T> implements Publisher<T> {
     private static final Logger LOGGER = Logger.getLogger(PublisherFromFlowAdaptor.class.getName());
-    private Flow.Publisher<T> delegate;
+    private final Flow.Publisher<T> delegate;
 
     private PublisherFromFlowAdaptor(Flow.Publisher<T> delegate) {
         this.delegate = delegate;

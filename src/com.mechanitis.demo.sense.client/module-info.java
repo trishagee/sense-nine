@@ -24,6 +24,7 @@ module com.mechanitis.demo.sense.client {
     exports com.mechanitis.demo.sense.client;
     //not sure this is what I want
     exports com.mechanitis.demo.sense.client.user;
+    exports com.mechanitis.demo.sense.client.mood;
 
     opens com.mechanitis.demo.sense.client to javafx.fxml;
     opens com.mechanitis.demo.sense.client.mood to javafx.fxml;

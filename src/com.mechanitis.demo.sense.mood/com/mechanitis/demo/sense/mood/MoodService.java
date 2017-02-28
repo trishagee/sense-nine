@@ -12,7 +12,7 @@ import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.toPublishe
 import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
 import static io.reactivex.Flowable.fromPublisher;
 
-public class MoodService implements Runnable {
+class MoodService implements Runnable {
 //    private static final Logger LOGGER = Logger.getLogger(MoodService.class.getName());
     private static final int PORT = 8082;
     private final Service service;

@@ -4,7 +4,7 @@ import com.mechanitis.demo.sense.service.StubService;
 
 import java.util.Random;
 
-public class UserTestData {
+class UserTestData {
     private static final String[] EXAMPLE_HANDLES = new String[]{"aaa", "bbb",
             "ccc", "ddd", "eee", "fff", "gee", "ggg", "hhh", "iii", "jjj",
             "kkk", "lll", "mmm", "nnn", "ooo", "ppp", "qqq", "rrr", "sss",

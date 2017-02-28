@@ -18,7 +18,7 @@ import static java.util.logging.Logger.getLogger;
  *
  * This server will only create a singleton instance of any endpoint.
  */
-public class WebSocketServer implements Runnable {
+class WebSocketServer implements Runnable {
     private static final Logger LOGGER = getLogger(WebSocketServer.class.getName());
 
     private final int port;
@@ -26,7 +26,7 @@ public class WebSocketServer implements Runnable {
     private final Endpoint endpoint;
     private final Server server;
 
-    public WebSocketServer(String path, int port, Endpoint endpoint) {
+    WebSocketServer(String path, int port, Endpoint endpoint) {
         this.path = path;
         this.port = port;
         this.endpoint = endpoint;
@@ -53,7 +53,7 @@ public class WebSocketServer implements Runnable {
         }
     }
 
-    public void stop() throws Exception {
+    void stop() throws Exception {
         server.stop();
         server.join();
     }

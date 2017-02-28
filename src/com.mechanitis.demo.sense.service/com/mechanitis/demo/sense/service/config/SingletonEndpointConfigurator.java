@@ -4,7 +4,7 @@ import javax.websocket.Endpoint;
 import javax.websocket.server.ServerEndpointConfig;
 
 public final class SingletonEndpointConfigurator extends ServerEndpointConfig.Configurator {
-    private Endpoint singletonInstance;
+    private final Endpoint singletonInstance;
 
     public SingletonEndpointConfigurator(Endpoint singletonInstance) {
         this.singletonInstance = singletonInstance;

@@ -4,7 +4,7 @@ import com.mechanitis.demo.sense.service.StubService;
 
 import java.util.Random;
 
-public class MoodTestData {
+class MoodTestData {
     private static final String[] POSSIBLE_MOODS
             = new String[]{"HAPPY", "SAD"};
 

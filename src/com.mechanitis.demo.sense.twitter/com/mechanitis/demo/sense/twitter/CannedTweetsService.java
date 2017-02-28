@@ -18,7 +18,7 @@ import static java.util.logging.Logger.getLogger;
 /**
  * Reads tweets from a file and sends them to the Twitter Service endpoint.
  */
-public class CannedTweetsService implements Runnable {
+class CannedTweetsService implements Runnable {
     private static final Logger LOGGER = getLogger(CannedTweetsService.class.getName());
 
     private final BroadcastingServerEndpoint<String> tweetsEndpoint = new BroadcastingServerEndpoint<>("/tweets/", 8081);
@@ -31,7 +31,7 @@ public class CannedTweetsService implements Runnable {
     @Override
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
-        Flowable<Long> tick = Flowable.interval(1000, MILLISECONDS);
+        Flowable<Long> tick = Flowable.interval(100, MILLISECONDS);
 
         try {
             Flowable.fromIterable(readAllLines(filePath))
@@ -48,7 +48,7 @@ public class CannedTweetsService implements Runnable {
         new CannedTweetsService(get("tweetdata60-mins.txt")).run();
     }
 
-    void stop() throws Exception {
+    void stop() {
         tweetsEndpoint.close();
     }
 }
