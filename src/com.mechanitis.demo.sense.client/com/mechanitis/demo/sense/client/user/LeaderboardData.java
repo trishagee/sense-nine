@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Flow;
-import java.util.function.Predicate;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
@@ -32,42 +32,29 @@ public class LeaderboardData implements Flow.Subscriber<String>{
         if (userIsDisplayed(currentUser)) {
             int currentIndex = items.indexOf(currentUser);
             if (userNeedsToMoveUpwards(currentUser, currentIndex)) {
-                putUserIntoNewPosition(currentUser, twitterUser -> twitterUser.equals(currentUser));
+                putUserIntoNewPosition(currentUser, currentIndex);
             }
         } else if (userCanBeDisplayed(numberOfTweets)) {
-            putUserIntoNewPosition(currentUser, twitterUser -> false);
-        }
-    }
-
-    private void putUserIntoNewPosition(TwitterUser currentUser, Predicate<TwitterUser> stopCondition) {
-        int positionForNewUser = findPositionForUser(currentUser);
-        TwitterUser tempForMoving;
-        if (positionForNewUser > -1) {
-            tempForMoving = items.get(positionForNewUser);
-            items.set(positionForNewUser, currentUser);
-
-            for (int i = positionForNewUser + 1; i < items.size(); i++) {
-                TwitterUser twitterUser = items.get(i);
-                items.set(i, tempForMoving);
-                tempForMoving = twitterUser;
-                if (stopCondition.test(twitterUser)) {
-                    break;
-                }
-            }
-            minCountForDisplay = items.get(items.size() - 1).getTweetCount();
+            putUserIntoNewPosition(currentUser, items.size() - 1);
         }
     }
 
     private int findPositionForUser(TwitterUser currentUser) {
-        int positionForNewUser = -1;
-        for (int i = 0; i < items.size(); i++) {
-            TwitterUser twitterUser = items.get(i);
-            if (twitterUser.getTweetCount() < currentUser.getTweetCount()) {
-                positionForNewUser = i;
-                break;
-            }
-        }
-        return positionForNewUser;
+        AtomicInteger positionForNewUser = new AtomicInteger(0);
+        items.stream()
+                .takeWhile(twitterUser -> twitterUser.getTweetCount() >=
+                        currentUser.getTweetCount())
+                .forEach(twitterUser -> positionForNewUser.incrementAndGet());
+        return positionForNewUser.get();
+    }
+
+    private void putUserIntoNewPosition(TwitterUser currentUser, int itemToRemove) {
+        items.remove(itemToRemove);
+
+        int positionForNewUser = findPositionForUser(currentUser);
+        items.add(positionForNewUser, currentUser);
+
+        minCountForDisplay = items.get(items.size() - 1).getTweetCount();
     }
 
     private boolean userNeedsToMoveUpwards(TwitterUser currentUser, int currentIndex) {

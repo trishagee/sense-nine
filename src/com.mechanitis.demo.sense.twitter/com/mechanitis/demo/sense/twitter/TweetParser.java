@@ -3,18 +3,17 @@ package com.mechanitis.demo.sense.twitter;
 public interface TweetParser {
 
     static String getTweetMessageFrom(String fullTweet) {
-        //very crude
-        String textFieldName = "\"text\":\"";
-        String nextFieldName = "\",\"source\":\"";
-        int indexOfTextField = fullTweet.indexOf(textFieldName) + textFieldName.length();
-        int indexOfEndOfText = fullTweet.indexOf(nextFieldName);
-        return fullTweet.substring(indexOfTextField, indexOfEndOfText);
+        return getFieldValue(fullTweet, "\"text\":\"");
     }
 
     static String getTwitterHandleFromTweet(String fullTweet) {
-        String twitterHandleFieldName = "\"screen_name\":\"";
-        int indexOfTwitterHandleField = fullTweet.indexOf(twitterHandleFieldName)+ twitterHandleFieldName.length();
-        int indexOfEndOfTwitterHandle = fullTweet.indexOf("\"", indexOfTwitterHandleField);
-        return fullTweet.substring(indexOfTwitterHandleField, indexOfEndOfTwitterHandle);
+        return getFieldValue(fullTweet, "\"screen_name\":\"");
     }
+
+    static String getFieldValue(String fullTweet, String fieldName) {
+        int fieldStartIndex = fullTweet.indexOf(fieldName)+ fieldName.length();
+        int fieldEndIndex = fullTweet.indexOf("\"", fieldStartIndex);
+        return fullTweet.substring(fieldStartIndex, fieldEndIndex);
+    }
+
 }
