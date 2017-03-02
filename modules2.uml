@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>MODULES</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="354.0" y="254.0">lib-org.reactivestreams:reactive-streams:1.0.0</node>
+    <node x="1129.7076923076922" y="0.0">mdl-com.mechanitis.demo.sense.mood</node>
+    <node x="671.6496794871796" y="0.0">mdl-com.mechanitis.demo.sense.user</node>
+    <node x="1549.7076923076922" y="0.0">mdl-com.mechanitis.demo.sense.client</node>
+    <node x="73.95833333333337" y="0.0">mdl-com.mechanitis.demo.sense.twitter</node>
+    <node x="92.57884615384614" y="147.0">lib-io.reactivex.rxjava2:rxjava:2.0.6</node>
+    <node x="466.57884615384614" y="147.0">mdl-com.mechanitis.demo.sense.flow</node>
+    <node x="1072.6458333333335" y="147.0">mdl-com.mechanitis.demo.sense.service</node>
+    <node x="902.0788461538461" y="254.0">lib-org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="mdl-com.mechanitis.demo.sense.mood" target="mdl-com.mechanitis.demo.sense.flow">
+      <point x="-50.0" y="23.5" />
+      <point x="1279.7076923076922" y="127.0" />
+      <point x="787.4121794871795" y="127.0" />
+      <point x="128.33333333333337" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.client" target="lib-org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120">
+      <point x="98.0" y="23.5" />
+      <point x="1843.7076923076922" y="224.0" />
+      <point x="1525.7788461538462" y="224.0" />
+      <point x="277.20000000000005" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.user" target="lib-io.reactivex.rxjava2:rxjava:2.0.6">
+      <point x="-144.0" y="23.5" />
+      <point x="719.6496794871796" y="97.0" />
+      <point x="269.57884615384614" y="97.0" />
+      <point x="0.0" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.twitter" target="mdl-com.mechanitis.demo.sense.service">
+      <point x="150.375" y="23.5" />
+      <point x="424.83333333333337" y="77.0" />
+      <point x="1123.1458333333335" y="77.0" />
+      <point x="-151.5" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.user" target="lib-org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120">
+      <point x="48.0" y="23.5" />
+      <point x="911.6496794871796" y="87.0" />
+      <point x="949.0788461538461" y="87.0" />
+      <point x="949.0788461538461" y="214.0" />
+      <point x="1109.9788461538462" y="214.0" />
+      <point x="-138.5999999999999" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.mood" target="lib-org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120">
+      <point x="149.99999999999994" y="23.5" />
+      <point x="1479.7076923076922" y="67.0" />
+      <point x="1541.7076923076922" y="67.0" />
+      <point x="1541.7076923076922" y="214.0" />
+      <point x="1387.1788461538463" y="214.0" />
+      <point x="138.60000000000014" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.user" target="mdl-com.mechanitis.demo.sense.flow">
+      <point x="-48.0" y="23.5" />
+      <point x="815.6496794871796" y="107.0" />
+      <point x="659.0788461538461" y="107.0" />
+      <point x="0.0" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.client" target="mdl-com.mechanitis.demo.sense.service">
+      <point x="-98.0" y="23.5" />
+      <point x="1647.7076923076922" y="77.0" />
+      <point x="1426.1458333333335" y="77.0" />
+      <point x="151.5" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.service" target="lib-org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120">
+      <point x="0.0" y="23.5" />
+      <point x="1274.6458333333335" y="214.0" />
+      <point x="1248.5788461538461" y="214.0" />
+      <point x="0.0" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.twitter" target="mdl-com.mechanitis.demo.sense.flow">
+      <point x="50.125" y="23.5" />
+      <point x="324.58333333333337" y="87.0" />
+      <point x="530.7455128205128" y="87.0" />
+      <point x="-128.33333333333334" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.twitter" target="lib-org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120">
+      <point x="-150.375" y="23.5" />
+      <point x="124.08333333333337" y="67.0" />
+      <point x="0.0" y="67.0" />
+      <point x="0.0" y="224.0" />
+      <point x="971.3788461538461" y="224.0" />
+      <point x="-277.20000000000005" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.user" target="mdl-com.mechanitis.demo.sense.service">
+      <point x="144.0" y="23.5" />
+      <point x="1007.6496794871796" y="67.0" />
+      <point x="1224.1458333333335" y="67.0" />
+      <point x="-50.5" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.flow" target="lib-org.reactivestreams:reactive-streams:1.0.0">
+      <point x="0.0" y="23.5" />
+      <point x="659.0788461538461" y="234.0" />
+      <point x="577.0" y="234.0" />
+      <point x="0.0" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.twitter" target="lib-io.reactivex.rxjava2:rxjava:2.0.6">
+      <point x="-50.125" y="23.5" />
+      <point x="224.33333333333337" y="67.0" />
+      <point x="151.57884615384614" y="67.0" />
+      <point x="-118.0" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.mood" target="mdl-com.mechanitis.demo.sense.service">
+      <point x="50.0" y="23.5" />
+      <point x="1379.7076923076922" y="67.0" />
+      <point x="1325.1458333333335" y="67.0" />
+      <point x="50.5" y="-23.5" />
+    </edge>
+    <edge source="mdl-com.mechanitis.demo.sense.mood" target="lib-io.reactivex.rxjava2:rxjava:2.0.6">
+      <point x="-150.0" y="23.5" />
+      <point x="1179.7076923076922" y="117.0" />
+      <point x="387.57884615384614" y="117.0" />
+      <point x="118.0" y="-23.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7691131498470948" x="971.0" y="177.18091451292253" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Libraries</Category>
+  </Categories>
+</Diagram>
+

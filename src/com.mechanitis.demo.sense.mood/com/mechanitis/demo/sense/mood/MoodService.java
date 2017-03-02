@@ -1,7 +1,6 @@
 package com.mechanitis.demo.sense.mood;
 
 import com.mechanitis.demo.sense.service.Service;
-import com.mechanitis.demo.sense.twitter.TweetParser;
 import io.reactivex.Flowable;
 
 import java.util.concurrent.Flow;
@@ -22,7 +21,7 @@ class MoodService implements Runnable {
 
     static void filterMessagesForMoods(Flow.Publisher<String> publisher, Flow.Subscriber<String> subscriber) {
         Flowable<String> words = fromPublisher(toPublisher(publisher))
-                .map(TweetParser::getTweetMessageFrom)
+                .map(MoodService::getTweetMessageFrom)
                 .map(MoodService::splitMessageIntoWords)
                 .flatMap(Flowable::fromArray, false, 1);
         MoodAnalyser.moodsForWords(words)
@@ -37,6 +36,12 @@ class MoodService implements Runnable {
     private static String[] splitMessageIntoWords(String s) {
         // magical regex that splits by punctuation and numbers and leaves unicode characters
         return s.split("\\s*[^\\p{IsAlphabetic}]+\\s*");
+    }
+
+    private static String getTweetMessageFrom(String fullTweet) {
+        int fieldStartIndex = fullTweet.indexOf("\"text\":\"")+ "\"text\":\"".length();
+        int fieldEndIndex = fullTweet.indexOf("\"", fieldStartIndex);
+        return fullTweet.substring(fieldStartIndex, fieldEndIndex);
     }
 
     public static void main(String[] args) {

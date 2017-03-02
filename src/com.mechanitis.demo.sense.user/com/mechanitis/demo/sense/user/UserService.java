@@ -1,7 +1,6 @@
 package com.mechanitis.demo.sense.user;
 
 import com.mechanitis.demo.sense.service.Service;
-import com.mechanitis.demo.sense.twitter.TweetParser;
 import io.reactivex.Flowable;
 
 import java.util.concurrent.Flow;
@@ -20,13 +19,19 @@ class UserService implements Runnable {
 
     static void mapTweetsToTwitterUser(Flow.Publisher<String> publisher, Flow.Subscriber<String> subscriber) {
         Flowable.fromPublisher(toPublisher(publisher))
-                .map(TweetParser::getTwitterHandleFromTweet)
+                .map(UserService::getTwitterHandleFromTweet)
                 .subscribe(toSubscriber(subscriber));
     }
 
     @Override
     public void run() {
         service.run();
+    }
+
+    private static String getTwitterHandleFromTweet(String fullTweet) {
+        int fieldStartIndex = fullTweet.indexOf("\"screen_name\":\"")+ "\"screen_name\":\"".length();
+        int fieldEndIndex = fullTweet.indexOf("\"", fieldStartIndex);
+        return fullTweet.substring(fieldStartIndex, fieldEndIndex);
     }
 
     public static void main(String[] args) {
