@@ -8,39 +8,15 @@ import javax.websocket.Session;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class BroadcastingServerEndpointTest {
-
-    @Test
-    @DisplayName("should accept messages and publish the toString() representation")
-    void shouldPublishToStringRepresentation() throws IOException {
-        // given:
-        BroadcastingServerEndpoint<StubMessage> endpoint = new BroadcastingServerEndpoint<>("/test/", 8081);
-        RemoteEndpoint.Basic remoteEndpoint = mock(RemoteEndpoint.Basic.class);
-        Session session = createMockSession("session", remoteEndpoint);
-
-        endpoint.onOpen(session, null);
-
-        // when:
-        StubMessage message = new StubMessage();
-        endpoint.onNext(message);
-
-        // then:
-        verify(remoteEndpoint).sendText(message.toString());
-
-        // finally:
-        endpoint.close();
-    }
 
     @Test
     @DisplayName("should forward messages to all open sessions")
     void shouldForwardToAllSessions() throws IOException {
         // given:
-        BroadcastingServerEndpoint<String> endpoint = new BroadcastingServerEndpoint<>("/test/", 8082);
+        BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("", 0);
         RemoteEndpoint.Basic remoteEndpoint1 = mock(RemoteEndpoint.Basic.class);
         RemoteEndpoint.Basic remoteEndpoint2 = mock(RemoteEndpoint.Basic.class);
         Session session1 = createMockSession("1", remoteEndpoint1);
@@ -52,7 +28,7 @@ class BroadcastingServerEndpointTest {
         String message = "Some Message";
 
         // when:
-        endpoint.onNext(message);
+        endpoint.onMessage(message);
 
         // then:
         assertAll(() -> verify(remoteEndpoint1).sendText(message),
@@ -66,11 +42,11 @@ class BroadcastingServerEndpointTest {
     @DisplayName("should not try to forward messages to closed sessions")
     void shouldNotForwardToClosedSessions() {
         // given:
-        BroadcastingServerEndpoint<String> endpoint = new BroadcastingServerEndpoint<>("/test/", 8083);
+        BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("", 0);
         Session session = createMockSession("session");
 
         // when:
-        endpoint.onNext("Some Tweet");
+        endpoint.onMessage("Some Tweet");
 
         // then:
         assertAll(() -> verify(session, never()).getAsyncRemote(),

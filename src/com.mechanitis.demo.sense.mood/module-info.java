@@ -4,5 +4,4 @@ module com.mechanitis.demo.sense.mood {
 
     requires java.logging;
 
-    requires rxjava;
 }

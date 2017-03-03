@@ -1,37 +1,30 @@
 package com.mechanitis.demo.sense.user;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.Flow;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 @SuppressWarnings("unchecked")
 class UserServiceTest {
-    @Test
-    void shouldTurnTweetsIntoTwitterHandles() {
-        Flow.Subscriber<String> subscriber = mock(Flow.Subscriber.class);
+//    @Test
+//    void shouldTurnTweetsIntoTwitterHandles() {
+//        Flow.Subscriber<String> subscriber = mock(Flow.Subscriber.class);
+//
+//        StubPub publisher = new StubPub();
+//        UserService.mapTweetsToTwitterUser(publisher, subscriber);
+//        publisher.publishSingleItem(EXAMPLE_INPUT);
+//
+//        verify(subscriber).onNext(TWITTER_USER_NAME);
+//    }
 
-        StubPub publisher = new StubPub();
-        UserService.mapTweetsToTwitterUser(publisher, subscriber);
-        publisher.publishSingleItem(EXAMPLE_INPUT);
-
-        verify(subscriber).onNext(TWITTER_USER_NAME);
-    }
-
-    private class StubPub implements Flow.Publisher<String> {
-        private Flow.Subscriber<? super String> subscriber;
-
-        @Override
-        public void subscribe(Flow.Subscriber<? super String> subscriber) {
-            this.subscriber = subscriber;
-        }
-
-        private void publishSingleItem(String input) {
-            subscriber.onNext(input);
-        }
-    }
+//    private class StubPub implements Flow.Publisher<String> {
+//        private Flow.Subscriber<? super String> subscriber;
+//
+//        @Override
+//        public void subscribe(Flow.Subscriber<? super String> subscriber) {
+//            this.subscriber = subscriber;
+//        }
+//
+//        private void publishSingleItem(String input) {
+//            subscriber.onNext(input);
+//        }
+//    }
 
     private static final String TWITTER_USER_NAME = "twitterHandle";
     private static final String EXAMPLE_INPUT = "tweet = {\"created_at\":\"Tue Jan 27 12:37:11 +0000 2015\"," +

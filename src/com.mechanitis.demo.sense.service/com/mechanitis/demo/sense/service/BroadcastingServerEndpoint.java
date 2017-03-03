@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Flow;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
+import static java.util.logging.Logger.getLogger;
 
-public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subscriber<T> {
-    private static final Logger LOGGER = Logger.getLogger(BroadcastingServerEndpoint.class.getName());
+public class BroadcastingServerEndpoint extends Endpoint implements MessageListener {
+    private static final Logger LOGGER = getLogger(BroadcastingServerEndpoint.class.getName());
     private final List<Session> sessions = new CopyOnWriteArrayList<>();
     private final ExecutorService executor = newSingleThreadExecutor();
-    private WebSocketServer webSocketServer = null;
+    private WebSocketServer webSocketServer;
 
     public BroadcastingServerEndpoint(String serviceEndpointPath, int servicePort) {
         try {
@@ -25,7 +25,7 @@ public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subs
             executor.submit(webSocketServer);
         } catch (Exception e) {
             // This is where you'd do much more sensible error handling
-            LOGGER.severe(e.getMessage());
+            LOGGER.severe(e::getMessage);
         }
     }
 
@@ -35,11 +35,11 @@ public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subs
     }
 
     @Override
-    public void onNext(T message) {
+    public void onMessage(String message) {
         LOGGER.fine(() -> "Endpoint received: " + message);
         sessions.stream()
                 .filter(Session::isOpen)
-                .forEach(session -> sendMessageToClient(message.toString(), session));
+                .forEach(session -> sendMessageToClient(message, session));
     }
 
     private void sendMessageToClient(String message, Session session) {
@@ -52,28 +52,12 @@ public class BroadcastingServerEndpoint<T> extends Endpoint implements Flow.Subs
         }
     }
 
-    @Override
-    public void onSubscribe(Flow.Subscription subscription) {
-        LOGGER.fine(() -> "BroadcastingServerEndpoint subscribed. "+subscription);
-        subscription.request(Long.MAX_VALUE);
-    }
-
-    @Override
-    public void onError(Throwable throwable) {
-
-    }
-
-    @Override
-    public void onComplete() {
-
-    }
-
     public void close() {
         try {
             webSocketServer.stop();
         } catch (Exception e) {
             // This is where you'd do much more sensible error handling
-            LOGGER.severe(e.getMessage());
+            LOGGER.severe(e::getMessage);
         }
         executor.shutdownNow();
     }

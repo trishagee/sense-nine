@@ -1,55 +1,38 @@
 package com.mechanitis.demo.sense.client.mood;
 
+import com.mechanitis.demo.sense.service.MessageListener;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
-import java.util.concurrent.Flow;
-
 import static javafx.collections.FXCollections.observableArrayList;
 
-public class MoodChartData implements Flow.Subscriber<String> {
+public class MoodChartData implements MessageListener {
     private final PieChart.Data sadPortion = new PieChart.Data("Sad", 0);
     private final PieChart.Data happyPortion = new PieChart.Data("Happy", 0);
-    private final ObservableList<PieChart.Data> pieChartData = observableArrayList(sadPortion, happyPortion);
+    private final PieChart.Data confusedPortion = new PieChart.Data("Errr...", 0);
+    private final ObservableList<PieChart.Data> pieChartData = observableArrayList(sadPortion, happyPortion, confusedPortion);
 
     ObservableList<PieChart.Data> getPieChartData() {
         return pieChartData;
     }
 
     @Override
-    public void onNext(String mood) {
-        if ("SAD".equals(mood)) {
+    public void onMessage(String moodAsCsv) {
+        TweetMood mood = MoodsParser.parse(moodAsCsv);
+        if (mood.isSad()) {
             incrementPie(sadPortion);
         }
-        else if ("HAPPY".equals(mood)) {
+        if (mood.isHappy()) {
             incrementPie(happyPortion);
         }
+        if (mood.isConfused()) {
+            incrementPie(confusedPortion);
+        }
+
     }
 
     private void incrementPie(PieChart.Data portion) {
         portion.setPieValue(portion.getPieValue() + 1);
     }
 
-    @Override
-    public void onSubscribe(Flow.Subscription subscription) {
-        subscription.request(Long.MAX_VALUE);
-    }
-
-    @Override
-    public void onError(Throwable throwable) {
-
-    }
-
-    @Override
-    public void onComplete() {
-
-    }
-
-    PieChart.Data getHappyPortion() {
-        return happyPortion;
-    }
-
-    PieChart.Data getSadPortion() {
-        return sadPortion;
-    }
 }

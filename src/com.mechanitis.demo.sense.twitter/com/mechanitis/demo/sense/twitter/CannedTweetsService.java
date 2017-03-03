@@ -1,27 +1,28 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
-import io.reactivex.Flowable;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
-import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
 import static java.lang.String.format;
-import static java.nio.file.Files.readAllLines;
+import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
 
 /**
  * Reads tweets from a file and sends them to the Twitter Service endpoint.
  */
-class CannedTweetsService implements Runnable {
+public class CannedTweetsService implements Runnable {
     private static final Logger LOGGER = getLogger(CannedTweetsService.class.getName());
 
-    private final BroadcastingServerEndpoint<String> tweetsEndpoint = new BroadcastingServerEndpoint<>("/tweets/", 8081);
+    private final BroadcastingServerEndpoint tweetsEndpoint
+            = new BroadcastingServerEndpoint("/tweets/", 8081);
     private final Path filePath;
 
     CannedTweetsService(Path filePath) {
@@ -31,16 +32,25 @@ class CannedTweetsService implements Runnable {
     @Override
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
-        Flowable<Long> tick = Flowable.interval(100, MILLISECONDS);
 
-        try {
-            Flowable.fromIterable(readAllLines(filePath))
-                    .filter(s -> !s.equals("OK"))
-                    .zipWith(tick, (s, aLong) -> s)
-                    .subscribe(toSubscriber(tweetsEndpoint));
+        try (Stream<String> lines = lines(filePath)) {
+            lines.filter(s -> !s.equals("OK"))
+                 .peek(s -> this.addArtificialDelay())
+                 .forEach(tweetsEndpoint::onMessage);
 
         } catch (IOException e) {
+            //TODO: do some error handling here!!!
+            LOGGER.severe(e::getMessage);
             e.printStackTrace();
+        }
+    }
+
+    private void addArtificialDelay() {
+        try {
+            //reading the file is FAST, add an artificial delay
+            MILLISECONDS.sleep(100);
+        } catch (InterruptedException e) {
+            LOGGER.log(WARNING, e.getMessage(), e);
         }
     }
 

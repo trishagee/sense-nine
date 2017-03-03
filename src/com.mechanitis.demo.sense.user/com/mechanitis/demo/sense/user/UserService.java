@@ -1,26 +1,14 @@
 package com.mechanitis.demo.sense.user;
 
 import com.mechanitis.demo.sense.service.Service;
-import io.reactivex.Flowable;
 
-import java.util.concurrent.Flow;
-
-import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.toPublisher;
-import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
-
-class UserService implements Runnable {
+public class UserService implements Runnable {
     private static final int PORT = 8083;
     private final Service service;
 
     private UserService() {
         service = new Service("ws://localhost:8081/tweets/", "/users/", PORT,
-                              UserService::mapTweetsToTwitterUser);
-    }
-
-    static void mapTweetsToTwitterUser(Flow.Publisher<String> publisher, Flow.Subscriber<String> subscriber) {
-        Flowable.fromPublisher(toPublisher(publisher))
-                .map(UserService::getTwitterHandleFromTweet)
-                .subscribe(toSubscriber(subscriber));
+                              UserService::getTwitterHandleFromTweet);
     }
 
     @Override
@@ -37,5 +25,4 @@ class UserService implements Runnable {
     public static void main(String[] args) {
         new UserService().run();
     }
-
 }
