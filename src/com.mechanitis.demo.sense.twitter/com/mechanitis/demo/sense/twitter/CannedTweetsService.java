@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import static java.lang.String.format;
 import static java.nio.file.Paths.get;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
 
 /**
@@ -34,24 +33,17 @@ public class CannedTweetsService implements Runnable {
         LOGGER.fine(
                 () -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
 
+        Flowable<Long> tick = Flowable.interval(100, MILLISECONDS);
+
         try {
             Flowable.fromIterable(Files.readAllLines(filePath))
                     .filter(s -> !s.equals("OK"))
-                    .doOnNext(s -> this.addArtificialDelay())
+                    .zipWith(tick, (s, aLong) -> s)
                     .forEach(tweetsEndpoint::onNext);
         } catch (IOException e) {
             //TODO: do some error handling here!!!
             LOGGER.severe(e::getMessage);
             e.printStackTrace();
-        }
-    }
-
-    private void addArtificialDelay() {
-        try {
-            //reading the file is FAST, add an artificial delay
-            MILLISECONDS.sleep(100);
-        } catch (InterruptedException e) {
-            LOGGER.log(WARNING, e.getMessage(), e);
         }
     }
 
