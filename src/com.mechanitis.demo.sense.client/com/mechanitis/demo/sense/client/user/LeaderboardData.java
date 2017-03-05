@@ -4,9 +4,9 @@ import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Flow;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
-import java.util.concurrent.Flow;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
@@ -44,7 +44,7 @@ public class LeaderboardData implements Flow.Subscriber<String> {
     private int findPositionForUser(TwitterUser currentUser) {
         AtomicInteger positionForNewUser = new AtomicInteger(0);
         items.stream()
-                .filter(user ->
+                .takeWhile(user ->
                         user.getTweetCount() >= currentUser.getTweetCount())
                 .forEach(user -> positionForNewUser.incrementAndGet());
         return positionForNewUser.get();

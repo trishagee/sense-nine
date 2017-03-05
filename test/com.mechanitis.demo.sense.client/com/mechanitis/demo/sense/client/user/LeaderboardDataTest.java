@@ -15,9 +15,9 @@ class LeaderboardDataTest {
         LeaderboardData leaderboardData = new LeaderboardData(5);
 
         // when:
-        leaderboardData.onMessage("Trisha");
-        leaderboardData.onMessage("Someone else");
-        leaderboardData.onMessage("Trisha");
+        leaderboardData.onNext("Trisha");
+        leaderboardData.onNext("Someone else");
+        leaderboardData.onNext("Trisha");
 
         // then:
         assertUserAt(leaderboardData, 2, "Trisha", 0);
@@ -31,10 +31,10 @@ class LeaderboardDataTest {
         LeaderboardData leaderboardData = new LeaderboardData(3);
 
         // when:
-        leaderboardData.onMessage("1");
-        leaderboardData.onMessage("2");
-        leaderboardData.onMessage("3");
-        leaderboardData.onMessage("4");
+        leaderboardData.onNext("1");
+        leaderboardData.onNext("2");
+        leaderboardData.onNext("3");
+        leaderboardData.onNext("4");
 
         // to begin with, only the first three should be displayed
         assertEquals(3, leaderboardData.getItems().size());
@@ -43,7 +43,7 @@ class LeaderboardDataTest {
         assertUserAt(leaderboardData, 1, "3", 2);
 
         // when:
-        leaderboardData.onMessage("4");
+        leaderboardData.onNext("4");
 
         // then:
         assertUserAt(leaderboardData, 2, "4", 0);
@@ -51,7 +51,7 @@ class LeaderboardDataTest {
         assertUserAt(leaderboardData, 1, "2", 2);
 
         // when:
-        leaderboardData.onMessage("3");
+        leaderboardData.onNext("3");
 
         // then:
         assertUserAt(leaderboardData, 2, "4", 0);
@@ -59,7 +59,7 @@ class LeaderboardDataTest {
         assertUserAt(leaderboardData, 1, "1", 2);
 
         // when:
-        leaderboardData.onMessage("4");
+        leaderboardData.onNext("4");
 
         // then:
         assertUserAt(leaderboardData, 3, "4", 0);
@@ -67,7 +67,7 @@ class LeaderboardDataTest {
         assertUserAt(leaderboardData, 1, "1", 2);
 
         // when:
-        leaderboardData.onMessage("2");
+        leaderboardData.onNext("2");
 
         // then:
         assertUserAt(leaderboardData, 3, "4", 0);
@@ -82,14 +82,14 @@ class LeaderboardDataTest {
         LeaderboardData leaderboardData = new LeaderboardData(5);
 
         // when:
-        leaderboardData.onMessage("1");
-        leaderboardData.onMessage("2");
-        leaderboardData.onMessage("2");
-        leaderboardData.onMessage("1");
-        leaderboardData.onMessage("2");
-        leaderboardData.onMessage("3");
-        leaderboardData.onMessage("4");
-        leaderboardData.onMessage("5");
+        leaderboardData.onNext("1");
+        leaderboardData.onNext("2");
+        leaderboardData.onNext("2");
+        leaderboardData.onNext("1");
+        leaderboardData.onNext("2");
+        leaderboardData.onNext("3");
+        leaderboardData.onNext("4");
+        leaderboardData.onNext("5");
 
         // then:
         assertEquals(5, leaderboardData.getItems().size());
