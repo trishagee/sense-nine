@@ -1,16 +1,16 @@
 package com.mechanitis.demo.sense.client.mood;
 
-import com.mechanitis.demo.sense.service.MessageListener;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Flow;
 
 import static java.time.LocalTime.now;
 import static java.util.stream.IntStream.range;
 
-public class HappinessChartData implements MessageListener {
+public class HappinessChartData implements Flow.Subscriber<String> {
     private final XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
     private final Map<Integer, Integer> minuteToDataPosition = new HashMap<>();
 
@@ -25,7 +25,12 @@ public class HappinessChartData implements MessageListener {
     }
 
     @Override
-    public void onMessage(String message) {
+    public void onSubscribe(Flow.Subscription subscription) {
+        subscription.request(Long.MAX_VALUE);
+    }
+
+    @Override
+    public void onNext(String message) {
         TweetMood mood = MoodsParser.parse(message);
         if (mood.isHappy()) {
             int x = now().getMinute();
@@ -34,6 +39,16 @@ public class HappinessChartData implements MessageListener {
             Data<String, Double> barForNow = dataSeries.getData().get(dataIndex);
             barForNow.setYValue(barForNow.getYValue() + 1);
         }
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
     }
 
     XYChart.Series<String, Double> getDataSeries() {

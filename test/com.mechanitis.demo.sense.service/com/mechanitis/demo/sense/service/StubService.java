@@ -20,7 +20,7 @@ public class StubService implements Runnable {
     public void run() {
         // periodically call the message generator
         ScheduledFuture<?> scheduledFuture = newScheduledThreadPool(1).scheduleAtFixedRate(
-                () -> serverEndpoint.onMessage(messageGenerator.get()),
+                () -> serverEndpoint.onNext(messageGenerator.get()),
                 0, 500, MILLISECONDS);
         try {
             // sit around and run the message generator for eternity

@@ -17,7 +17,7 @@ public class Service implements Runnable {
 
     @Override
     public void run() {
-        clientEndpoint.addListener(broadcastingServerEndpoint);
+        clientEndpoint.subscribe(broadcastingServerEndpoint);
     }
 
 }

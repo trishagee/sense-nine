@@ -1,16 +1,16 @@
 package com.mechanitis.demo.sense.client.user;
 
-import com.mechanitis.demo.sense.service.MessageListener;
 import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
+import java.util.concurrent.Flow;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
-public class LeaderboardData implements MessageListener {
+public class LeaderboardData implements Flow.Subscriber<String> {
     private static final int NUMBER_OF_LEADERS = 17;
     private final Map<String, TwitterUser> allTwitterUsers = new HashMap<>();
     private final ObservableList<TwitterUser> items = observableArrayList();
@@ -27,7 +27,7 @@ public class LeaderboardData implements MessageListener {
     }
 
     @Override
-    public void onMessage(String twitterHandle) {
+    public void onNext(String twitterHandle) {
         TwitterUser currentUser = allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new);
         int numberOfTweets = currentUser.incrementCount();
 
@@ -74,4 +74,18 @@ public class LeaderboardData implements MessageListener {
         return items;
     }
 
+    @Override
+    public void onSubscribe(Flow.Subscription subscription) {
+        subscription.request(Long.MAX_VALUE);
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
 }
