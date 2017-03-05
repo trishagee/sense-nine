@@ -23,59 +23,59 @@ class MoodServiceTest {
         setMockSubscriberToRequestAll();
     }
 
-//    @Test
-//    @DisplayName("should correctly identify happy messages")
-//    void shouldFindHappyMessages() {
-//        MoodService.filterMessagesForMoods(publisher, subscriber);
-//        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so happy today"));
-//
-//        verify(subscriber).onNext("HAPPY");
-//    }
-//
-//    @Test
-//    @DisplayName("should correctly identify happy messages that are not lower case")
-//    void shouldIdentifyThoseThatAreNotLowerCase() {
-//        MoodService.filterMessagesForMoods(publisher, subscriber);
-//        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so Awesome today"));
-//
-//        verify(subscriber).onNext("HAPPY");
-//    }
-//
-//    @Test
-//    @DisplayName("should correctly identify sad messages")
-//    void ShouldIdentifySadMessages() {
-//        MoodService.filterMessagesForMoods(publisher, subscriber);
-//        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so sad today"));
-//
-//        verify(subscriber).onNext("SAD");
-//    }
-//
-//    @Test
-//    @DisplayName("should correctly identify mixed messages")
-//    void shouldIdentifyMixedMessages() {
-//        MoodService.filterMessagesForMoods(publisher, subscriber);
-//        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so sad today it almost makes me happy"));
-//        verify(subscriber).onNext("SAD");
-//        verify(subscriber).onNext("HAPPY");
-//    }
-//
-//    @Test
-//    @DisplayName("should correctly identify mixed messages with multiple moods")
-//    void shouldIdentifyMultipleMoods() {
-//        MoodService.filterMessagesForMoods(publisher, subscriber);
-//        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "Yesterday I was sad sad sad, but today is awesome"));
-//        verify(subscriber, times(3)).onNext("SAD");
-//        verify(subscriber).onNext("HAPPY");
-//    }
-//
-//    @Test
-//    @DisplayName("should not have any mood for messages that are neither happy or sad")
-//    void shouldNotHaveMoodsForOtherMessages() {
-//        MoodService.filterMessagesForMoods(publisher, subscriber);
-//        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I don't care"));
-//
-//        verify(subscriber, never()).onNext(any());
-//    }
+    @Test
+    @DisplayName("should correctly identify happy messages")
+    void shouldFindHappyMessages() {
+        MoodService.filterMessagesForMoods(publisher, subscriber);
+        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so happy today"));
+
+        verify(subscriber).onNext("HAPPY");
+    }
+
+    @Test
+    @DisplayName("should correctly identify happy messages that are not lower case")
+    void shouldIdentifyThoseThatAreNotLowerCase() {
+        MoodService.filterMessagesForMoods(publisher, subscriber);
+        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so Awesome today"));
+
+        verify(subscriber).onNext("HAPPY");
+    }
+
+    @Test
+    @DisplayName("should correctly identify sad messages")
+    void ShouldIdentifySadMessages() {
+        MoodService.filterMessagesForMoods(publisher, subscriber);
+        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so sad today"));
+
+        verify(subscriber).onNext("SAD");
+    }
+
+    @Test
+    @DisplayName("should correctly identify mixed messages")
+    void shouldIdentifyMixedMessages() {
+        MoodService.filterMessagesForMoods(publisher, subscriber);
+        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so sad today it almost makes me happy"));
+        verify(subscriber).onNext("SAD");
+        verify(subscriber).onNext("HAPPY");
+    }
+
+    @Test
+    @DisplayName("should correctly identify mixed messages with multiple moods")
+    void shouldIdentifyMultipleMoods() {
+        MoodService.filterMessagesForMoods(publisher, subscriber);
+        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "Yesterday I was sad sad sad, but today is awesome"));
+        verify(subscriber, times(3)).onNext("SAD");
+        verify(subscriber).onNext("HAPPY");
+    }
+
+    @Test
+    @DisplayName("should not have any mood for messages that are neither happy or sad")
+    void shouldNotHaveMoodsForOtherMessages() {
+        MoodService.filterMessagesForMoods(publisher, subscriber);
+        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I don't care"));
+
+        verify(subscriber, never()).onNext(any());
+    }
 
     private void setMockSubscriberToRequestAll() {
         doAnswer(invocation -> {

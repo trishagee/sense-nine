@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Flow;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Function;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
@@ -15,20 +14,19 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static java.util.logging.Logger.getLogger;
 
 @javax.websocket.ClientEndpoint
-public class ClientEndpoint {
+public class ClientEndpoint implements Flow.Publisher<String> {
     private static final Logger LOGGER = getLogger(ClientEndpoint.class.getName());
 
     private final List<Subscription> subscriptions = new CopyOnWriteArrayList<>();
     private final URI serverEndpoint;
-    private final Function<String, String> messageHandler;
     private Session session;
 
-    public ClientEndpoint(String serverEndpoint, Function<String, String> messageHandler) {
+    public ClientEndpoint(String serverEndpoint) {
         this.serverEndpoint = URI.create(serverEndpoint);
-        this.messageHandler = messageHandler;
         connect();
     }
 
+    @Override
     public void subscribe(Flow.Subscriber<? super String> subscriber) {
         Subscription subscription = new Subscription(subscriber);
         subscriber.onSubscribe(subscription);
@@ -36,9 +34,8 @@ public class ClientEndpoint {
     }
 
     @OnMessage
-    public void onWebSocketText(String input) throws IOException {
-        String output = messageHandler.apply(input);
-        subscriptions.forEach(subscription -> subscription.onNext(output));
+    public void onWebSocketText(String message) throws IOException {
+        subscriptions.forEach(subscription -> subscription.onNext(message));
     }
 
     @OnError

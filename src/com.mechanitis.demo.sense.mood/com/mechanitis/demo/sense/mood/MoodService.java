@@ -3,8 +3,13 @@ package com.mechanitis.demo.sense.mood;
 import com.mechanitis.demo.sense.service.Service;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.concurrent.Flow.Publisher;
+import java.util.concurrent.Flow.Subscriber;
+
+import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.toPublisher;
+import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.toSubscriber;
+import static io.reactivex.Flowable.fromArray;
+import static io.reactivex.Flowable.fromPublisher;
 
 @SuppressWarnings("ConstantConditions")
 class MoodService implements Runnable {
@@ -17,16 +22,15 @@ class MoodService implements Runnable {
                 MoodService::filterMessagesForMoods);
     }
 
-    static String filterMessagesForMoods(String s) {
-        return Stream.of(s)
+    static void filterMessagesForMoods(Publisher<String> stringPublisher, Subscriber<String> stringSubscriber) {
+        fromPublisher(toPublisher(stringPublisher))
                 .map(MoodService::getTweetMessageFrom)
-                .flatMap(s1 -> Stream.of(splitMessageIntoWords(s1)))
+                .flatMap(s1 -> fromArray(splitMessageIntoWords(s1)), 1)
                 .map(String::toLowerCase)
                 .map(MoodAnalyser::getMood)
                 .filter(Optional::isPresent)
-                .distinct()
                 .map(mood -> mood.get().name())
-                .collect(Collectors.joining(","));
+                .subscribe(toSubscriber(stringSubscriber));
     }
 
     private static String[] splitMessageIntoWords(String s) {
