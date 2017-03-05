@@ -5,6 +5,7 @@ module com.mechanitis.demo.sense.twitter {
     requires java.logging;
 
     requires jetty.http;
+    requires rxjava;
 
 
     exports com.mechanitis.demo.sense.twitter;

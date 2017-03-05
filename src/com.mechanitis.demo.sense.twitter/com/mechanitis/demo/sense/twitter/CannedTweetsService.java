@@ -1,15 +1,15 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
+import io.reactivex.Flowable;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import static java.lang.String.format;
-import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.logging.Level.WARNING;
@@ -31,13 +31,14 @@ public class CannedTweetsService implements Runnable {
 
     @Override
     public void run() {
-        LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
+        LOGGER.fine(
+                () -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
 
-        try (Stream<String> lines = lines(filePath)) {
-            lines.filter(s -> !s.equals("OK"))
-                 .peek(s -> this.addArtificialDelay())
-                 .forEach(tweetsEndpoint::onNext);
-
+        try {
+            Flowable.fromIterable(Files.readAllLines(filePath))
+                    .filter(s -> !s.equals("OK"))
+                    .doOnNext(s -> this.addArtificialDelay())
+                    .forEach(tweetsEndpoint::onNext);
         } catch (IOException e) {
             //TODO: do some error handling here!!!
             LOGGER.severe(e::getMessage);
