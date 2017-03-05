@@ -1,10 +1,13 @@
 package com.mechanitis.demo.sense.mood;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.reactivestreams.Subscription;
 
 import java.util.concurrent.Flow;
 
+import static java.lang.String.format;
 import static org.mockito.Mockito.*;
 
 @SuppressWarnings("unchecked")
