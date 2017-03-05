@@ -2,9 +2,7 @@ package com.mechanitis.demo.sense.mood;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 import static com.mechanitis.demo.sense.mood.Mood.HAPPY;
 import static com.mechanitis.demo.sense.mood.Mood.SAD;
@@ -34,15 +32,8 @@ class MoodAnalyser {
     private MoodAnalyser() {
     }
 
-    static String analyseMood(String messageBody) {
-        String[] wordsInMessage = messageBody.split("\\s");
-        return Stream.of(wordsInMessage)
-                     .map(String::toLowerCase)
-                     .map(WORD_TO_MOOD::get)
-                     .filter(Objects::nonNull)
-                     .distinct()
-                     .map(Enum::name)
-                     .collect(Collectors.joining(","));
+    static Optional<Mood> getMood(String key) {
+        return Optional.ofNullable(WORD_TO_MOOD.get(key));
     }
 
 }
