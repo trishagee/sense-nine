@@ -31,8 +31,7 @@ public class HappinessChartData implements Flow.Subscriber<String> {
 
     @Override
     public void onNext(String message) {
-        TweetMood mood = MoodsParser.parse(message);
-        if (mood.isHappy()) {
+        if (message.equals("HAPPY")) {
             int x = now().getMinute();
 
             Integer dataIndex = minuteToDataPosition.get(x);

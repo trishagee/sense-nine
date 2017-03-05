@@ -23,18 +23,13 @@ public class MoodChartData implements Flow.Subscriber<String> {
     }
 
     @Override
-    public void onNext(String moodAsCsv) {
-        TweetMood mood = MoodsParser.parse(moodAsCsv);
-        if (mood.isSad()) {
+    public void onNext(String mood) {
+        if (mood.equals("SAD")) {
             incrementPie(sadPortion);
         }
-        if (mood.isHappy()) {
+        if (mood.equals("HAPPY")) {
             incrementPie(happyPortion);
         }
-        if (mood.isConfused()) {
-            incrementPie(confusedPortion);
-        }
-
     }
 
     @Override
