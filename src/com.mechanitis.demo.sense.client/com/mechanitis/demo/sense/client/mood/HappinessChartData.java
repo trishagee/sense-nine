@@ -25,9 +25,8 @@ public class HappinessChartData implements MessageListener {
     }
 
     @Override
-    public void onMessage(String message) {
-        TweetMood mood = MoodsParser.parse(message);
-        if (mood.isHappy()) {
+    public void onMessage(String mood) {
+        if (mood.equals("HAPPY")) {
             int x = now().getMinute();
 
             Integer dataIndex = minuteToDataPosition.get(x);

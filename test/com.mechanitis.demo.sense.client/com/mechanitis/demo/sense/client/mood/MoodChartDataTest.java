@@ -1,5 +1,8 @@
 package com.mechanitis.demo.sense.client.mood;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 class MoodChartDataTest {
 //    @Test
 //    @DisplayName("should increment happy slice")

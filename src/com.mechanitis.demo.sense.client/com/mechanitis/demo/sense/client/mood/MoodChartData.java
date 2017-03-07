@@ -17,15 +17,14 @@ public class MoodChartData implements MessageListener {
     }
 
     @Override
-    public void onMessage(String moodAsCsv) {
-        TweetMood mood = MoodsParser.parse(moodAsCsv);
-        if (mood.isSad()) {
+    public void onMessage(String mood) {
+        if (mood.equals("SAD")) {
             incrementPie(sadPortion);
         }
-        if (mood.isHappy()) {
+        if (mood.equals("HAPPY")) {
             incrementPie(happyPortion);
         }
-        if (mood.isConfused()) {
+        if (mood.equals("HAPPY,SAD")) {
             incrementPie(confusedPortion);
         }
 
