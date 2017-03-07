@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 import static javafx.collections.FXCollections.observableArrayList;
 
 public class LeaderboardData implements MessageListener {
-    private static final int NUMBER_OF_LEADERS = 17;
+    private static final int NUMBER_OF_LEADERS = 14;
     private final Map<String, TwitterUser> allTwitterUsers = new HashMap<>();
     private final ObservableList<TwitterUser> items = observableArrayList();
 

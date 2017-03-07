@@ -31,7 +31,7 @@ public class Dashboard extends Application {
         // initialise the UI
         FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/dashboard.fxml"));
         primaryStage.setTitle("Twitter Dashboard");
-        Scene scene = new Scene(loader.load(), 800, 800);
+        Scene scene = new Scene(loader.load(), 1000, 800);
         scene.getStylesheets().add(getClass().getResource("resources/dashboard.css").toString());
 
         // wire up the models to the controllers
