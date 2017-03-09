@@ -9,8 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static java.util.function.Function.identity;
-
 public class Dashboard extends Application {
 
     @Override
@@ -21,12 +19,12 @@ public class Dashboard extends Application {
         HappinessChartData happinessChartData = new HappinessChartData();
 
         // wire up the models to the services they're getting the data from
-        ClientEndpoint userEndpoint = new ClientEndpoint("ws://localhost:8083/users/", identity());
-        userEndpoint.addListener(leaderboardData);
+        ClientEndpoint userEndpoint = new ClientEndpoint("ws://localhost:8083/users/");
+        userEndpoint.subscribe(leaderboardData);
 
-        ClientEndpoint moodEndpoint = new ClientEndpoint("ws://localhost:8082/moods/", identity());
-        moodEndpoint.addListener(moodChartData);
-        moodEndpoint.addListener(happinessChartData);
+        ClientEndpoint moodEndpoint = new ClientEndpoint("ws://localhost:8082/moods/");
+        moodEndpoint.subscribe(moodChartData);
+        moodEndpoint.subscribe(happinessChartData);
 
         // initialise the UI
         FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/dashboard.fxml"));

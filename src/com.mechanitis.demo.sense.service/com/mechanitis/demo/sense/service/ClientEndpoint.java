@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.Function;
+import java.util.concurrent.Flow;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
@@ -13,28 +14,29 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static java.util.logging.Logger.getLogger;
 
 @javax.websocket.ClientEndpoint
-public class ClientEndpoint {
+public class ClientEndpoint implements Flow.Publisher<String> {
     private static final Logger LOGGER = getLogger(ClientEndpoint.class.getName());
 
-    private final List<MessageListener> listeners = new CopyOnWriteArrayList<>();
+    private final List<Subscription> subscriptions = new CopyOnWriteArrayList<>();
     private final URI serverEndpoint;
-    private final Function<String, String> messageHandler;
     private Session session;
 
-    public ClientEndpoint(String serverEndpoint, Function<String, String> messageHandler) {
+    public ClientEndpoint(String serverEndpoint) {
         this.serverEndpoint = URI.create(serverEndpoint);
-        this.messageHandler = messageHandler;
         connect();
     }
 
-    public void addListener(MessageListener listener) {
-        listeners.add(listener);
+    public void subscribe(Flow.Subscriber<? super String> subscriber) {
+        Subscription subscription = new Subscription(subscriber);
+        subscriber.onSubscribe(subscription);
+
+
+        subscriptions.add(subscription);
     }
 
     @OnMessage
-    public void onWebSocketText(String input) throws IOException {
-        String output = messageHandler.apply(input);
-        listeners.forEach(messageListener -> messageListener.onMessage(output));
+    public void onWebSocketText(String message) throws IOException {
+        subscriptions.forEach(subscription -> subscription.onNext(message));
     }
 
     @OnError
@@ -58,7 +60,7 @@ public class ClientEndpoint {
             LOGGER.info(() -> "Connected to: " + serverEndpoint);
         } catch (DeploymentException | IOException e) {
             LOGGER.warning(() -> format("Error connecting to %s: %s",
-                            serverEndpoint, e.getMessage()));
+                    serverEndpoint, e.getMessage()));
         }
     }
 
@@ -78,6 +80,31 @@ public class ClientEndpoint {
             connect();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class Subscription implements Flow.Subscription {
+        private Flow.Subscriber<? super String> subscriber;
+        private AtomicLong n = new AtomicLong(0);
+
+        public Subscription(Flow.Subscriber<? super String> subscriber) {
+            this.subscriber = subscriber;
+        }
+
+        @Override
+        public void request(long n) {
+            this.n = new AtomicLong(n);
+        }
+
+        @Override
+        public void cancel() {
+            this.n.set(0);
+        }
+
+        public void onNext(String message) {
+            if (n.getAndDecrement() > 0) {
+                subscriber.onNext(message);
+            }
         }
     }
 }

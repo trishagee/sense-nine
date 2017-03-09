@@ -28,7 +28,7 @@ class BroadcastingServerEndpointTest {
         String message = "Some Message";
 
         // when:
-        endpoint.onMessage(message);
+        endpoint.onNext(message);
 
         // then:
         assertAll(() -> verify(remoteEndpoint1).sendText(message),
@@ -46,7 +46,7 @@ class BroadcastingServerEndpointTest {
         Session session = createMockSession("session");
 
         // when:
-        endpoint.onMessage("Some Tweet");
+        endpoint.onNext("Some Tweet");
 
         // then:
         assertAll(() -> verify(session, never()).getAsyncRemote(),

@@ -1,13 +1,16 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
+import io.reactivex.Flowable;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.*;
 import static java.lang.String.format;
 import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
@@ -32,11 +35,13 @@ public class CannedTweetsService implements Runnable {
     @Override
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
+        Flowable<Long> tick = Flowable.interval(100, MILLISECONDS);
 
-        try (Stream<String> lines = lines(filePath)) {
-            lines.filter(s -> !s.equals("OK"))
-                 .peek(s -> this.addArtificialDelay())
-                 .forEach(tweetsEndpoint::onMessage);
+        try {
+            Flowable.fromIterable(Files.readAllLines(filePath))
+                    .filter(s -> !s.equals("OK"))
+                    .zipWith(tick, (s, aLong) -> s)
+                    .subscribe(toSubscriber(tweetsEndpoint));
 
         } catch (IOException e) {
             //TODO: do some error handling here!!!

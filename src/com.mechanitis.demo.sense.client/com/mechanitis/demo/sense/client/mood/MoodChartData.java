@@ -4,9 +4,11 @@ import com.mechanitis.demo.sense.service.MessageListener;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
+import java.util.concurrent.Flow;
+
 import static javafx.collections.FXCollections.observableArrayList;
 
-public class MoodChartData implements MessageListener {
+public class MoodChartData implements Flow.Subscriber<String> {
     private final PieChart.Data sadPortion = new PieChart.Data("Sad", 0);
     private final PieChart.Data happyPortion = new PieChart.Data("Happy", 0);
     private final PieChart.Data confusedPortion = new PieChart.Data("Errr...", 0);
@@ -17,7 +19,12 @@ public class MoodChartData implements MessageListener {
     }
 
     @Override
-    public void onMessage(String mood) {
+    public void onSubscribe(Flow.Subscription subscription) {
+        subscription.request(Long.MAX_VALUE);
+    }
+
+    @Override
+    public void onNext(String mood) {
         if (mood.equals("SAD")) {
             incrementPie(sadPortion);
         }
@@ -27,6 +34,16 @@ public class MoodChartData implements MessageListener {
         if (mood.equals("HAPPY,SAD")) {
             incrementPie(confusedPortion);
         }
+
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onComplete() {
 
     }
 

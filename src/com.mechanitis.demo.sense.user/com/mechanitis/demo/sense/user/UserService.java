@@ -1,6 +1,10 @@
 package com.mechanitis.demo.sense.user;
 
 import com.mechanitis.demo.sense.service.Service;
+import io.reactivex.Flowable;
+
+import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.*;
+import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.*;
 
 public class UserService implements Runnable {
     private static final int PORT = 8083;
@@ -8,7 +12,9 @@ public class UserService implements Runnable {
 
     private UserService() {
         service = new Service("ws://localhost:8081/tweets/", "/users/", PORT,
-                              UserService::getTwitterHandleFromTweet);
+                (publisher, subscriber) -> Flowable.fromPublisher(toPublisher(publisher))
+                        .map(UserService::getTwitterHandleFromTweet)
+                        .subscribe(toSubscriber(subscriber)));
     }
 
     @Override

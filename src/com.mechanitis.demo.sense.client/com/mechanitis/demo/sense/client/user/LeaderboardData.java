@@ -5,12 +5,13 @@ import javafx.collections.ObservableList;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Flow;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import static javafx.collections.FXCollections.observableArrayList;
 
-public class LeaderboardData implements MessageListener {
+public class LeaderboardData implements MessageListener, Flow.Subscriber<String> {
     private static final int NUMBER_OF_LEADERS = 14;
     private final Map<String, TwitterUser> allTwitterUsers = new HashMap<>();
     private final ObservableList<TwitterUser> items = observableArrayList();
@@ -27,7 +28,12 @@ public class LeaderboardData implements MessageListener {
     }
 
     @Override
-    public void onMessage(String twitterHandle) {
+    public void onSubscribe(Flow.Subscription subscription) {
+        subscription.request(Long.MAX_VALUE);
+    }
+
+    @Override
+    public void onNext(String twitterHandle) {
         TwitterUser currentUser = allTwitterUsers.computeIfAbsent(twitterHandle, TwitterUser::new);
         int numberOfTweets = currentUser.incrementCount();
 
@@ -41,10 +47,20 @@ public class LeaderboardData implements MessageListener {
         }
     }
 
+    @Override
+    public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
+
     private int findPositionForUser(TwitterUser currentUser) {
         AtomicInteger positionForNewUser = new AtomicInteger(0);
         items.stream()
-                .filter(user ->
+                .dropWhile(user ->
                         user.getTweetCount() >= currentUser.getTweetCount())
                 .forEach(user -> positionForNewUser.incrementAndGet());
         return positionForNewUser.get();
