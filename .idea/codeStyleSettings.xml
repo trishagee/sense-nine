@@ -6,6 +6,7 @@
         <option name="RIGHT_MARGIN" value="100" />
         <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
         <codeStyleSettings language="JAVA">
+          <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
           <option name="CALL_PARAMETERS_WRAP" value="1" />
         </codeStyleSettings>
       </value>
