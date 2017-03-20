@@ -8,13 +8,14 @@ import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static com.mechanitis.demo.sense.service.ServiceFixture.connectAndWaitForSuccess;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class CannedTweetsServiceTest {
-    private final ExecutorService executor = Executors.newFixedThreadPool(5);
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Test
     void shouldMessageClientsWithTweetsReceived() throws Exception {
@@ -39,7 +40,9 @@ class CannedTweetsServiceTest {
         executor.submit(service);
 
         service.stop();
-        assertThat("Should actually reach this and not wait forever", true, is(true));
+        executor.shutdown();
+        boolean success = executor.awaitTermination(10, TimeUnit.SECONDS);
+        assertThat("Should shut down and not timeout", success, is(true));
     }
 
 }
