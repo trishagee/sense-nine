@@ -20,12 +20,10 @@ public class ClientEndpoint implements Flow.Publisher<String> {
 
     private final List<Subscription> subscriptions = new CopyOnWriteArrayList<>();
     private final URI serverEndpoint;
-    private final Function<String, String> messageHandler;
     private Session session;
 
-    public ClientEndpoint(String serverEndpoint, Function<String, String> messageHandler) {
+    public ClientEndpoint(String serverEndpoint) {
         this.serverEndpoint = URI.create(serverEndpoint);
-        this.messageHandler = messageHandler;
         connect();
     }
 
@@ -38,9 +36,8 @@ public class ClientEndpoint implements Flow.Publisher<String> {
     }
 
     @OnMessage
-    public void onWebSocketText(String input) throws IOException {
-        String output = messageHandler.apply(input);
-        subscriptions.forEach(subscription -> subscription.onNext(output));
+    public void onWebSocketText(String message) throws IOException {
+        subscriptions.forEach(subscription -> subscription.onNext(message));
     }
 
     @OnError
