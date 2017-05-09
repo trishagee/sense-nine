@@ -36,7 +36,7 @@ public class CannedTweetsService implements Runnable {
         try (Stream<String> lines = lines(filePath)) {
             lines.filter(s -> !s.equals("OK"))
                  .peek(s -> this.addArtificialDelay())
-                 .forEach(tweetsEndpoint::onMessage);
+                 .forEach(tweetsEndpoint::onNext);
 
         } catch (IOException e) {
             //TODO: do some error handling here!!!

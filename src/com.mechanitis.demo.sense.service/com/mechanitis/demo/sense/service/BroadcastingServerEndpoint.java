@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Flow;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 import static java.util.logging.Logger.getLogger;
 
-public class BroadcastingServerEndpoint extends Endpoint implements MessageListener {
+public class BroadcastingServerEndpoint extends Endpoint implements Flow.Subscriber<String> {
     private static final Logger LOGGER = getLogger(BroadcastingServerEndpoint.class.getName());
     private final List<Session> sessions = new CopyOnWriteArrayList<>();
     private final ExecutorService executor = newSingleThreadExecutor();
@@ -35,11 +36,26 @@ public class BroadcastingServerEndpoint extends Endpoint implements MessageListe
     }
 
     @Override
-    public void onMessage(String message) {
+    public void onSubscribe(Flow.Subscription subscription) {
+        subscription.request(Long.MAX_VALUE);
+    }
+
+    @Override
+    public void onNext(String message) {
         LOGGER.fine(() -> "Endpoint received: " + message);
         sessions.stream()
                 .filter(Session::isOpen)
                 .forEach(session -> sendMessageToClient(message, session));
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        //TODO error handling
+    }
+
+    @Override
+    public void onComplete() {
+        close();
     }
 
     private void sendMessageToClient(String message, Session session) {

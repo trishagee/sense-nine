@@ -30,7 +30,7 @@ class CannedTweetsServiceTest {
         assertThat("Client endpoint should have received a message", success, is(true));
 
         // finally
-        service.stop();
+//        service.stop();
     }
 
     @Test
