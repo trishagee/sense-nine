@@ -1,6 +1,7 @@
 package com.mechanitis.demo.sense.service;
 
 import java.util.concurrent.Flow;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class Service implements Runnable {
@@ -8,18 +9,29 @@ public class Service implements Runnable {
 
     private final Flow.Subscriber<String> subscriber;
     private final Flow.Publisher<String> publisher;
+    private final BiConsumer<Flow.Publisher<String>, Flow.Subscriber<String>> businessLogic;
+
+    public Service(String endpointToConnectTo, String serviceEndpointPath, int servicePort,
+                   BiConsumer<Flow.Publisher<String>, Flow.Subscriber<String>> businessLogic) {
+        this.businessLogic = businessLogic;
+        subscriber = new BroadcastingServerEndpoint(serviceEndpointPath, servicePort);
+        publisher = new ClientEndpoint(endpointToConnectTo);
+    }
 
     public Service(String endpointToConnectTo, String serviceEndpointPath, int servicePort,
                    Function<String, String> mapper) {
         subscriber = new BroadcastingServerEndpoint(serviceEndpointPath, servicePort);
+        publisher = new ClientEndpoint(endpointToConnectTo);
         Flow.Processor<String, String> processor = new StringMapperProcessor(mapper);
-        new ClientEndpoint(endpointToConnectTo).subscribe(processor);
-        this.publisher = processor;
+        businessLogic = (stringPublisher, stringSubscriber) -> {
+            stringPublisher.subscribe(processor);
+            processor.subscribe(stringSubscriber);
+        };
     }
 
     @Override
     public void run() {
-        publisher.subscribe(subscriber);
+        businessLogic.accept(publisher, subscriber);
     }
 
 }

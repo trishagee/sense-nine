@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.service" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.flow" />
+    <orderEntry type="library" name="io.projectreactor:reactor-core:3.0.7.RELEASE" level="project" />
   </component>
 </module>

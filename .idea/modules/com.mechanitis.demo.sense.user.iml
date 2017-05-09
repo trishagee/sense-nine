@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.service" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.flow" />
+    <orderEntry type="library" name="io.reactivex.rxjava2:rxjava:2.0.6" level="project" />
   </component>
 </module>
