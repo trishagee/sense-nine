@@ -35,7 +35,7 @@ public class SubscriberFromFlowAdaptor<T> implements org.reactivestreams.Subscri
         delegate.onComplete();
     }
 
-    public static <T>Subscriber<T> toSubscriber(Flow.Subscriber<T> subscriber) {
+    public static <T>Subscriber<T> adapt(Flow.Subscriber<T> subscriber) {
         return new SubscriberFromFlowAdaptor<>(subscriber);
     }
 }

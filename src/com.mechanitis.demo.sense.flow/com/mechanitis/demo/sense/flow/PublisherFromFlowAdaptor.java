@@ -19,7 +19,7 @@ public class PublisherFromFlowAdaptor<T> implements Publisher<T> {
         delegate.subscribe(new SubscriberToFlowAdaptor<>(s));
     }
 
-    public static <T> Publisher<T> toPublisher(Flow.Publisher<T> delegate) {
+    public static <T> Publisher<T> adapt(Flow.Publisher<T> delegate) {
         return new PublisherFromFlowAdaptor<>(delegate);
     }
 
