@@ -9,6 +9,5 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.service" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.flow" />
-    <orderEntry type="library" name="org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120" level="project" />
   </component>
 </module>

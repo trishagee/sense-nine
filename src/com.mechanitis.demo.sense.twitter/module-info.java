@@ -4,8 +4,5 @@ module com.mechanitis.demo.sense.twitter {
 
     requires java.logging;
 
-    requires jetty.http;
-
-
     exports com.mechanitis.demo.sense.twitter;
 }
