@@ -2,8 +2,9 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../src/com.mechanitis.demo.sense.user">
-      <sourceFolder url="file://$MODULE_DIR$/../../src/com.mechanitis.demo.sense.user" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.user">
+      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.user/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.user/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

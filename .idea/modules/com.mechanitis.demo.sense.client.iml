@@ -2,11 +2,13 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../src/com.mechanitis.demo.sense.client">
-      <sourceFolder url="file://$MODULE_DIR$/../../src/com.mechanitis.demo.sense.client" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.client">
+      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.client/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.client/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.service" />
+    <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.0.0-M4" level="project" />
   </component>
 </module>

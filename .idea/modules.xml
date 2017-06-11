@@ -8,12 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.service.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.twitter.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.twitter.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.user.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.user.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dashboard-test.iml" filepath="$PROJECT_DIR$/.idea/modules/dashboard-test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mood-test.iml" filepath="$PROJECT_DIR$/.idea/modules/mood-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/sense-nine.iml" filepath="$PROJECT_DIR$/sense-nine.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/service-test.iml" filepath="$PROJECT_DIR$/.idea/modules/service-test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/twitter-test.iml" filepath="$PROJECT_DIR$/.idea/modules/twitter-test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-test.iml" filepath="$PROJECT_DIR$/.idea/modules/user-test.iml" />
     </modules>
   </component>
 </project>
