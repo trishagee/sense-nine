@@ -1,28 +1,18 @@
 package com.mechanitis.demo.sense.mood;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.reactivestreams.Subscription;
-
-import java.util.concurrent.Flow;
-
-import static java.lang.String.format;
-import static org.mockito.Mockito.*;
-
 @SuppressWarnings("unchecked")
 class MoodServiceTest {
     private static final String TWITTER_MESSAGE_TEMPLATE = "tweet = {\"created_at\":\"Tue Jan 27 12:37:11 +0000 2015\"," +
-                                                           "\"id\":560053908144275456,\"id_str\":\"560053908144275456\"," +
-                                                           "\"text\":\"%s\",\"source\":\"twitter\"}";
-    private final Flow.Subscriber<String> subscriber = mock(Flow.Subscriber.class);
-    private final StubPub publisher = new StubPub();
-
-    @BeforeEach
-    void setup() {
-        setMockSubscriberToRequestAll();
-    }
-
+            "\"id\":560053908144275456,\"id_str\":\"560053908144275456\"," +
+            "\"text\":\"%s\",\"source\":\"twitter\"}";
+//    private final Flow.Subscriber<String> subscriber = mock(Flow.Subscriber.class);
+//    private final StubPub publisher = new StubPub();
+//
+//    @BeforeEach
+//    void setup() {
+//        setMockSubscriberToRequestAll();
+//    }
+//
 //    @Test
 //    @DisplayName("should correctly identify happy messages")
 //    void shouldFindHappyMessages() {
@@ -76,26 +66,26 @@ class MoodServiceTest {
 //
 //        verify(subscriber, never()).onNext(any());
 //    }
-
-    private void setMockSubscriberToRequestAll() {
-        doAnswer(invocation -> {
-            invocation.<Subscription>getArgument(0).request(Long.MAX_VALUE);
-            return null;
-        }).when(subscriber).onSubscribe(any());
-    }
-
-    private class StubPub implements Flow.Publisher<String> {
-        private Flow.Subscriber<? super String> subscriber;
-
-        @Override
-        public void subscribe(Flow.Subscriber<? super String> subscriber) {
-            this.subscriber = subscriber;
-            subscriber.onSubscribe(mock(Flow.Subscription.class));
-        }
-
-        private void publishSingleItem(String input) {
-            subscriber.onNext(input);
-        }
-    }
+//
+//    private void setMockSubscriberToRequestAll() {
+//        doAnswer(invocation -> {
+//            invocation.<Subscription>getArgument(0).request(Long.MAX_VALUE);
+//            return null;
+//        }).when(subscriber).onSubscribe(any());
+//    }
+//
+//    private class StubPub implements Flow.Publisher<String> {
+//        private Flow.Subscriber<? super String> subscriber;
+//
+//        @Override
+//        public void subscribe(Flow.Subscriber<? super String> subscriber) {
+//            this.subscriber = subscriber;
+//            subscriber.onSubscribe(mock(Flow.Subscription.class));
+//        }
+//
+//        private void publishSingleItem(String input) {
+//            subscriber.onNext(input);
+//        }
+//    }
 
 }

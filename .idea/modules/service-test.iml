@@ -12,5 +12,6 @@
     <orderEntry type="library" scope="TEST" name="org.mockito:mockito-core:2.7.9" level="project" />
     <orderEntry type="library" scope="TEST" name="org.reactivestreams:reactive-streams:1.0.0" level="project" />
     <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.0.0-M4" level="project" />
+    <orderEntry type="library" name="org.mockito:mockito-core:2.8.9" level="project" />
   </component>
 </module>

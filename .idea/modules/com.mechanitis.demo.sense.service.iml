@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="org.mockito:mockito-core:2.8.9" level="project" />
   </component>
 </module>
