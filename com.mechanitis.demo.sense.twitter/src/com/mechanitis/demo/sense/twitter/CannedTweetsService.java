@@ -24,6 +24,7 @@ public class CannedTweetsService implements Runnable {
     private final BroadcastingServerEndpoint tweetsEndpoint
             = new BroadcastingServerEndpoint("/tweets/", 8081);
     private final Path filePath;
+    private boolean running = true;
 
     CannedTweetsService(Path filePath) {
         this.filePath = filePath;
@@ -35,6 +36,7 @@ public class CannedTweetsService implements Runnable {
 
         try (Stream<String> lines = lines(filePath)) {
             lines.filter(s -> !s.equals("OK"))
+                    .takeWhile(s -> running)
                  .peek(s -> this.addArtificialDelay())
                  .forEach(tweetsEndpoint::onNext);
 
@@ -59,6 +61,7 @@ public class CannedTweetsService implements Runnable {
     }
 
     void stop() {
+        running = false;
         tweetsEndpoint.close();
     }
 }
