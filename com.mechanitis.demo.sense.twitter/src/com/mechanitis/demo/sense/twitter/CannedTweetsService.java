@@ -1,6 +1,7 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
+import io.reactivex.Flowable;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -32,10 +33,13 @@ public class CannedTweetsService implements Runnable {
     @Override
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
+        Flowable<Long> tick = Flowable.interval(100, MILLISECONDS);
 
         try (Stream<String> lines = lines(filePath)) {
             lines.filter(s -> !s.equals("OK"))
                  .peek(s -> this.addArtificialDelay())
+                    .dropWhile(s -> s.startsWith("1"))
+                    .takeWhile(s -> !s.startsWith("9"))
                  .forEach(tweetsEndpoint::onNext);
 
         } catch (IOException e) {

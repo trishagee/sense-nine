@@ -50,7 +50,6 @@ public class BroadcastingServerEndpoint extends Endpoint implements Flow.Subscri
 
     @Override
     public void onError(Throwable throwable) {
-        //TODO error handling
     }
 
     @Override

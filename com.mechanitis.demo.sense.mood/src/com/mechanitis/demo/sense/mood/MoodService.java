@@ -1,10 +1,15 @@
 package com.mechanitis.demo.sense.mood;
 
 import com.mechanitis.demo.sense.service.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.Optional;
+import java.util.concurrent.Flow;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor.adapt;
+import static com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor.adapt;
 
 @SuppressWarnings("ConstantConditions")
 class MoodService implements Runnable {
@@ -14,7 +19,18 @@ class MoodService implements Runnable {
 
     private MoodService() {
         service = new Service("ws://localhost:8081/tweets/", "/moods/", PORT,
-                MoodService::filterMessagesForMoods);
+                (publisher, stringSubscriber) -> findMoodForMessage(publisher, stringSubscriber));
+    }
+
+    private void findMoodForMessage(Flow.Publisher<String> publisher, Flow.Subscriber<String> subscriber) {
+        Flux.from(adapt(publisher))
+                .map(MoodService::getTweetMessageFrom)
+                .flatMap(s1 -> Flux.fromArray(splitMessageIntoWords(s1)), 1)
+                .map(String::toLowerCase)
+                .map(MoodAnalyser::getMood)
+                .filter(Optional::isPresent)
+                .map(mood -> mood.get().name())
+                .subscribe(adapt(subscriber));
     }
 
     static String filterMessagesForMoods(String s) {
