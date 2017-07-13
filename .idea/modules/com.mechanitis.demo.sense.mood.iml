@@ -12,6 +12,6 @@
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.flow" />
     <orderEntry type="library" name="io.projectreactor:reactor-core:3.0.7.RELEASE" level="project" />
     <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.0.0-M4" level="project" />
-    <orderEntry type="library" name="org.mockito:mockito-core:2.8.9" level="project" />
+    <orderEntry type="library" name="org.mockito:mockito-core:2.8.47" level="project" />
   </component>
 </module>

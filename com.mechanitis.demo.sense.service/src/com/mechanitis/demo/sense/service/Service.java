@@ -34,4 +34,9 @@ public class Service implements Runnable {
         businessLogic.accept(publisher, subscriber);
     }
 
+    public static void main(String[] args) {
+        Service service = new Service("ws://localhost:8081/tweets/", "/users/", 8083,
+                Function.identity());
+    }
+
 }
