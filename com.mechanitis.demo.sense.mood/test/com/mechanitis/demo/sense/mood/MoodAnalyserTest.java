@@ -2,6 +2,8 @@ package com.mechanitis.demo.sense.mood;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static com.mechanitis.demo.sense.mood.MoodService.filterMessagesForMoods;
 import static java.lang.String.format;
@@ -13,25 +15,14 @@ class MoodAnalyserTest {
             "\"text\":\"%s\",\"source\":\"twitter\"}";
 
 
-    @Test
-    @DisplayName("should correctly identify happy messages")
-    void shouldFindHappyMessages() {
-//        when:
-        String moodyMessage = filterMessagesForMoods(format(TWITTER_MESSAGE_TEMPLATE,
-                "I am so happy today"));
+    @DisplayName("Should correctly identify happy messages regardless of case")
+    @ParameterizedTest
+    @ValueSource(strings = {"I am so happy today", "I am so Awesome today"})
+    void shouldFindHappyMessages(String message) {
+        // when:
+        String moodyMessage = filterMessagesForMoods(format(TWITTER_MESSAGE_TEMPLATE, message));
 
-//        then:
-        assertEquals("HAPPY", moodyMessage);
-    }
-
-    @Test
-    @DisplayName("should correctly identify happy messages that are not lower case")
-    void shouldIdentifyThoseThatAreNotLowerCase() {
-//        when:
-        String moodyMessage = filterMessagesForMoods(format(TWITTER_MESSAGE_TEMPLATE,
-                "I am so Awesome today"));
-
-//        then:
+        // then:
         assertEquals("HAPPY", moodyMessage);
     }
 
