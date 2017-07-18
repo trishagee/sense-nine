@@ -24,9 +24,9 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-client/9.4.1.v20170120/jetty-client-9.4.1.v20170120.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/websocket/websocket-common/9.4.1.v20170120/websocket-common-9.4.1.v20170120.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/websocket/websocket-api/9.4.1.v20170120/websocket-api-9.4.1.v20170120.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/javax/websocket/javax.websocket-api/1.0/javax.websocket-api-1.0.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/websocket/websocket-server/9.4.1.v20170120/websocket-server-9.4.1.v20170120.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/websocket/websocket-servlet/9.4.1.v20170120/websocket-servlet-9.4.1.v20170120.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/javax/websocket/javax.websocket-api/1.1/javax.websocket-api-1.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
