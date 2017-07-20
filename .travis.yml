@@ -1,0 +1,8 @@
+sudo: false
+dist: trusty
+language: java
+jdk: oraclejdk9
+
+script:
+- chmod u+x build.jsh
+- ./build.jsh
