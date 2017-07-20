@@ -1,3 +1,5 @@
+// default package -- stay compatible with jshell /open command
+
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -10,20 +12,36 @@ import java.util.List;
 import static java.io.File.pathSeparator;
 import static java.util.stream.Collectors.joining;
 
+/**
+ * Build sense-nine project.
+ */
 class Build {
 
+    /**
+     * Entry-point for IDEs and {@code build.jsh}" script.
+     */
     public static void main(String... args) throws Exception {
         new Build().build();
     }
 
+    /**
+     * JShell builder.
+     */
     private Bach bach = new Bach();
 
+    /**
+     * Setup, resolve dependencies, compile, test...
+     */
     private void build() throws IOException {
         System.out.printf("Building [%s] using JShell & Bach%n", bach.project.name);
         bach.project.pathTarget = Paths.get("out", "bach");
 
+        // Copy dependencies from local maven repository or try to download them
+        // from remote repositories.
         resolve(Paths.get(".idea", "libraries"));
 
+        // Call each module compilation manually ordered, because javac built-in
+        // multi-module feature does not like nested "src" or "test" directories.
         compileModule("com.mechanitis.demo.sense.service");
         compileModule("com.mechanitis.demo.sense.flow");
         compileModule("com.mechanitis.demo.sense.mood");
@@ -31,11 +49,15 @@ class Build {
         compileModule("com.mechanitis.demo.sense.twitter");
         compileModule("com.mechanitis.demo.sense.client");
 
-        test(generateClassPath().stream().map(Object::toString).collect(joining(pathSeparator)));
+        // Version of junit-platform-version should match the one used by tests
+        test("1.0.0-M4", generateClassPath(pathSeparator));
     }
 
+    /**
+     * Compile named module, main and test sources.
+     */
     private void compileModule(String name) throws IOException {
-        // main modules (module-path)
+        // Compile (main/application) modules on the module-path.
         Path sourceMain = bach.root.resolve(name + "/src").normalize();
         Path targetMain = bach.project.resolveTargetMods().resolve(name);
         Files.createDirectories(targetMain);
@@ -47,14 +69,13 @@ class Build {
                                                        bach.project.resolveAuxResolved());
                     return javacOptions;
                 });
-        // tests (class-path)
+        // Compile test "modules" on the class-path.
         Path sourceTest = bach.root.resolve(name + "/test").normalize();
         Path targetTest = bach.project.resolveTarget().resolve("test").resolve(name);
         if (Files.notExists(sourceTest)) {
             return;
         }
         Files.createDirectories(targetTest);
-
         bach.javac(
                 javacOptions -> {
                     javacOptions.destinationPath = targetTest;
@@ -64,6 +85,9 @@ class Build {
                 });
     }
 
+    /**
+     * Generate class-path including target test and main directories as well as all deps.
+     */
     private List<Path> generateClassPath() {
         List<Path> classPath = new ArrayList<>();
         try {
@@ -76,6 +100,16 @@ class Build {
         return classPath;
     }
 
+    /**
+     * Generate class-path and return it as a single string for use at the command line.
+     */
+    private String generateClassPath(String delimiter) {
+        return generateClassPath().stream().map(Object::toString).collect(joining(delimiter));
+    }
+
+    /**
+     * Resolve dependencies by loop over all xml files in the specified library directory.
+     */
     private void resolve(Path ideaLibraryDirectory) throws IOException {
         Path mavenRepository = Paths.get(System.getProperty("user.home"), ".m2", "repository");
         System.out.println("Resolving dependencies using local maven repository: " +
@@ -85,6 +119,9 @@ class Build {
                 .forEach(xml -> resolve(mavenRepository, xml));
     }
 
+    /**
+     * Resolve dependencies by scanning the specified IDEA library file.
+     */
     private void resolve(Path mavenRepository, Path ideaLibraryFile) {
         System.out.println("Resolving " + ideaLibraryFile);
         Path resolved = Paths.get(".bach", "resolved");
@@ -128,13 +165,15 @@ class Build {
         }
     }
 
-    private void test(String classPath) throws IOException {
+    /**
+     * Run all tests on the class-path using {@code junit-platform-console-standalone} jar.
+     */
+    private void test(String junitPlatformVersion, String classPath) throws IOException {
         String repo = "http://repo1.maven.org/maven2";
         String user = "org/junit/platform";
         String name = "junit-platform-console-standalone";
-        String version = "1.0.0-M4";
-        String file = name + "-" + version + ".jar";
-        URI uri = URI.create(String.join("/", repo, user, name, version, file));
+        String file = name + "-" + junitPlatformVersion + ".jar";
+        URI uri = URI.create(String.join("/", repo, user, name, junitPlatformVersion, file));
         Path path = Paths.get(".bach/tools").resolve(name);
         Path jar = bach.download(uri, path, file, p -> true);
         bach.call("java", "-ea", "-jar", jar, "--class-path", classPath, "--scan-classpath");
