@@ -615,7 +615,7 @@ class Bach {
     List<Path> classPaths = List.of();
 
     /** Where to find application modules. */
-    List<Path> modulePaths = List.of(project.resolveTargetMods());
+    List<Path> modulePaths = List.of(project.resolveTargetMods(), project.resolveAuxResolved());
 
     /** Initial module to resolve and the name of the main class to execute. */
     @CommandOption("--module")

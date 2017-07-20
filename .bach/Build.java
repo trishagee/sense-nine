@@ -69,6 +69,14 @@ class Build {
                                                        bach.project.resolveAuxResolved());
                     return javacOptions;
                 });
+        // Show module dependencies.
+        bach.jdeps(jdepsOptions -> {
+            jdepsOptions.module = name;
+            jdepsOptions.profile = false;
+            jdepsOptions.recursive = false;
+            jdepsOptions.summary = false;
+            return jdepsOptions;
+        });
         // Compile test "modules" on the class-path.
         Path sourceTest = bach.root.resolve(name + "/test").normalize();
         Path targetTest = bach.project.resolveTarget().resolve("test").resolve(name);
