@@ -1,0 +1,12 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="IntelliJ| 2017.2 Blog Post" />
+    <inspection_tool class="Convert2streamapi" enabled="true" level="INFORMATION" enabled_by_default="true">
+      <option name="REPLACE_TRIVIAL_FOREACH" value="true" />
+      <option name="SUGGEST_FOREACH" value="true" />
+    </inspection_tool>
+    <inspection_tool class="EmptyStatementBody" enabled="false" level="WARNING" enabled_by_default="false">
+      <option name="m_reportEmptyBlocks" value="true" />
+    </inspection_tool>
+  </profile>
+</component>
