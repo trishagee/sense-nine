@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="org.junit.jupiter:junit-jupiter-params:5.0.0-RC2" type="repository">
+    <properties maven-id="org.junit.jupiter:junit-jupiter-params:5.0.0-RC2" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.0.0-RC2/junit-jupiter-params-5.0.0-RC2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.0.0-RC2/junit-jupiter-api-5.0.0-RC2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.0.0-RC1/opentest4j-1.0.0-RC1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.0.0-RC2/junit-platform-commons-1.0.0-RC2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.0.0-RC2/junit-jupiter-params-5.0.0-RC2-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.0.0-RC2/junit-jupiter-api-5.0.0-RC2-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.0.0-RC1/opentest4j-1.0.0-RC1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.0.0-RC2/junit-platform-commons-1.0.0-RC2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.0.0-RC2/junit-jupiter-params-5.0.0-RC2-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.0.0-RC2/junit-jupiter-api-5.0.0-RC2-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.0.0-RC1/opentest4j-1.0.0-RC1-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.0.0-RC2/junit-platform-commons-1.0.0-RC2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
