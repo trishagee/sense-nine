@@ -7,12 +7,12 @@
       fx:controller="com.mechanitis.demo.sense.client.user.LeaderboardController">
     <TableView fx:id="leaders" prefHeight="1000">
         <columns>
-            <TableColumn text="Twitter Handle" prefWidth="300">
+            <TableColumn text="Twitter Handle" prefWidth="250">
                 <cellValueFactory>
                     <PropertyValueFactory property="twitterHandle"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn text="Count" prefWidth="180">
+            <TableColumn text="Count" prefWidth="120">
                 <cellValueFactory>
                     <PropertyValueFactory property="tweetCount"/>
                 </cellValueFactory>

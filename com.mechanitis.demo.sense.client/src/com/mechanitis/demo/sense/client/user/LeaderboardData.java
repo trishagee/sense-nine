@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 import static javafx.collections.FXCollections.observableArrayList;
 
 public class LeaderboardData implements Flow.Subscriber<String> {
-    private static final int NUMBER_OF_LEADERS = 14;
+    private static final int NUMBER_OF_LEADERS = 16;
     private final Map<String, TwitterUser> allTwitterUsers = new HashMap<>();
     private final ObservableList<TwitterUser> items = observableArrayList();
 
@@ -23,7 +23,7 @@ public class LeaderboardData implements Flow.Subscriber<String> {
 
     LeaderboardData(int numberToDisplay) {
         IntStream.range(0, numberToDisplay)
-                .forEach(value -> items.add(new TwitterUser("")));
+                 .forEach(value -> items.add(new TwitterUser("")));
     }
 
     @Override
