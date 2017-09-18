@@ -36,7 +36,7 @@ public class ClientEndpoint implements Flow.Publisher<String> {
     }
 
     @OnMessage
-    public void onWebSocketText(String message) throws IOException {
+    public void onWebSocketText(String message) {
         subscriptions.forEach(subscription -> subscription.onNext(message));
     }
 
@@ -85,8 +85,8 @@ public class ClientEndpoint implements Flow.Publisher<String> {
     }
 
     private class Subscription implements Flow.Subscription {
-        private Flow.Subscriber<? super String> subscriber;
-        private AtomicLong n = new AtomicLong(0);
+        private final Flow.Subscriber<? super String> subscriber;
+        private final AtomicLong n = new AtomicLong(0);
 
         private Subscription(Flow.Subscriber<? super String> subscriber) {
             this.subscriber = subscriber;

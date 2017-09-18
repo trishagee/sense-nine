@@ -4,7 +4,7 @@ import java.util.concurrent.Flow;
 import java.util.function.Function;
 
 class StringMapperProcessor implements Flow.Processor<String, String> {
-    private Function<String, String> mapper;
+    private final Function<String, String> mapper;
     private Flow.Subscriber<? super String> subscriber;
 
     StringMapperProcessor(Function<String, String> mapper) {

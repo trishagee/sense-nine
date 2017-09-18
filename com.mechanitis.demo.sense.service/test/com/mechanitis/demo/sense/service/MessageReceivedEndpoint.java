@@ -2,7 +2,6 @@ package com.mechanitis.demo.sense.service;
 
 import javax.websocket.ClientEndpoint;
 import javax.websocket.*;
-import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.logging.Logger;
 
@@ -11,7 +10,7 @@ import static java.util.logging.Logger.getLogger;
 @ClientEndpoint
 public class MessageReceivedEndpoint {
     private static final Logger LOGGER = getLogger(MessageReceivedEndpoint.class.getName());
-    private CountDownLatch latch;
+    private final CountDownLatch latch;
 
     public MessageReceivedEndpoint(CountDownLatch latch) {
         this.latch = latch;
@@ -23,7 +22,7 @@ public class MessageReceivedEndpoint {
     }
 
     @OnMessage
-    public void onWebSocketText(String message) throws IOException {
+    public void onWebSocketText(String message) {
         latch.countDown();
         LOGGER.fine(() -> "Received TEXT message: " + message);
     }

@@ -21,6 +21,7 @@ public class TwitterUser {
         return twitterHandle.get();
     }
 
+    @SuppressWarnings("unused") // used by JavaFX
     public SimpleStringProperty twitterHandleProperty() {
         return twitterHandle;
     }
@@ -29,6 +30,7 @@ public class TwitterUser {
         return tweetCount.get();
     }
 
+    @SuppressWarnings("unused") // used by JavaFX
     public SimpleIntegerProperty tweetCountProperty() {
         return tweetCount;
     }

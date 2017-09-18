@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
@@ -14,7 +13,7 @@ class BroadcastingServerEndpointTest {
 
     @Test
     @DisplayName("should forward messages to all open sessions")
-    void shouldForwardToAllSessions() throws IOException {
+    void shouldForwardToAllSessions() {
         // given:
         BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("", 0);
         RemoteEndpoint.Basic remoteEndpoint1 = mock(RemoteEndpoint.Basic.class);
@@ -67,13 +66,6 @@ class BroadcastingServerEndpointTest {
         when(session.isOpen()).thenReturn(true);
         when(session.getId()).thenReturn(id);
         return session;
-    }
-
-    private static class StubMessage {
-        @Override
-        public String toString() {
-            return "StubMessage{}";
-        }
     }
 }
 

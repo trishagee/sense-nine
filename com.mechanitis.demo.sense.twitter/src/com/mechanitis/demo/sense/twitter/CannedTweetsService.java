@@ -3,7 +3,6 @@ package com.mechanitis.demo.sense.twitter;
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -54,7 +53,7 @@ public class CannedTweetsService implements Runnable {
         }
     }
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(String[] args) {
         new CannedTweetsService(get("tweetdata60-mins.txt")).run();
     }
 

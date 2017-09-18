@@ -17,8 +17,8 @@ import static java.net.URLEncoder.encode;
 @SuppressWarnings("unused")
 public class TwitterOAuth {
     private static final String HMAC_SHA1 = "HMAC-SHA1";
-    private long nonce;
-    private long timestampInSeconds;
+    private final long nonce;
+    private final long timestampInSeconds;
 
     //from properties file
     private String accessTokenSecret;
