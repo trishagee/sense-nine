@@ -32,5 +32,6 @@ public class Monitor {
                 .join();
 
         long pid = ProcessHandle.current().pid();
+        Thread.currentThread().stop();
     }
 }

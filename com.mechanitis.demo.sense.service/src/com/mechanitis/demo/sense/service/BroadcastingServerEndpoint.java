@@ -51,6 +51,11 @@ public class BroadcastingServerEndpoint extends Endpoint implements Flow.Subscri
     @Override
     public void onError(Throwable throwable) {
         //TODO error handling
+
+        StackWalker.getInstance()
+                .walk(frames -> frames.filter(stackFrame ->
+                        stackFrame.getClassName().startsWith("com.mechanitis")))
+                .forEach(System.out::println);
     }
 
     @Override

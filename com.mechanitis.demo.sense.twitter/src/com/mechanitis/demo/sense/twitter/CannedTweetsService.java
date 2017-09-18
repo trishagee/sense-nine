@@ -31,12 +31,14 @@ public class CannedTweetsService implements Runnable {
 
     @Override
     public void run() {
-        LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
+        LOGGER.fine(
+                () -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
 
         try (Stream<String> lines = lines(filePath)) {
             lines.filter(s -> !s.equals("OK"))
-                 .peek(s -> this.addArtificialDelay())
-                 .forEach(tweetsEndpoint::onNext);
+                    .dropWhile(s -> s.startsWith("1"))
+                    .peek(s -> this.addArtificialDelay())
+                    .forEach(tweetsEndpoint::onNext);
 
         } catch (IOException e) {
             //TODO: do some error handling here!!!
