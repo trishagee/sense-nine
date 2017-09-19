@@ -1,7 +1,8 @@
-package com.mechanitis.demo.sense.user;
+package com.mechanitis.demo.sense.mood;
 
 import com.mechanitis.demo.sense.service.StubService;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -10,7 +11,7 @@ import static java.util.Arrays.asList;
 
 class MoodTestData {
     private static final Set<String> POSSIBLE_MOODS
-            = new HashSet<>(asList("HAPPY", "SAD"));
+            = Collections.unmodifiableSet(new HashSet<>(asList("HAPPY", "SAD")));
 
     public static void main(String[] args) {
         Random random = new Random();
