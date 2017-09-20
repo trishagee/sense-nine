@@ -1,36 +1,22 @@
 package com.mechanitis.demo.sense.service;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
-import static java.util.Arrays.asList;
+import java.util.Arrays;
 
 public class Monitor {
-    private void monitoring() throws IOException {
-        ProcessBuilder ls = new ProcessBuilder()
-                .command("ls")
-                .directory(Paths.get("/")
-                        .toFile());
-        ProcessBuilder grepPdf = new ProcessBuilder()
-                .command("grep", "pdf")
-                .redirectOutput(ProcessBuilder.Redirect.INHERIT);
-        List<Process> lsThenGrep = ProcessBuilder
-                .startPipeline(asList(ls, grepPdf));
 
-        CompletableFuture[] lsThenGrepFutures = lsThenGrep.stream()
-                // onExit returns a
-                // CompletableFuture<Process>
-                .map(Process::onExit)
-                .map(future -> future.thenAccept(
-                        process -> System.out.println("PID: " + process.pid())))
-                .toArray(CompletableFuture[]::new);
-        // wait until all processes are finished
-        CompletableFuture
-                .allOf(lsThenGrepFutures)
-                .join();
-
-        long pid = ProcessHandle.current().pid();
+    public static void main(String[] args) {
+        ProcessHandle.allProcesses()
+                     .map(ProcessHandle::info)
+                     .filter(processInfo -> processInfo.user()
+                                                       .filter(user -> user.equals("trishagee"))
+                                                       .isPresent())
+                     .filter(processInfo -> processInfo.command()
+                                                       .filter(command -> command.contains("java"))
+                                                       .isPresent())
+                     .filter(processInfo -> processInfo.arguments().isPresent())
+                     .flatMap(processInfo -> processInfo.arguments().stream()) // new in Java 9
+                     .flatMap(Arrays::stream)
+                     .filter(s -> s.matches("^com\\.mechanitis.*"))
+                     .forEach(processInfo -> System.out.println("processInfo = " + processInfo));
     }
 }
