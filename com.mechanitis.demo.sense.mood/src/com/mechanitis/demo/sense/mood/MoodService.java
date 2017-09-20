@@ -3,12 +3,12 @@ package com.mechanitis.demo.sense.mood;
 import com.mechanitis.demo.sense.service.Service;
 
 import java.util.Optional;
+import java.util.concurrent.Flow;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("ConstantConditions")
 class MoodService implements Runnable {
-    //    private static final Logger LOGGER = Logger.getLogger(MoodService.class.getName());
     private static final int PORT = 8082;
     private final Service service;
 
@@ -17,16 +17,22 @@ class MoodService implements Runnable {
                 MoodService::filterMessagesForMoods);
     }
 
-    static String filterMessagesForMoods(String s) {
-        return Stream.of(s)
-                .map(MoodService::getTweetMessageFrom)
-                .flatMap(s1 -> Stream.of(splitMessageIntoWords(s1)))
-                .map(String::toLowerCase)
-                .map(MoodAnalyser::getMood)
-                .filter(Optional::isPresent)
-                .distinct()
-                .map(mood -> mood.get().name())
-                .collect(Collectors.joining(","));
+    @SuppressWarnings("unused")
+    static void filterMessagesForMoods(Flow.Publisher<String> publisher,
+                                       Flow.Subscriber<String> subscriber) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    static String mapMessageToMoodsCSV(String message) {
+        return Stream.of(message)
+                     .map(MoodService::getTweetMessageFrom)
+                     .flatMap(s1 -> Stream.of(splitMessageIntoWords(s1)))
+                     .map(String::toLowerCase)
+                     .map(MoodAnalyser::getMood)
+                     .filter(Optional::isPresent)
+                     .distinct()
+                     .map(mood -> mood.get().name())
+                     .collect(Collectors.joining(","));
     }
 
     private static String[] splitMessageIntoWords(String s) {
