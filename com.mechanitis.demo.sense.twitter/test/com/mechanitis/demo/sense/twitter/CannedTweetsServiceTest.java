@@ -1,6 +1,7 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.MessageReceivedEndpoint;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -8,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static com.mechanitis.demo.sense.service.ServiceFixture.connectAndWaitForSuccess;
 import static org.hamcrest.CoreMatchers.is;
@@ -30,16 +32,24 @@ class CannedTweetsServiceTest {
         assertThat("Client endpoint should have received a message", success, is(true));
 
         // finally
-//        service.stop();
+        service.stop();
     }
 
     @Test
-    void shouldStop() {
+    @Disabled("Not implemented yet")
+    void shouldStop() throws InterruptedException {
+        System.out.println(ProcessHandle.current().pid());
+
+        // given
         CannedTweetsService service = new CannedTweetsService(Paths.get("tweetdata60-mins.txt"));
         executor.submit(service);
 
+        // when
         service.stop();
-        assertThat("Should actually reach this and not wait forever", true, is(true));
+        boolean terminated = executor.awaitTermination(20, TimeUnit.SECONDS);
+
+        // then
+        assertThat(terminated, is(true));
     }
 
 }

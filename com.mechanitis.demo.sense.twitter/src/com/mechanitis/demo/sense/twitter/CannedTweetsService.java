@@ -3,12 +3,12 @@ package com.mechanitis.demo.sense.twitter;
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static java.lang.String.format;
-import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.logging.Level.WARNING;
@@ -32,24 +32,31 @@ public class CannedTweetsService implements Runnable {
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
 
-        try (Stream<String> lines = lines(filePath)) {
+        Stream<String> lines = getStreamOfTweets();
+        // JEP 213: can use effectively final values in try-with-resources
+        try (lines) {
             lines.filter(s -> !s.equals("OK"))
                  .peek(s -> this.addArtificialDelay())
                  .forEach(tweetsEndpoint::onNext);
-
-        } catch (IOException e) {
-            //TODO: do some error handling here!!!
-            LOGGER.severe(e::getMessage);
-            e.printStackTrace();
         }
     }
 
     private void addArtificialDelay() {
         try {
-            //reading the file is FAST, add an artificial delay
+            //reading the file is FAST, add a delay so the UI ticks in a visible way
             MILLISECONDS.sleep(100);
         } catch (InterruptedException e) {
             LOGGER.log(WARNING, e.getMessage(), e);
+        }
+    }
+
+    private Stream<String> getStreamOfTweets() {
+        try {
+            return Files.lines(filePath);
+        } catch (IOException e) {
+            LOGGER.warning(() -> format("There was a problem reading %s: %s",
+                    filePath.toAbsolutePath(), e.getMessage()));
+            return Stream.empty();
         }
     }
 
