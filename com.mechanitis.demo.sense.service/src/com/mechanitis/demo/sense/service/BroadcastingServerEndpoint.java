@@ -9,6 +9,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Flow;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
@@ -16,6 +18,7 @@ import static java.util.logging.Logger.getLogger;
 
 public class BroadcastingServerEndpoint extends Endpoint implements Flow.Subscriber<String> {
     private static final Logger LOGGER = getLogger(BroadcastingServerEndpoint.class.getName());
+    private final ErrorCollector errorCollector = new ErrorCollector();
     private final List<Session> sessions = new CopyOnWriteArrayList<>();
     private final ExecutorService executor = newSingleThreadExecutor();
     private WebSocketServer webSocketServer;
@@ -50,7 +53,16 @@ public class BroadcastingServerEndpoint extends Endpoint implements Flow.Subscri
 
     @Override
     public void onError(Throwable throwable) {
-        //TODO error handling
+        final StackWalker stackWalker = StackWalker.getInstance();
+
+        errorCollector.fullStackLength = stackWalker.walk(Stream::count);
+
+        errorCollector.applicationClasses = stackWalker.walk(
+                stackFrameStream -> stackFrameStream
+                        .map(StackWalker.StackFrame::getClassName)
+                        .filter(className -> className.contains("mechanitis"))
+                        .collect(Collectors.toList())
+        );
     }
 
     @Override
@@ -76,5 +88,23 @@ public class BroadcastingServerEndpoint extends Endpoint implements Flow.Subscri
             LOGGER.severe(e::getMessage);
         }
         executor.shutdownNow();
+    }
+
+    ErrorCollector getErrorCollector() {
+        return errorCollector;
+    }
+
+    static class ErrorCollector {
+        private Long fullStackLength;
+        private List<String> applicationClasses;
+
+        Long getFullStackLength() {
+            return fullStackLength;
+        }
+
+        List<String> getApplicationClasses() {
+            return applicationClasses;
+        }
+
     }
 }

@@ -7,7 +7,14 @@ import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 
 class BroadcastingServerEndpointTest {
 
@@ -15,7 +22,7 @@ class BroadcastingServerEndpointTest {
     @DisplayName("should forward messages to all open sessions")
     void shouldForwardToAllSessions() {
         // given:
-        BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("", 0);
+        BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("/", 0);
         RemoteEndpoint.Basic remoteEndpoint1 = mock(RemoteEndpoint.Basic.class);
         RemoteEndpoint.Basic remoteEndpoint2 = mock(RemoteEndpoint.Basic.class);
         Session session1 = createMockSession("1", remoteEndpoint1);
@@ -31,7 +38,7 @@ class BroadcastingServerEndpointTest {
 
         // then:
         assertAll(() -> verify(remoteEndpoint1).sendText(message),
-                  () -> verify(remoteEndpoint2).sendText(message));
+                () -> verify(remoteEndpoint2).sendText(message));
 
         // finally:
         endpoint.close();
@@ -41,7 +48,7 @@ class BroadcastingServerEndpointTest {
     @DisplayName("should not try to forward messages to closed sessions")
     void shouldNotForwardToClosedSessions() {
         // given:
-        BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("", 0);
+        BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("/", 0);
         Session session = createMockSession("session");
 
         // when:
@@ -49,11 +56,36 @@ class BroadcastingServerEndpointTest {
 
         // then:
         assertAll(() -> verify(session, never()).getAsyncRemote(),
-                  () -> verify(session, never()).getBasicRemote());
+                () -> verify(session, never()).getBasicRemote());
 
         // finally:
         endpoint.close();
     }
+
+    @Test
+    @DisplayName("should show useful error")
+    void shouldShowUsefulError() {
+        // given:
+        BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("/", 0);
+
+        // when:
+        endpoint.onError(new RuntimeException("Something terrible happened!"));
+
+        // then:
+        final BroadcastingServerEndpoint.ErrorCollector errorCollector = endpoint.getErrorCollector();
+        assertAll(
+                () -> assertNotEquals(errorCollector.getFullStackLength(),
+                        errorCollector.getApplicationClasses().size()),
+                () -> assertEquals(2, errorCollector.getApplicationClasses().size()),
+                () -> assertTrue(errorCollector.getApplicationClasses()
+                                               .stream()
+                                               .allMatch(s -> s.contains("com.mechanitis")))
+        );
+
+        // finally:
+        endpoint.close();
+    }
+
 
     private static Session createMockSession(String id, RemoteEndpoint.Basic remoteEndpoint) {
         Session session = createMockSession(id);
