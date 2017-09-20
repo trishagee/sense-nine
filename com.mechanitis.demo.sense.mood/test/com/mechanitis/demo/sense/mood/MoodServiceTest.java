@@ -20,7 +20,12 @@ class MoodServiceTest {
             "\"id\":560053908144275456,\"id_str\":\"560053908144275456\"," +
             "\"text\":\"%s\",\"source\":\"twitter\"}";
     private final Flow.Subscriber<String> subscriber = mock(Flow.Subscriber.class);
-    private final StubPub publisher = new StubPub();
+    // JEP 213: Diamond now supported on anonymous inner classes
+    private final StubPub<String> publisher = new StubPub<>() {
+        void publish(String message) {
+            super.subscriber.onNext(message);
+        }
+    };
 
     @BeforeEach
     void setup() {
@@ -31,7 +36,7 @@ class MoodServiceTest {
     @DisplayName("should correctly identify happy messages")
     void shouldFindHappyMessages() {
         MoodService.filterMessagesForMoods(publisher, subscriber);
-        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so happy today"));
+        publisher.publish(format(TWITTER_MESSAGE_TEMPLATE, "I am so happy today"));
 
         verify(subscriber).onNext("HAPPY");
     }
@@ -40,7 +45,7 @@ class MoodServiceTest {
     @DisplayName("should correctly identify happy messages that are not lower case")
     void shouldIdentifyThoseThatAreNotLowerCase() {
         MoodService.filterMessagesForMoods(publisher, subscriber);
-        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so Awesome today"));
+        publisher.publish(format(TWITTER_MESSAGE_TEMPLATE, "I am so Awesome today"));
 
         verify(subscriber).onNext("HAPPY");
     }
@@ -49,7 +54,7 @@ class MoodServiceTest {
     @DisplayName("should correctly identify sad messages")
     void ShouldIdentifySadMessages() {
         MoodService.filterMessagesForMoods(publisher, subscriber);
-        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so sad today"));
+        publisher.publish(format(TWITTER_MESSAGE_TEMPLATE, "I am so sad today"));
 
         verify(subscriber).onNext("SAD");
     }
@@ -58,7 +63,7 @@ class MoodServiceTest {
     @DisplayName("should correctly identify mixed messages")
     void shouldIdentifyMixedMessages() {
         MoodService.filterMessagesForMoods(publisher, subscriber);
-        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I am so sad today it almost makes me happy"));
+        publisher.publish(format(TWITTER_MESSAGE_TEMPLATE, "I am so sad today it almost makes me happy"));
         verify(subscriber).onNext("SAD");
         verify(subscriber).onNext("HAPPY");
     }
@@ -67,7 +72,7 @@ class MoodServiceTest {
     @DisplayName("should correctly identify mixed messages with multiple moods")
     void shouldIdentifyMultipleMoods() {
         MoodService.filterMessagesForMoods(publisher, subscriber);
-        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "Yesterday I was sad sad sad, but today is awesome"));
+        publisher.publish(format(TWITTER_MESSAGE_TEMPLATE, "Yesterday I was sad sad sad, but today is awesome"));
         verify(subscriber, times(3)).onNext("SAD");
         verify(subscriber).onNext("HAPPY");
     }
@@ -76,7 +81,7 @@ class MoodServiceTest {
     @DisplayName("should not have any mood for messages that are neither happy or sad")
     void shouldNotHaveMoodsForOtherMessages() {
         MoodService.filterMessagesForMoods(publisher, subscriber);
-        publisher.publishSingleItem(format(TWITTER_MESSAGE_TEMPLATE, "I don't care"));
+        publisher.publish(format(TWITTER_MESSAGE_TEMPLATE, "I don't care"));
 
         verify(subscriber, never()).onNext(any());
     }
@@ -88,18 +93,16 @@ class MoodServiceTest {
         }).when(subscriber).onSubscribe(any());
     }
 
-    private class StubPub implements Flow.Publisher<String> {
-        private Flow.Subscriber<? super String> subscriber;
+    private abstract class StubPub<T> implements Flow.Publisher<T> {
+        private Flow.Subscriber<? super T> subscriber;
 
         @Override
-        public void subscribe(Flow.Subscriber<? super String> subscriber) {
+        public void subscribe(Flow.Subscriber<? super T> subscriber) {
             this.subscriber = subscriber;
             subscriber.onSubscribe(mock(Flow.Subscription.class));
         }
 
-        private void publishSingleItem(String input) {
-            subscriber.onNext(input);
-        }
+        abstract void publish(T input);
     }
 
 }
