@@ -1,17 +1,16 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
+import io.reactivex.Flowable;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import static java.lang.String.format;
-import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
 
 /**
@@ -31,25 +30,20 @@ public class CannedTweetsService implements Runnable {
     @Override
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
+        final Flowable<Long> tick = Flowable.interval(100, MILLISECONDS);
 
-        try (Stream<String> lines = lines(filePath)) {
-            lines.filter(s -> !s.equals("OK"))
-                 .peek(s -> this.addArtificialDelay())
-                 .forEach(tweetsEndpoint::onNext);
+        try {
+            final Flowable<String> filteredPublisher = Flowable.fromIterable(Files.readAllLines(filePath))
+                                                               .filter(s -> !s.equals("OK"));
+            filteredPublisher.zipWith(tick, (s, aLong) -> s)
+                             .forEach(tweetsEndpoint::onNext);
+
+
 
         } catch (IOException e) {
             //TODO: we'll use Java 9 features to make this a bit better
             LOGGER.severe(e::getMessage);
             e.printStackTrace();
-        }
-    }
-
-    private void addArtificialDelay() {
-        try {
-            //reading the file is FAST, add an artificial delay
-            MILLISECONDS.sleep(100);
-        } catch (InterruptedException e) {
-            LOGGER.log(WARNING, e.getMessage(), e);
         }
     }
 
