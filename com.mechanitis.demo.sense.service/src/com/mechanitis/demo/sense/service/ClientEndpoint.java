@@ -1,13 +1,17 @@
 package com.mechanitis.demo.sense.service;
 
-
-import javax.websocket.*;
+import javax.websocket.ContainerProvider;
+import javax.websocket.DeploymentException;
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.Session;
+import javax.websocket.WebSocketContainer;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.Flow;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
@@ -15,29 +19,28 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static java.util.logging.Logger.getLogger;
 
 @javax.websocket.ClientEndpoint
-public class ClientEndpoint implements Flow.Publisher<String> {
+public class ClientEndpoint {
     private static final Logger LOGGER = getLogger(ClientEndpoint.class.getName());
 
-    private final List<Subscription> subscriptions = new CopyOnWriteArrayList<>();
+    private final List<MessageListener> listeners = new CopyOnWriteArrayList<>();
     private final URI serverEndpoint;
+    private final Function<String, String> messageHandler;
     private Session session;
 
-    public ClientEndpoint(String serverEndpoint) {
+    public ClientEndpoint(String serverEndpoint, Function<String, String> messageHandler) {
         this.serverEndpoint = URI.create(serverEndpoint);
+        this.messageHandler = messageHandler;
         connect();
     }
 
-    @Override
-    public void subscribe(Flow.Subscriber<? super String> subscriber) {
-        Subscription subscription = new Subscription(subscriber);
-        subscriber.onSubscribe(subscription);
-
-        subscriptions.add(subscription);
+    public void addListener(MessageListener listener) {
+        listeners.add(listener);
     }
 
     @OnMessage
-    public void onWebSocketText(String message) {
-        subscriptions.forEach(subscription -> subscription.onNext(message));
+    public void onWebSocketText(String input) {
+        String output = messageHandler.apply(input);
+        listeners.forEach(messageListener -> messageListener.onMessage(output));
     }
 
     @OnError
@@ -65,7 +68,7 @@ public class ClientEndpoint implements Flow.Publisher<String> {
         }
     }
 
-    private void close() {
+    void close() {
         if (session != null) {
             try {
                 session.close();
@@ -81,31 +84,6 @@ public class ClientEndpoint implements Flow.Publisher<String> {
             connect();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-    }
-
-    private class Subscription implements Flow.Subscription {
-        private final Flow.Subscriber<? super String> subscriber;
-        private final AtomicLong n = new AtomicLong(0);
-
-        private Subscription(Flow.Subscriber<? super String> subscriber) {
-            this.subscriber = subscriber;
-        }
-
-        @Override
-        public void request(long n) {
-            this.n.set(n);
-        }
-
-        @Override
-        public void cancel() {
-            this.n.set(0);
-        }
-
-        public void onNext(String message) {
-            if (n.getAndDecrement() > 0) {
-                subscriber.onNext(message);
-            }
         }
     }
 }

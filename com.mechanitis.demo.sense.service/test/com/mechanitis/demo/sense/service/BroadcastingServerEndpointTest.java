@@ -7,9 +7,6 @@ import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -34,7 +31,7 @@ class BroadcastingServerEndpointTest {
         String message = "Some Message";
 
         // when:
-        endpoint.onNext(message);
+        endpoint.onMessage(message);
 
         // then:
         assertAll(() -> verify(remoteEndpoint1).sendText(message),
@@ -52,7 +49,7 @@ class BroadcastingServerEndpointTest {
         Session session = createMockSession("session");
 
         // when:
-        endpoint.onNext("Some Tweet");
+        endpoint.onMessage("Some Tweet");
 
         // then:
         assertAll(() -> verify(session, never()).getAsyncRemote(),
@@ -61,31 +58,6 @@ class BroadcastingServerEndpointTest {
         // finally:
         endpoint.close();
     }
-
-    @Test
-    @DisplayName("should show useful error")
-    void shouldShowUsefulError() {
-        // given:
-        BroadcastingServerEndpoint endpoint = new BroadcastingServerEndpoint("/", 0);
-
-        // when:
-        endpoint.onError(new RuntimeException("Something terrible happened!"));
-
-        // then:
-        final BroadcastingServerEndpoint.ErrorCollector errorCollector = endpoint.getErrorCollector();
-        assertAll(
-                () -> assertNotEquals(errorCollector.getFullStackLength(),
-                        errorCollector.getApplicationClasses().size()),
-                () -> assertEquals(2, errorCollector.getApplicationClasses().size()),
-                () -> assertTrue(errorCollector.getApplicationClasses()
-                                               .stream()
-                                               .allMatch(s -> s.contains("com.mechanitis")))
-        );
-
-        // finally:
-        endpoint.close();
-    }
-
 
     private static Session createMockSession(String id, RemoteEndpoint.Basic remoteEndpoint) {
         Session session = createMockSession(id);

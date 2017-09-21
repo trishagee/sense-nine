@@ -14,7 +14,7 @@ class MoodService implements Runnable {
 
     private MoodService() {
         service = new Service("ws://localhost:8081/tweets/", "/moods/", PORT,
-                MoodService::filterMessagesForMoods);
+                MoodService::mapMessageToMoodsCSV);
     }
 
     @SuppressWarnings("unused")

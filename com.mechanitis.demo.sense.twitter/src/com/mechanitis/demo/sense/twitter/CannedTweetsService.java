@@ -37,7 +37,7 @@ public class CannedTweetsService implements Runnable {
         try (lines) {
             lines.filter(s -> !s.equals("OK"))
                  .peek(s -> this.addArtificialDelay())
-                 .forEach(tweetsEndpoint::onNext);
+                 .forEach(tweetsEndpoint::onMessage);
         }
     }
 
