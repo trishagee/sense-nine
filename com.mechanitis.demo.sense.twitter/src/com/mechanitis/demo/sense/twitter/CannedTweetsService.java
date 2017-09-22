@@ -1,16 +1,18 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
-import io.reactivex.Flowable;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static java.nio.file.Paths.get;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
 
 /**
@@ -22,6 +24,7 @@ public class CannedTweetsService implements Runnable {
     private final BroadcastingServerEndpoint tweetsEndpoint
             = new BroadcastingServerEndpoint("/tweets/", 8081);
     private final Path filePath;
+    private AtomicBoolean running = new AtomicBoolean(true);
 
     CannedTweetsService(Path filePath) {
         this.filePath = filePath;
@@ -30,20 +33,33 @@ public class CannedTweetsService implements Runnable {
     @Override
     public void run() {
         LOGGER.fine(() -> format("Starting CannedTweetService reading %s", filePath.toAbsolutePath()));
-        final Flowable<Long> tick = Flowable.interval(100, MILLISECONDS);
 
+        final Stream<String> lines = getStreamOfTweets();
+        // JEP 213: can use effectively final values in try-with-resources
+        try (lines) {
+            lines.filter(s -> !s.equals("OK"))
+                 .takeWhile(s -> running.get())
+                 .peek(s -> this.addArtificialDelay())
+                 .forEach(tweetsEndpoint::onNext);
+        }
+    }
+
+    private void addArtificialDelay() {
         try {
-            final Flowable<String> filteredPublisher = Flowable.fromIterable(Files.readAllLines(filePath))
-                                                               .filter(s -> !s.equals("OK"));
-            filteredPublisher.zipWith(tick, (s, aLong) -> s)
-                             .forEach(tweetsEndpoint::onNext);
+            //reading the file is FAST, add a delay so the UI ticks in a visible way
+            MILLISECONDS.sleep(100);
+        } catch (InterruptedException e) {
+            LOGGER.log(WARNING, e.getMessage(), e);
+        }
+    }
 
-
-
+    private Stream<String> getStreamOfTweets() {
+        try {
+            return Files.lines(filePath);
         } catch (IOException e) {
-            //TODO: we'll use Java 9 features to make this a bit better
-            LOGGER.severe(e::getMessage);
-            e.printStackTrace();
+            LOGGER.warning(() -> format("There was a problem reading %s: %s",
+                    filePath.toAbsolutePath(), e.getMessage()));
+            return Stream.empty();
         }
     }
 
@@ -53,5 +69,6 @@ public class CannedTweetsService implements Runnable {
 
     void stop() {
         tweetsEndpoint.close();
+        running.set(false);
     }
 }

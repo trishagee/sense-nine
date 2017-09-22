@@ -1,7 +1,6 @@
 package com.mechanitis.demo.sense.twitter;
 
 import com.mechanitis.demo.sense.service.MessageReceivedEndpoint;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -36,7 +35,7 @@ class CannedTweetsServiceTest {
     }
 
     @Test
-    @Disabled("Not implemented yet")
+//    @Disabled("Not implemented yet")
     void shouldStop() throws InterruptedException {
         System.out.println(ProcessHandle.current().pid());
 
