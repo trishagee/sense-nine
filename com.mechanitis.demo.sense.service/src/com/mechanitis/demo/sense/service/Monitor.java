@@ -5,6 +5,8 @@ import java.util.Arrays;
 public class Monitor {
 
     public static void main(String[] args) {
+        Thread.currentThread().stop();
+
         ProcessHandle.allProcesses()
                      .map(ProcessHandle::info)
                      .filter(processInfo -> processInfo.user()
@@ -18,5 +20,7 @@ public class Monitor {
                      .flatMap(Arrays::stream)
                      .filter(s -> s.matches("^com\\.mechanitis.*"))
                      .forEach(processInfo -> System.out.println("processInfo = " + processInfo));
+
+        final long pid = ProcessHandle.current().pid();
     }
 }
