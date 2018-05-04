@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.client.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.flow.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.flow.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.mood.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.mood.iml" />
