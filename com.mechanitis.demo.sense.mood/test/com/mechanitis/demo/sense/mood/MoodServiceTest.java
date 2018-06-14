@@ -4,7 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
 import java.util.concurrent.Flow;
+import java.util.function.Function;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static org.mockito.Mockito.any;
@@ -105,4 +109,19 @@ class MoodServiceTest {
         abstract void publish(T input);
     }
 
+
+    @Test
+    void createImmutableList() {
+        String message = "I am so so happy today, and I am not happy every day";
+//        Map<String, Long> uniqueWords = Pattern.compile("\\s*[^\\p{IsAlphabetic}]+\\s*").splitAsStream(message).
+//                                          map(String::toLowerCase).
+//                                          collect(Collectors.groupingBy(Function.identity(),
+//                                                  Collectors.counting()));
+        Map<String, Long> wordCount = Pattern.compile("\\s*[^\\p{IsAlphabetic}]+\\s*").splitAsStream(message).
+                                              map(String::toLowerCase).
+                                              collect(Collectors.toUnmodifiableMap(Function.identity(),
+                                                                                   word -> 1L,
+                                                                                   (oldCount, newVal) -> oldCount + newVal));
+
+    }
 }

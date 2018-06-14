@@ -33,7 +33,11 @@ class MoodAnalyser {
     }
 
     static Optional<Mood> getMood(String key) {
-        return Optional.ofNullable(WORD_TO_MOOD.get(key));
+        Map<String, Mood> wordToMood = WORD_TO_MOOD;
+        Map<String, Mood> copyOfMoodMap = Map.copyOf(wordToMood);
+
+
+        return Optional.ofNullable(wordToMood.get(key));
     }
 
 }

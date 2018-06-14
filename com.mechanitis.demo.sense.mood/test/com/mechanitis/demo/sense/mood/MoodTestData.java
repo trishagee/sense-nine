@@ -2,18 +2,32 @@ package com.mechanitis.demo.sense.mood;
 
 import com.mechanitis.demo.sense.service.StubService;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static java.util.Arrays.asList;
-
 class MoodTestData {
     private static final Set<String> POSSIBLE_MOODS
-            = Collections.unmodifiableSet(new HashSet<>(asList("HAPPY", "SAD")));
+            = Set.of("HAPPY", "SAD");
 
     public static void main(String[] args) {
+        Set<String> moods = Set.of("HAPPY", "SAD");
+//        List<String> newCopyOfCollection = Collections.unmodifiableList(new ArrayList<>(moods));
+//        List<String> newCopyOfCollection = Arrays.asList("1", "1");
+        Collections.copy(new ArrayList<>(3), List.of("HAPPY", "SAD"));
+
+
+//        Set<String> newCopyOfSet = new HashSet<>(moods);
+        Set<String> setCopyOfCollection = Set.copyOf(moods);
+
+
+        List<String> newCopyOfCollection = List.copyOf(moods);
+
+
+
+
         Random random = new Random();
         new StubService("/moods/", 8082,
                 () -> getRandomMood(random.nextInt(2))).run();

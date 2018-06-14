@@ -26,7 +26,7 @@ class MoodService implements Runnable {
     static String mapMessageToMoodsCSV(String message) {
         return Stream.of(message)
                      .map(MoodService::getTweetMessageFrom)
-                     .flatMap(s1 -> Stream.of(splitMessageIntoWords(s1)))
+                     .flatMap(s1 -> Stream.of(s1.split("\\s*[^\\p{IsAlphabetic}]+\\s*")))
                      .map(String::toLowerCase)
                      .map(MoodAnalyser::getMood)
                      .filter(Optional::isPresent)

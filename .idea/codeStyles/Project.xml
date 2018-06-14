@@ -6,6 +6,7 @@
     </JavaCodeStyleSettings>
     <codeStyleSettings language="JAVA">
       <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
+      <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
       <option name="ALIGN_MULTILINE_ARRAY_INITIALIZER_EXPRESSION" value="true" />
       <option name="CALL_PARAMETERS_WRAP" value="1" />
     </codeStyleSettings>
