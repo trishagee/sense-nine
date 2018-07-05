@@ -2,14 +2,18 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../src/com.mechanitis.demo.sense.mood">
-      <sourceFolder url="file://$MODULE_DIR$/../../src/com.mechanitis.demo.sense.mood" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.mood">
+      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.mood/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.mood/test" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.service" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.flow" />
-    <orderEntry type="library" name="org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="io.reactivex.rxjava2:rxjava:2.0.6" level="project" />
+    <orderEntry type="library" name="io.projectreactor:reactor-core:3.0.7.RELEASE" level="project" />
+    <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.2.0" level="project" />
+    <orderEntry type="library" name="org.mockito:mockito-core:2.10.0" level="project" />
+    <orderEntry type="library" name="org.objenesis:objenesis:2.6" level="project" />
+    <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-params:5.2.0" level="project" />
   </component>
 </module>
