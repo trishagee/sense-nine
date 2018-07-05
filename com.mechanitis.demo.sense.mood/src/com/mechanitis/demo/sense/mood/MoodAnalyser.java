@@ -33,7 +33,27 @@ class MoodAnalyser {
     }
 
     static Optional<Mood> getMood(String key) {
-        return Optional.ofNullable(WORD_TO_MOOD.get(key));
+        final Optional<Mood> optional = Optional.ofNullable(WORD_TO_MOOD.get(key));
+
+        optional.or(() -> getAlternativeOptionalValue());
+
+        optional.ifPresentOrElse(MoodAnalyser::doSomething, MoodAnalyser::doSomethingElse);
+
+        optional.stream();
+
+        return optional;
+    }
+
+    private static void doSomethingElse() {
+
+    }
+
+    private static void doSomething(Mood mood) {
+
+    }
+
+    private static Optional<? extends Mood> getAlternativeOptionalValue() {
+        return null;
     }
 
 }
