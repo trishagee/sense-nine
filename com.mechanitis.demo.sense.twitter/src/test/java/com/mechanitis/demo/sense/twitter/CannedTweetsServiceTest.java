@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
         import java.nio.file.Paths;
-        import java.util.concurrent.ExecutorService;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -48,17 +49,16 @@ class CannedTweetsServiceTest {
 //    }
 
     @Test
-    @Disabled("Not implemented yet")
     void shouldStop() throws InterruptedException {
-        System.out.println(ProcessHandle.current().pid());
-
         // given
         CannedTweetsService service = new CannedTweetsService(Paths.get("tweetdata60-mins.txt"));
-        executor.submit(service);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(service);
 
         // when
         service.stop();
-        boolean terminated = executor.awaitTermination(20, TimeUnit.SECONDS);
+        executorService.shutdown(); // can shut down now the service is stopped. In theory.
+        boolean terminated = executorService.awaitTermination(5, TimeUnit.SECONDS);
 
         // then
         assertThat(terminated, is(true));
