@@ -3,8 +3,8 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.service">
-      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.service/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.service/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.service/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../com.mechanitis.demo.sense.service/src/test/java" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
