@@ -10,8 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.2.0" level="project" />
     <orderEntry type="library" name="org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.6.v20170531" level="project" />
-    <orderEntry type="library" name="net.bytebuddy:byte-buddy:1.7.5" level="project" />
-    <orderEntry type="library" name="org.mockito:mockito-core:2.10.0" level="project" />
-    <orderEntry type="library" name="org.objenesis:objenesis:2.6" level="project" />
+    <orderEntry type="library" name="org.mockito:mockito-core:2.19.1" level="project" />
   </component>
 </module>

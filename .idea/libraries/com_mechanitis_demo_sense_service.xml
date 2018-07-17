@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="com.mechanitis.demo.sense.service">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/com.mechanitis.demo.sense.service.test/build/libs/com.mechanitis.demo.sense.service.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
