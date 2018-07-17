@@ -1,6 +1,6 @@
 package com.mechanitis.demo.sense.user;
 
-import com.mechanitis.demo.sense.service.StubService;
+import com.mechanitis.demo.sense.service.test.StubService;
 
 import java.util.List;
 import java.util.Random;

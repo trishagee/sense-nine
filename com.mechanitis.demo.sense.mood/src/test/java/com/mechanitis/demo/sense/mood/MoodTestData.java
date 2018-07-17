@@ -1,6 +1,6 @@
 package com.mechanitis.demo.sense.mood;
 
-import com.mechanitis.demo.sense.service.StubService;
+import com.mechanitis.demo.sense.service.test.StubService;
 
 import java.util.Random;
 import java.util.Set;
