@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.flow.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.flow.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.mood.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.mood.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.service.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.mechanitis.demo.sense.service.test/com.mechanitis.demo.sense.service.test.iml" filepath="$PROJECT_DIR$/com.mechanitis.demo.sense.service.test/com.mechanitis.demo.sense.service.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.twitter.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.twitter.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.user.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.user.iml" />
       <module fileurl="file://$PROJECT_DIR$/sense-nine.iml" filepath="$PROJECT_DIR$/sense-nine.iml" />
