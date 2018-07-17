@@ -1,0 +1,6 @@
+ext.moduleName = 'com.mechanitis.demo.sense.flow'
+
+dependencies {
+    compile 'org.reactivestreams:reactive-streams:1.0.1'
+}
+
