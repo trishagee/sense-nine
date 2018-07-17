@@ -1,4 +1,4 @@
-package com.mechanitis.demo.sense.service;
+package com.mechanitis.demo.sense.twitter;
 
 import javax.websocket.ClientEndpoint;
 import javax.websocket.OnError;
