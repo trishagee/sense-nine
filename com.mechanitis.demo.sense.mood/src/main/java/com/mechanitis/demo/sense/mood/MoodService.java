@@ -1,6 +1,9 @@
 package com.mechanitis.demo.sense.mood;
 
+import com.mechanitis.demo.sense.flow.PublisherFromFlowAdaptor;
+import com.mechanitis.demo.sense.flow.SubscriberFromFlowAdaptor;
 import com.mechanitis.demo.sense.service.Service;
+import reactor.core.publisher.Flux;
 
 import java.util.Optional;
 import java.util.concurrent.Flow;
@@ -20,7 +23,14 @@ class MoodService implements Runnable {
     @SuppressWarnings("unused")
     static void filterMessagesForMoods(Flow.Publisher<String> publisher,
                                        Flow.Subscriber<String> subscriber) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Flux.from(PublisherFromFlowAdaptor.adapt(publisher))
+            .map(MoodService::getTweetMessageFrom)
+            .flatMap(s1 -> Flux.fromArray(splitMessageIntoWords(s1)))
+            .map(String::toLowerCase)
+            .map(MoodAnalyser::getMood)
+            .filter(Optional::isPresent)
+            .map(mood -> mood.get().name())
+            .subscribe(SubscriberFromFlowAdaptor.adapt(subscriber));
     }
 
     static String mapMessageToMoodsCSV(String message) {

@@ -1,0 +1,21 @@
+ext.moduleName = 'com.mechanitis.demo.sense.mood'
+
+apply plugin: 'java-library'
+
+dependencies {
+    api project(':com.mechanitis.demo.sense.flow')
+    api project(':com.mechanitis.demo.sense.service')
+    api 'io.projectreactor:reactor-core:3.0.7.RELEASE'
+
+    testCompile project(':com.mechanitis.demo.sense.service.test')
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
+    testCompile 'org.mockito:mockito-core:2.19.1'
+}
+
+test {
+    useJUnitPlatform()
+}

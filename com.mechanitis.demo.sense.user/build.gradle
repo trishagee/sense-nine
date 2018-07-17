@@ -9,18 +9,3 @@ dependencies {
     testCompile project(':com.mechanitis.demo.sense.service.test')
 }
 
-
-
-compileTestJava {
-    inputs.property("moduleName", moduleName)
-    doFirst {
-        options.compilerArgs = [
-                '--module-path', classpath.asPath,
-                '--add-modules', 'com.mechanitis.demo.sense.service.test',
-                '--add-reads', "$moduleName=com.mechanitis.demo.sense.service.test",
-                '--patch-module', "$moduleName=" + files(sourceSets.test.java.srcDirs).asPath,
-        ]
-        classpath = files()
-    }
-}
-

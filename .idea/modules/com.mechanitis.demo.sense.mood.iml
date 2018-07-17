@@ -14,6 +14,6 @@
     <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.2.0" level="project" />
     <orderEntry type="library" name="org.mockito:mockito-core:2.19.1" level="project" />
     <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-params:5.2.0" level="project" />
-    <orderEntry type="module" module-name="com.mechanitis.demo.sense.service.test" scope="TEST" />
+    <orderEntry type="module" module-name="com.mechanitis.demo.sense.service.test" />
   </component>
 </module>

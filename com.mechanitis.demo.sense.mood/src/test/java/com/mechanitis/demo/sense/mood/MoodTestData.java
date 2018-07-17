@@ -1,6 +1,6 @@
 package com.mechanitis.demo.sense.mood;
 
-import com.mechanitis.demo.sense.service.test.StubService;
+//import com.mechanitis.demo.sense.service.test.StubService;
 
 import java.util.Random;
 import java.util.Set;
@@ -11,8 +11,8 @@ class MoodTestData {
 
     public static void main(String[] args) {
         Random random = new Random();
-        new StubService("/moods/", 8082,
-                () -> getRandomMood(random.nextInt(2))).run();
+//        new StubService("/moods/", 8082,
+//                () -> getRandomMood(random.nextInt(2))).run();
     }
 
     private static String getRandomMood(int requiredIndex) {
