@@ -2,16 +2,12 @@ package com.mechanitis.demo.sense.mood;
 
 import com.mechanitis.demo.sense.service.test.StubService;
 
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableSet;
-
 class MoodTestData {
     private static final Set<String> POSSIBLE_MOODS
-            = unmodifiableSet(new HashSet<>(asList("HAPPY", "SAD", "ANGRY")));
+            = Set.of("HAPPY", "SAD", "ANGRY");
 
     public static void main(String[] args) {
         Random random = new Random();
