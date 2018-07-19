@@ -4,7 +4,6 @@ import javax.websocket.Endpoint;
 import javax.websocket.EndpointConfig;
 import javax.websocket.Session;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -54,16 +53,16 @@ public class BroadcastingServerEndpoint extends Endpoint implements Flow.Subscri
 
     @Override
     public void onError(Throwable throwable) {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        ArrayList<String> myErrorClasses = new ArrayList<>();
+        final StackWalker stackWalker = StackWalker.getInstance();
 
-        for (StackTraceElement stackTraceElement : stackTrace) {
-            if (stackTraceElement.getClassName().contains("mechanitis")) {
-                myErrorClasses.add(stackTraceElement.getClassName());
-            }
-        }
+        errorCollector.fullStackLength = stackWalker.walk(Stream::count);
 
-        errorCollector.applicationClasses = myErrorClasses;
+        errorCollector.applicationClasses = stackWalker.walk(
+                stackFrameStream -> stackFrameStream
+                        .map(StackWalker.StackFrame::getClassName)
+                        .filter(className -> className.contains("mechanitis"))
+                        .collect(Collectors.toList())
+        );
     }
 
     @Override
