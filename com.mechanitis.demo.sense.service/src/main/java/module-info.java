@@ -6,4 +6,5 @@ module com.mechanitis.demo.sense.service {
     requires javax.websocket.api;
 
     exports com.mechanitis.demo.sense.service;
+    exports com.mechanitis.demo.sense.service.internal;
 }
