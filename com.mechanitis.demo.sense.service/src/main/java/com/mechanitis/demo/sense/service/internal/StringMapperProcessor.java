@@ -1,13 +1,13 @@
-package com.mechanitis.demo.sense.service;
+package com.mechanitis.demo.sense.service.internal;
 
 import java.util.concurrent.Flow;
 import java.util.function.Function;
 
-class StringMapperProcessor implements Flow.Processor<String, String> {
+public class StringMapperProcessor implements Flow.Processor<String, String> {
     private final Function<String, String> mapper;
     private Flow.Subscriber<? super String> subscriber;
 
-    StringMapperProcessor(Function<String, String> mapper) {
+    public StringMapperProcessor(Function<String, String> mapper) {
         this.mapper = mapper;
     }
 

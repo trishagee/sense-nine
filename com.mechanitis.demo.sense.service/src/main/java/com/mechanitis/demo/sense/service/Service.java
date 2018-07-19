@@ -1,5 +1,7 @@
 package com.mechanitis.demo.sense.service;
 
+import com.mechanitis.demo.sense.service.internal.StringMapperProcessor;
+
 import java.util.concurrent.Flow;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
