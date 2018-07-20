@@ -1,0 +1,23 @@
+
+subprojects {
+    apply plugin: 'java-library'
+    sourceCompatibility = 9
+
+    repositories {
+        mavenCentral()
+    }
+
+    afterEvaluate {
+        compileJava {
+            inputs.property("moduleName", moduleName)
+            doFirst {
+                options.compilerArgs = [
+                        '--module-path', classpath.asPath,
+                ]
+                classpath = files()
+            }
+        }
+
+
+    }
+}

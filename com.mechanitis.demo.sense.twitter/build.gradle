@@ -1,0 +1,17 @@
+ext.moduleName = 'com.mechanitis.demo.sense.twitter'
+
+apply plugin: 'java-library'
+
+dependencies {
+    api project(':com.mechanitis.demo.sense.flow')
+    api project(':com.mechanitis.demo.sense.service')
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+
+    testCompile 'org.hamcrest:hamcrest-core:1.3'
+}
+
+test {
+    useJUnitPlatform()
+}

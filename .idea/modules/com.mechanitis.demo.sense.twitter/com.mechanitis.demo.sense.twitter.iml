@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":com.mechanitis.demo.sense.twitter" external.linked.project.path="$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="sense-nine" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter/out/test/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter">
+      <sourceFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.twitter/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="com.mechanitis.demo.sense.flow" />
+    <orderEntry type="module" module-name="com.mechanitis.demo.sense.service" />
+    <orderEntry type="library" name="Gradle: org.reactivestreams:reactive-streams:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-annotations:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-client-impl:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-server:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: javax.websocket:javax.websocket-api:1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-plus:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-webapp:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: javax.annotation:javax.annotation-api:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-commons:5.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-tree:5.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm:5.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-client:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-common:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-servlet:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-servlet:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-client:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-security:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-server:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-http:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-jndi:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-xml:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-io:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-util:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-api:9.4.6.v20170531" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:3.1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.platform:junit-platform-commons:1.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.apiguardian:apiguardian-api:1.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.opentest4j:opentest4j:1.1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.platform:junit-platform-engine:1.2.0" level="project" />
+  </component>
+</module>

@@ -2,3 +2,8 @@ out
 .idea/workspace.xml
 .idea/usage.statistics.xml
 tweetdata60-mins.txt
+com.mechanitis.demo.sense.flow/build
+com.mechanitis.demo.sense.service/build
+com.mechanitis.demo.sense.service.test/build
+com.mechanitis.demo.sense.user/build
+com.mechanitis.demo.sense.client/build

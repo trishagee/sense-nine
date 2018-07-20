@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":com.mechanitis.demo.sense.flow" external.linked.project.path="$MODULE_DIR$/../../../com.mechanitis.demo.sense.flow" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="sense-nine" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.flow/out/production/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.flow/out/test/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.flow">
+      <sourceFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.flow/src/main/java" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.flow/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.flow/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.flow/out" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.reactivestreams:reactive-streams:1.0.1" level="project" />
+  </component>
+</module>
