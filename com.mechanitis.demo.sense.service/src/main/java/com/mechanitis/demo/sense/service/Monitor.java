@@ -14,7 +14,7 @@ public class Monitor {
      * @deprecated this will be removed,
      * use {@link Monitor#fetchProcessInfo(String, String, String)} ()} instead
      */
-    @Deprecated
+    @Deprecated(forRemoval = true)
     static void printProcessInformation() {
         ProcessHandle
         .allProcesses()

@@ -5,5 +5,8 @@
       <option name="REPLACE_TRIVIAL_FOREACH" value="true" />
       <option name="SUGGEST_FOREACH" value="true" />
     </inspection_tool>
+    <inspection_tool class="MarkedForRemoval" enabled="true" level="ERROR" enabled_by_default="true">
+      <option name="IGNORE_IN_SAME_OUTERMOST_CLASS" value="false" />
+    </inspection_tool>
   </profile>
 </component>
