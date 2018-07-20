@@ -5,7 +5,7 @@ apply plugin: 'java-library'
 dependencies {
     api project(':com.mechanitis.demo.sense.flow')
     api project(':com.mechanitis.demo.sense.service')
-    api 'io.projectreactor:reactor-core:3.0.7.RELEASE'
+    api 'io.projectreactor:reactor-core:3.1.7.RELEASE'
 
     testCompile project(':com.mechanitis.demo.sense.service.test')
 
