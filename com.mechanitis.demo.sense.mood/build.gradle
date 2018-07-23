@@ -1,11 +1,11 @@
 ext.moduleName = 'com.mechanitis.demo.sense.mood'
 
-apply plugin: 'java-library'
+apply plugin: 'java'
 
 dependencies {
-    api project(':com.mechanitis.demo.sense.flow')
-    api project(':com.mechanitis.demo.sense.service')
-    api 'io.projectreactor:reactor-core:3.1.7.RELEASE'
+    compile project(':com.mechanitis.demo.sense.flow')
+    compile project(':com.mechanitis.demo.sense.service')
+    compile 'io.projectreactor:reactor-core:3.1.8.RELEASE'
 
     testCompile project(':com.mechanitis.demo.sense.service.test')
 
