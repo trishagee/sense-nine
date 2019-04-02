@@ -14,6 +14,13 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="com.mechanitis.demo.sense.service" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:11.0.2:mac" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:11.0.2:mac" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:11.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:11.0.2:mac" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:11.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:11.0.2:mac" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:11.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.6.v20170531" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-annotations:9.4.6.v20170531" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-client-impl:9.4.6.v20170531" level="project" />

@@ -6,7 +6,7 @@
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="/Library/Tools/gradle-4.6" />
-        <option name="gradleJvm" value="10" />
+        <option name="gradleJvm" value="12" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
