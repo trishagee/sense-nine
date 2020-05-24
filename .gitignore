@@ -1,6 +1,7 @@
 out
 .idea/workspace.xml
 .idea/usage.statistics.xml
+.idea/shelf
 .gradle
 tweetdata60-mins.txt
 com.mechanitis.demo.sense.flow/build
