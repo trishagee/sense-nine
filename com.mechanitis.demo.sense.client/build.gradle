@@ -1,6 +1,6 @@
 plugins {
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 ext.moduleName = 'com.mechanitis.demo.sense.client'
@@ -13,6 +13,7 @@ dependencies {
 }
 
 javafx {
+    version = "11.0.2"
     modules = [ 'javafx.controls', 'javafx.base', 'javafx.fxml', 'javafx.graphics' ]
 }
 
