@@ -1,0 +1,3 @@
+[ ] Update versions of libraries
+[ ] Try Java 11 websockets
+[ ] Use new reactive streams instead of flow

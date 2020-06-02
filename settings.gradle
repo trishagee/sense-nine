@@ -1,3 +1,4 @@
 rootProject.name = 'sense-nine'
 
-include 'com.mechanitis.demo.sense.service'
+include 'com.mechanitis.demo.sense.flow',
+        'com.mechanitis.demo.sense.service'

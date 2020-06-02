@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.client/com.mechanitis.demo.sense.client.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.client/com.mechanitis.demo.sense.client.iml" group="sense-nine/com.mechanitis.demo.sense.client" />
       <module fileurl="file://$PROJECT_DIR$/sense-nine.iml" filepath="$PROJECT_DIR$/sense-nine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.flow/sense-nine.com.mechanitis.demo.sense.flow.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.flow/sense-nine.com.mechanitis.demo.sense.flow.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.service/sense-nine.com.mechanitis.demo.sense.service.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mechanitis.demo.sense.service/sense-nine.com.mechanitis.demo.sense.service.iml" />
     </modules>
   </component>
