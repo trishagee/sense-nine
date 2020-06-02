@@ -13,6 +13,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.flow" />
+            <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.mood" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.service" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.service.test" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.twitter" />
