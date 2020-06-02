@@ -7,13 +7,24 @@ subprojects {
         mavenCentral()
     }
 
-    // tag::inferModulePath[]
-    plugins.withType(JavaPlugin).configureEach {
-        java {
-            modularity.inferModulePath = true
+    // this doesn't work with automatic modules
+//    plugins.withType(JavaPlugin).configureEach {
+//        java {
+//            modularity.inferModulePath = true
+//        }
+//    }
+
+    //...but this older technique does
+    // to use modules properly with Gradle we might need to migrate all our dependencies to ones that at least have a module name defined
+    afterEvaluate {
+        compileJava {
+            doFirst {
+                options.compilerArgs = [
+                        '--module-path', classpath.asPath,
+                ]
+            }
         }
     }
-    // end::inferModulePath[]
 
     tasks.withType(Test).configureEach {
         useJUnitPlatform()

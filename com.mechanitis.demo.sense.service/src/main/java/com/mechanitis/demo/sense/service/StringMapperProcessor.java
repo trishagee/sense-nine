@@ -2,8 +2,12 @@ package com.mechanitis.demo.sense.service;
 
 import java.util.concurrent.Flow;
 import java.util.function.Function;
+import java.util.logging.Logger;
+
+import static java.util.logging.Logger.getLogger;
 
 class StringMapperProcessor implements Flow.Processor<String, String> {
+    private static final Logger LOGGER = getLogger(StringMapperProcessor.class.getName());
     private final Function<String, String> mapper;
     private Flow.Subscriber<? super String> subscriber;
 
