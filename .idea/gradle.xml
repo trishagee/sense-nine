@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.flow" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.service" />
+            <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.service.test" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
