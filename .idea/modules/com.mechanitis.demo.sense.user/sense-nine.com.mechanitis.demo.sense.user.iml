@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":com.mechanitis.demo.sense.mood" external.linked.project.path="$MODULE_DIR$/../../../com.mechanitis.demo.sense.mood" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="sense-nine" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":com.mechanitis.demo.sense.user" external.linked.project.path="$MODULE_DIR$/../../../com.mechanitis.demo.sense.user" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="sense-nine" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <output url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.mood/build/classes/java/main" />
-    <output-test url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.mood/build/classes/java/test" />
+    <output url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.user/build/classes/java/main" />
+    <output-test url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.user/build/classes/java/test" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.mood">
-      <sourceFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.mood/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.mood/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.mood/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.mood/build" />
+    <content url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.user">
+      <sourceFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.user/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.user/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.user/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../com.mechanitis.demo.sense.user/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.flow" />
     <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.service" />
-    <orderEntry type="library" name="Gradle: io.projectreactor:reactor-core:3.1.8.RELEASE" level="project" />
+    <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.service.test" />
     <orderEntry type="library" name="Gradle: org.reactivestreams:reactive-streams:1.0.3" level="project" />
     <orderEntry type="library" name="Gradle: javax.websocket:javax.websocket-api:1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.6.v20170531" level="project" />
@@ -41,18 +41,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.eclipse.jetty:jetty-util:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.eclipse.jetty.websocket:websocket-api:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: javax.servlet:javax.servlet-api:3.1.0" level="project" />
-    <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.service.test" scope="TEST" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:2.19.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.platform:junit-platform-engine:1.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.junit.platform:junit-platform-commons:1.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.apiguardian:apiguardian-api:1.0.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy:1.8.13" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy-agent:1.8.13" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.opentest4j:opentest4j:1.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-client-impl:9.4.6.v20170531" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.eclipse.jetty:jetty-annotations:9.4.6.v20170531" level="project" />

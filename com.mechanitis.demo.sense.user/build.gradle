@@ -1,11 +1,10 @@
-ext.moduleName = 'com.mechanitis.demo.sense.user'
-
 apply plugin: 'java-library'
 
 dependencies {
-    api project(':com.mechanitis.demo.sense.flow')
-    api project(':com.mechanitis.demo.sense.service')
+    implementation project(':com.mechanitis.demo.sense.flow')
+    implementation project(':com.mechanitis.demo.sense.service')
 
-    testCompile project(':com.mechanitis.demo.sense.service.test')
+    // TODO: split the test application into its own module
+    implementation project(':com.mechanitis.demo.sense.service.test')
 }
 
