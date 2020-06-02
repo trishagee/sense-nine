@@ -7,17 +7,15 @@ subprojects {
         mavenCentral()
     }
 
-    afterEvaluate {
-        compileJava {
-            inputs.property("moduleName", moduleName)
-            doFirst {
-                options.compilerArgs = [
-                        '--module-path', classpath.asPath,
-                ]
-                classpath = files()
-            }
+    // tag::inferModulePath[]
+    plugins.withType(JavaPlugin).configureEach {
+        java {
+            modularity.inferModulePath = true
         }
+    }
+    // end::inferModulePath[]
 
-
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
     }
 }

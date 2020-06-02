@@ -4,22 +4,19 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="/Library/Tools/gradle-4.6" />
-        <option name="gradleJvm" value="11 (AdoptOpenJDK)" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.flow" />
-            <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.mood" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.service" />
-            <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.service.test" />
-            <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.twitter" />
-            <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.user" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>
