@@ -2,4 +2,5 @@ rootProject.name = 'sense-nine'
 
 include 'com.mechanitis.demo.sense.flow',
         'com.mechanitis.demo.sense.service',
-        'com.mechanitis.demo.sense.service.test'
+        'com.mechanitis.demo.sense.service.test',
+        'com.mechanitis.demo.sense.twitter'
