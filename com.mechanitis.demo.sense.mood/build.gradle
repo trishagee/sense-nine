@@ -7,7 +7,8 @@ dependencies {
     implementation project(':com.mechanitis.demo.sense.service')
     implementation 'io.projectreactor:reactor-core:3.1.8.RELEASE'
 
-    testCompileOnly project(':com.mechanitis.demo.sense.service.test')
+    // TODO: move stub service into its own module
+    implementation project(':com.mechanitis.demo.sense.service.test')
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.2.0'

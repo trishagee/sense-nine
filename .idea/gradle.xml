@@ -12,6 +12,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.client" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.flow" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.mood" />
             <option value="$PROJECT_DIR$/com.mechanitis.demo.sense.service" />

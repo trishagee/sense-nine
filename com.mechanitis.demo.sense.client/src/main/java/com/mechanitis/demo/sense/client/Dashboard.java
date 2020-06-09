@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.net.URL;
+
 public class Dashboard extends Application {
 
     @Override
@@ -27,7 +29,11 @@ public class Dashboard extends Application {
         moodEndpoint.subscribe(happinessChartData);
 
         // initialise the UI
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/dashboard.fxml"));
+        Class<? extends Dashboard> aClass = getClass();
+        System.out.println("aClass = " + aClass);
+        URL resource = aClass.getResource("resources/dashboard.fxml");
+        System.out.println("resource = " + resource);
+        FXMLLoader loader = new FXMLLoader(resource);
         primaryStage.setTitle("Twitter Dashboard");
         Scene scene = new Scene(loader.load(), 900, 700);
         scene.getStylesheets().add(getClass().getResource("resources/dashboard.css").toString());
