@@ -32,6 +32,7 @@ public class Dashboard extends Application {
         Class<? extends Dashboard> aClass = getClass();
         System.out.println("aClass = " + aClass);
         URL resource = aClass.getResource("resources/dashboard.fxml");
+
         System.out.println("resource = " + resource);
         FXMLLoader loader = new FXMLLoader(resource);
         primaryStage.setTitle("Twitter Dashboard");
