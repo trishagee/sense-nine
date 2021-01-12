@@ -3,7 +3,7 @@ module com.mechanitis.demo.sense.service {
     requires org.eclipse.jetty.server;
     requires org.eclipse.jetty.servlet;
     requires org.eclipse.jetty.websocket.javax.websocket.server;
-    requires javax.websocket.api;
+    requires transitive javax.websocket.api;
 
     exports com.mechanitis.demo.sense.service;
 }
