@@ -1,5 +1,5 @@
 module com.mechanitis.demo.sense.twitter {
     requires com.mechanitis.demo.sense.service;
     requires java.logging;
-    requires rxjava;
+    requires io.reactivex.rxjava2;
 }
