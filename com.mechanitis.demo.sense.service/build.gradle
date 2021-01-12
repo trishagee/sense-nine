@@ -1,15 +1,32 @@
-ext.moduleName = 'com.mechanitis.demo.sense.service'
+plugins {
+    id 'java-library'
+    id("de.jjohannes.extra-java-module-info") version "0.4"
+}
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
-    compile 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.6.v20170531'
+    compile 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.35.v20201120'
+    compile 'javax.websocket:javax.websocket-api:1.1'
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
-    testCompile 'org.mockito:mockito-core:2.19.1'
+    testCompile 'org.mockito:mockito-core:3.7.0'
 }
 
 test {
     useJUnitPlatform()
 }
 
+java {
+    modularity.inferModulePath = true
+}
+
+extraJavaModuleInfo {
+    automaticModule("javax.websocket-api-1.1.jar", "javax.websocket.api")
+    automaticModule("javax.websocket-client-api-1.0.jar", "org.eclipse.jetty.websocket.client")
+    automaticModule("javax.servlet-api-3.1.0.jar", "javax.servlet.api")
+}

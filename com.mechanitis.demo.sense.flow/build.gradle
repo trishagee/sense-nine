@@ -1,6 +1,15 @@
-ext.moduleName = 'com.mechanitis.demo.sense.flow'
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     compile 'org.reactivestreams:reactive-streams:1.0.3'
 }
 
+java {
+    modularity.inferModulePath = true
+}
