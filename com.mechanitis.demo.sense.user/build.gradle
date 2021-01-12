@@ -1,11 +1,19 @@
-ext.moduleName = 'com.mechanitis.demo.sense.user'
+plugins {
+    id 'java-library'
+}
 
-apply plugin: 'java-library'
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     api project(':com.mechanitis.demo.sense.flow')
     api project(':com.mechanitis.demo.sense.service')
 
     testCompile project(':com.mechanitis.demo.sense.service.test')
+}
+
+java {
+    modularity.inferModulePath = true
 }
 

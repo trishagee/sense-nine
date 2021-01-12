@@ -12,10 +12,6 @@ dependencies {
     compile project(':com.mechanitis.demo.sense.service')
 }
 
-//test {
-//    useJUnitPlatform()
-//}
-
 java {
     modularity.inferModulePath = true
 }
