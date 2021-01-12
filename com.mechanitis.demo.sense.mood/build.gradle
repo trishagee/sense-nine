@@ -1,19 +1,27 @@
-ext.moduleName = 'com.mechanitis.demo.sense.mood'
+plugins {
+    id 'java-library'
+}
 
-apply plugin: 'java'
+repositories {
+    mavenCentral()
+}
+
+java {
+    modularity.inferModulePath = true
+}
 
 dependencies {
     compile project(':com.mechanitis.demo.sense.flow')
     compile project(':com.mechanitis.demo.sense.service')
-    compile 'io.projectreactor:reactor-core:3.1.8.RELEASE'
+    compile 'io.projectreactor:reactor-core:3.4.1'
 
     testCompile project(':com.mechanitis.demo.sense.service.test')
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
-    testCompile 'org.junit.jupiter:junit-jupiter-params:5.2.0'
-    testCompile 'org.mockito:mockito-core:2.19.1'
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.7.0'
+    testCompile 'org.mockito:mockito-core:3.7.0'
 }
 
 test {
