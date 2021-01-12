@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: javax.websocket:javax.websocket-client-api:1.0:module">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/95447ef11f81f1998c3c8e9643d20f5b/transformed/javax.websocket-client-api-1.0-module.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-client-api/1.0/57ee0d4138e37dc6a9b3d264dea853cb468ae4c8/javax.websocket-client-api-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
