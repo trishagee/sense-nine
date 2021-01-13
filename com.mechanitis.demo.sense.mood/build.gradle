@@ -28,7 +28,7 @@ test {
 java {
     modularity.inferModulePath = true
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(15))
     }
 }
 
