@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id 'application'
     id("de.jjohannes.extra-java-module-info") version "0.4"
 }
 
@@ -7,18 +7,17 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
-    compile project(':com.mechanitis.demo.sense.flow')
-    compile project(':com.mechanitis.demo.sense.service')
-    compile project(':com.mechanitis.demo.sense.service')
+    implementation project(':com.mechanitis.demo.sense.flow')
+    implementation project(':com.mechanitis.demo.sense.service')
+    implementation project(':com.mechanitis.demo.sense.service')
 
-    compile 'io.reactivex.rxjava2:rxjava:2.2.20'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
-    testCompile 'org.hamcrest:hamcrest-core:2.2'
+    testImplementation 'org.hamcrest:hamcrest-core:2.2'
 }
 
 test {
@@ -27,6 +26,10 @@ test {
 
 java {
     modularity.inferModulePath = true
+}
+
+application {
+    mainClass = 'com.mechanitis.demo.sense.twitter.CannedTweetsService'
 }
 
 extraJavaModuleInfo {

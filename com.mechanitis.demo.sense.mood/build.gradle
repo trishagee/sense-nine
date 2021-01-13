@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id 'application'
     id("de.jjohannes.extra-java-module-info") version "0.4"
 }
 
@@ -7,26 +7,30 @@ repositories {
     mavenCentral()
 }
 
-java {
-    modularity.inferModulePath = true
-}
-
 dependencies {
-    compile project(':com.mechanitis.demo.sense.flow')
-    compile project(':com.mechanitis.demo.sense.service')
-    compile 'io.projectreactor:reactor-core:3.4.1'
+    implementation project(':com.mechanitis.demo.sense.flow')
+    implementation project(':com.mechanitis.demo.sense.service')
+    implementation 'io.projectreactor:reactor-core:3.4.1'
 
-    testCompile project(':com.mechanitis.demo.sense.service.test')
+    testImplementation project(':com.mechanitis.demo.sense.service.test')
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
-    testCompile 'org.junit.jupiter:junit-jupiter-params:5.7.0'
-    testCompile 'org.mockito:mockito-core:3.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.0'
+    testImplementation 'org.mockito:mockito-core:3.7.0'
 }
 
 test {
     useJUnitPlatform()
+}
+
+java {
+    modularity.inferModulePath = true
+}
+
+application {
+    mainClass = 'com.mechanitis.demo.sense.mood.MoodService'
 }
 
 extraJavaModuleInfo {

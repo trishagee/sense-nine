@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id 'application'
     id("de.jjohannes.extra-java-module-info") version "0.4"
 }
 
@@ -8,14 +8,18 @@ repositories {
 }
 
 dependencies {
-    api project(':com.mechanitis.demo.sense.flow')
-    api project(':com.mechanitis.demo.sense.service')
+    implementation project(':com.mechanitis.demo.sense.flow')
+    implementation project(':com.mechanitis.demo.sense.service')
 
-    testCompile project(':com.mechanitis.demo.sense.service.test')
+    testImplementation project(':com.mechanitis.demo.sense.service.test')
 }
 
 java {
     modularity.inferModulePath = true
+}
+
+application {
+    mainClass = 'com.mechanitis.demo.sense.user.UserService'
 }
 
 extraJavaModuleInfo {

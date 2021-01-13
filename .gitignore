@@ -2,7 +2,7 @@ out
 .idea/workspace.xml
 .idea/usage.statistics.xml
 .gradle
-tweetdata60-mins.txt
+com.mechanitis.demo.sense.twitter/src/main/java/tweetdata60-mins.txt
 com.mechanitis.demo.sense.flow/build
 com.mechanitis.demo.sense.service/build
 com.mechanitis.demo.sense.service.test/build
