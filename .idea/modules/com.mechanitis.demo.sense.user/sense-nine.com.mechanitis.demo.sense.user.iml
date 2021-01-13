@@ -16,7 +16,7 @@
     <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.service" />
     <orderEntry type="library" name="Gradle: org.reactivestreams:reactive-streams:1.0.3" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.35.v20201120" level="project" />
-    <orderEntry type="library" name="Gradle: javax.websocket:javax.websocket-api:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: javax.websocket:javax.websocket-api:1.1:module" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-annotations:9.4.35.v20201120" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-client-impl:9.4.35.v20201120" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-server:9.4.35.v20201120" level="project" />
@@ -28,7 +28,7 @@
     <orderEntry type="library" name="Gradle: org.ow2.asm:asm-tree:9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.ow2.asm:asm:9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-client:9.4.35.v20201120" level="project" />
-    <orderEntry type="library" name="Gradle: javax.websocket:javax.websocket-client-api:1.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.websocket:javax.websocket-client-api:1.0:module" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-common:9.4.35.v20201120" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-servlet:9.4.35.v20201120" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-servlet:9.4.35.v20201120" level="project" />
@@ -42,7 +42,7 @@
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-util-ajax:9.4.35.v20201120" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-util:9.4.35.v20201120" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-api:9.4.35.v20201120" level="project" />
-    <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:3.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:3.1.0:module" level="project" />
     <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.service.test" scope="TEST" />
   </component>
 </module>
