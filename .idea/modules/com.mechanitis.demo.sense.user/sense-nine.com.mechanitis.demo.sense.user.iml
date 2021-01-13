@@ -12,7 +12,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.flow" scope="PROVIDED" />
+    <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.flow" />
     <orderEntry type="module" module-name="sense-nine.com.mechanitis.demo.sense.service" />
     <orderEntry type="library" name="Gradle: org.reactivestreams:reactive-streams:1.0.3" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.35.v20201120" level="project" />
