@@ -1,14 +1,42 @@
-ext.moduleName = 'com.mechanitis.demo.sense.client'
+plugins {
+    id 'application'
+}
 
-apply plugin: 'java-library'
+repositories {
+    mavenCentral()
+}
+
+def javaFXPlatform = getJavaFXPlatform()
+def javaFXVersion = "15.0.1"
 
 dependencies {
-    api project(':com.mechanitis.demo.sense.service')
+    implementation project(':com.mechanitis.demo.sense.service')
 
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    implementation "org.openjfx:javafx-base:${javaFXVersion}:${javaFXPlatform}"
+    implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
+    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
+    implementation "org.openjfx:javafx-fxml:${javaFXVersion}:${javaFXPlatform}"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {
     useJUnitPlatform()
+}
+
+java {
+    modularity.inferModulePath = true
+}
+
+private static String getJavaFXPlatform() {
+    def currentOS = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem;
+    if (currentOS.isWindows()) {
+        return 'win'
+    } else if (currentOS.isLinux()) {
+        return 'linux'
+    } else if (currentOS.isMacOsX()) {
+        return 'mac'
+    }
+    return null
 }
