@@ -1,25 +1,23 @@
 plugins {
     id 'application'
     id("de.jjohannes.extra-java-module-info") version "0.4"
+    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 repositories {
     mavenCentral()
 }
 
-def javaFXPlatform = getJavaFXPlatform()
-def javaFXVersion = "15.0.1"
+javafx {
+    version = "16"
+    modules = ['javafx.controls', 'javafx.graphics', 'javafx.fxml']
+}
 
 dependencies {
     implementation project(':com.mechanitis.demo.sense.service')
 
-    implementation "org.openjfx:javafx-base:${javaFXVersion}:${javaFXPlatform}"
-    implementation "org.openjfx:javafx-controls:${javaFXVersion}:${javaFXPlatform}"
-    implementation "org.openjfx:javafx-graphics:${javaFXVersion}:${javaFXPlatform}"
-    implementation "org.openjfx:javafx-fxml:${javaFXVersion}:${javaFXPlatform}"
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
 test {
@@ -29,7 +27,7 @@ test {
 java {
     modularity.inferModulePath = true
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(15))
+        languageVersion.set(JavaLanguageVersion.of(16))
     }
 }
 
@@ -44,16 +42,4 @@ extraJavaModuleInfo {
 application {
     mainModule.set('com.mechanitis.demo.sense.client')
     mainClass.set('com.mechanitis.demo.sense.client.Dashboard')
-}
-
-private static String getJavaFXPlatform() {
-    def currentOS = org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.currentOperatingSystem;
-    if (currentOS.isWindows()) {
-        return 'win'
-    } else if (currentOS.isLinux()) {
-        return 'linux'
-    } else if (currentOS.isMacOsX()) {
-        return 'mac'
-    }
-    return null
 }
