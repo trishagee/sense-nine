@@ -13,6 +13,6 @@ dependencies {
 java {
     modularity.inferModulePath = true
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(15))
+        languageVersion.set(JavaLanguageVersion.of(16))
     }
 }
