@@ -12,7 +12,7 @@ dependencies {
     implementation project(':com.mechanitis.demo.sense.service')
     implementation project(':com.mechanitis.demo.sense.service')
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
