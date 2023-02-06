@@ -9,13 +9,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.45.v20220203'
+    implementation 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.50.v20221201'
     api 'javax.websocket:javax.websocket-api:1.1'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 
-    testImplementation 'org.mockito:mockito-core:4.3.1'
+    testImplementation 'org.mockito:mockito-core:5.1.1'
 }
 
 test {
