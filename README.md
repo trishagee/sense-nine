@@ -7,9 +7,13 @@ For more information about the talk (including slides, videos, and more detailed
 ### Branches
 This has a slightly complicated set of branches, as it's a) a playground for a bunch of Java 9 features and b) has evolved as Java 9 has evolved.
 
-**main** Fully working app. All services run, as does the UI. Uses Gradle 7.4, Java 17 and JavaFX 17.0.1. The UI only runs from the Gradle command line (not via IntelliJ IDEA's runner) via
+**main** Fully working app. All services run, as does the UI. Uses Gradle 7.6, Java 17 and JavaFX 17.0.1. The UI only runs from the Gradle command line (not via IntelliJ IDEA's runner) via
 
     ./gradlew com.mechanitis.demo.sense.client:run
+
+You can run this Gradle command inside IntelliJ IDEA and it will work. 
+
+To demo the client you can run UserTestData and MoodTestData to create two stub services that output data for the client to read.
 
 **broken-j9** this branch intentionally does not compile under Java 9, and shows the type of compilation errors you might expect to see when you first start using it.
 
