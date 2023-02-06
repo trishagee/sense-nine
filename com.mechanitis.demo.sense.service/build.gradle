@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     // needed to create a "module" out of non-modular libraries
-    id("de.jjohannes.extra-java-module-info") version "0.11"
+    id "org.gradlex.extra-java-module-info" version "1.3"
 }
 
 repositories {
