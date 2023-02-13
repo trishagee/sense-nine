@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id( "java-library")
 }
 
 repositories {
@@ -7,11 +7,11 @@ repositories {
 }
 
 dependencies {
-    api 'org.reactivestreams:reactive-streams:1.0.4'
+    api( "org.reactivestreams:reactive-streams:1.0.4")
 }
 
 java {
-    modularity.inferModulePath = true
+    modularity.inferModulePath.set(true)
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }

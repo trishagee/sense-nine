@@ -1,7 +1,6 @@
 plugins {
-    id 'java-library'
-    // needed to create a "module" out of non-modular libraries
-    id "org.gradlex.extra-java-module-info" version "1.3"
+    id ("java-library")
+    id("org.gradlex.extra-java-module-info").version("1.3")
 }
 
 repositories {
@@ -9,11 +8,11 @@ repositories {
 }
 
 dependencies {
-    implementation project(':com.mechanitis.demo.sense.service')
+    implementation (project(":com.mechanitis.demo.sense.service"))
 }
 
 java {
-    modularity.inferModulePath = true
+    modularity.inferModulePath.set(true)
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
