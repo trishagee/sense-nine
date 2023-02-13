@@ -4,10 +4,6 @@ plugins {
     id("org.openjfx.javafxplugin").version("0.0.12")
 }
 
-repositories {
-    mavenCentral()
-}
-
 javafx {
     version = "17.0.2"
     modules("javafx.controls", "javafx.graphics", "javafx.fxml")
@@ -25,7 +21,6 @@ tasks.test {
 }
 
 java {
-    modularity.inferModulePath.set(true)
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }

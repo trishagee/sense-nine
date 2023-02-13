@@ -3,10 +3,6 @@ plugins {
     id("org.gradlex.extra-java-module-info").version("1.3")
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation("org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.50.v20221201")
     api("javax.websocket:javax.websocket-api:1.1")

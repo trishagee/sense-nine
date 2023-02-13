@@ -3,10 +3,6 @@ plugins {
     id("org.gradlex.extra-java-module-info").version("1.3")
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation(project(":com.mechanitis.demo.sense.flow"))
     implementation(project(":com.mechanitis.demo.sense.service"))

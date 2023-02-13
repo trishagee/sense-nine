@@ -2,6 +2,12 @@ plugins {
     id ("com.gradle.enterprise").version("3.12.1")
 }
 
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
 rootProject.name = "sense-nine"
 
 include("com.mechanitis.demo.sense.flow",
