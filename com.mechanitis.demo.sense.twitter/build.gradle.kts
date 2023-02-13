@@ -20,10 +20,8 @@ dependencies {
     testImplementation("org.hamcrest:hamcrest:2.2")
 }
 
-tasks {
-    test {
-        useJUnitPlatform()
-    }
+tasks.test {
+    useJUnitPlatform()
 }
 
 java {

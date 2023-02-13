@@ -21,10 +21,8 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.1.1")
 }
 
-tasks {
-    test {
-        useJUnitPlatform()
-    }
+tasks.test {
+    useJUnitPlatform()
 }
 
 java {
