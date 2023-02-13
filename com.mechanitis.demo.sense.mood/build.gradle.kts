@@ -26,7 +26,6 @@ tasks.test {
 }
 
 java {
-    modularity.inferModulePath.set(true)
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
