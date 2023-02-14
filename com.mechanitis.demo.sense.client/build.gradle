@@ -1,7 +1,7 @@
 plugins {
-    id "application"
-    id "org.gradlex.extra-java-module-info" version "1.3"
-    id "org.openjfx.javafxplugin" version "0.0.12"
+    id ("application")
+    id ("org.gradlex.extra-java-module-info") version "1.3"
+    id ("org.openjfx.javafxplugin") version "0.0.12"
 }
 
 repositories {
@@ -14,10 +14,10 @@ javafx {
 }
 
 dependencies {
-    implementation project(":com.mechanitis.demo.sense.service")
+    implementation (project(":com.mechanitis.demo.sense.service"))
 
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.2"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.2"
+    testImplementation ("org.junit.jupiter:junit-jupiter-api:5.9.2")
+    testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 }
 
 test {
@@ -25,7 +25,7 @@ test {
 }
 
 java {
-    modularity.inferModulePath = true
+    modularity.inferModulePath.set(true)
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
