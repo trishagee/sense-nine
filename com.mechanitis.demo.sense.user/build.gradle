@@ -22,7 +22,7 @@ java {
 }
 
 application {
-    mainClass = "com.mechanitis.demo.sense.user.UserService"
+    mainClass.set("com.mechanitis.demo.sense.user.UserService")
 }
 
 extraJavaModuleInfo {

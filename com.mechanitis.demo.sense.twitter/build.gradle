@@ -32,7 +32,7 @@ java {
 }
 
 application {
-    mainClass = "com.mechanitis.demo.sense.twitter.CannedTweetsService"
+    mainClass.set("com.mechanitis.demo.sense.twitter.CannedTweetsService")
 }
 
 extraJavaModuleInfo {

@@ -33,7 +33,7 @@ java {
 }
 
 application {
-    mainClass = "com.mechanitis.demo.sense.mood.MoodService"
+    mainClass.set("com.mechanitis.demo.sense.mood.MoodService")
 }
 
 extraJavaModuleInfo {
