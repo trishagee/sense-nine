@@ -20,4 +20,8 @@ include("com.mechanitis.demo.sense.flow",
 
 gradleEnterprise {
     server = "https://18.212.219.143.nip.io"
+    allowUntrustedServer = true
+    buildScan {
+        publishAlways()
+    }
 }
