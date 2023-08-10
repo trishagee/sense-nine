@@ -1,5 +1,5 @@
 plugins {
-    id ("com.gradle.enterprise").version("3.12.1")
+    id("com.gradle.enterprise") version "3.14.1"
 }
 
 dependencyResolutionManagement {
@@ -19,5 +19,5 @@ include("com.mechanitis.demo.sense.flow",
         "com.mechanitis.demo.sense.user")
 
 gradleEnterprise {
-    server = "https://events.gradle.com/"
+    server = "https://18.212.219.143.nip.io"
 }
