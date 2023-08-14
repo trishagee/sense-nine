@@ -1,6 +1,6 @@
 plugins {
     id ("java-library")
-    id("org.gradlex.extra-java-module-info").version("1.3")
+    id("org.gradlex.extra-java-module-info").version("1.4")
 }
 
 dependencies {

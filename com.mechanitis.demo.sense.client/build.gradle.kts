@@ -1,7 +1,7 @@
 plugins {
     id("application")
-    id("org.gradlex.extra-java-module-info").version("1.3")
-    id("org.openjfx.javafxplugin").version("0.0.12")
+    id("org.gradlex.extra-java-module-info").version("1.4")
+    id("org.openjfx.javafxplugin").version("0.0.14")
 }
 
 javafx {
