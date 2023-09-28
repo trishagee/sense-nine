@@ -1,10 +1,10 @@
 plugins {
-    id ("java-library")
-    id("org.gradlex.extra-java-module-info").version("1.4")
+    id("java-library")
+    id("org.gradlex.extra-java-module-info").version("1.4.2")
 }
 
 dependencies {
-    implementation (project(":com.mechanitis.demo.sense.service"))
+    implementation(project(":com.mechanitis.demo.sense.service"))
 }
 
 java {

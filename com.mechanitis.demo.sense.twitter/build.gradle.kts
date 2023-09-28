@@ -1,6 +1,6 @@
 plugins {
     id("application")
-    id("org.gradlex.extra-java-module-info").version("1.4")
+    id("org.gradlex.extra-java-module-info").version("1.4.2")
 }
 
 dependencies {
@@ -10,8 +10,8 @@ dependencies {
 
     implementation("io.reactivex.rxjava2:rxjava:2.2.21")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 
     testImplementation("org.hamcrest:hamcrest:2.2")
 }

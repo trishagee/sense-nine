@@ -1,6 +1,6 @@
 plugins {
     id("application")
-    id("org.gradlex.extra-java-module-info").version("1.4")
+    id("org.gradlex.extra-java-module-info").version("1.4.2")
 }
 
 dependencies {
@@ -8,6 +8,7 @@ dependencies {
     implementation(project(":com.mechanitis.demo.sense.service"))
 
     testImplementation(project(":com.mechanitis.demo.sense.service.test"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
 }
 
 java {

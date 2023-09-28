@@ -1,19 +1,19 @@
 plugins {
     id("application")
-    id("org.gradlex.extra-java-module-info").version("1.4")
-    id("org.openjfx.javafxplugin").version("0.0.14")
+    id("org.gradlex.extra-java-module-info").version("1.4.2")
+    id("org.openjfx.javafxplugin").version("0.1.0")
 }
 
 javafx {
-    version = "17.0.2"
+    version = "17.0.8"
     modules("javafx.controls", "javafx.graphics", "javafx.fxml")
 }
 
 dependencies {
     implementation(project(":com.mechanitis.demo.sense.service"))
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 }
 
 tasks.test {
