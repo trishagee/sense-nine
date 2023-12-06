@@ -20,6 +20,21 @@ class MoodChartDataTest {
     }
 
     @Test
+    @DisplayName("should increment happy slice for every time a happy emotion is found")
+    void shouldIncrementHappyEveryTime() {
+        // given:
+        MoodChartData moodChartData = new MoodChartData();
+
+        // when:
+        moodChartData.onNext("HAPPY");
+        moodChartData.onNext("HAPPY");
+        moodChartData.onNext("HAPPY");
+
+        // then:
+        assertEquals(3, moodChartData.getHappyPortion().getPieValue());
+    }
+
+    @Test
     @DisplayName("should increment sad slice")
     void shouldIncrementSad() {
         // given:
