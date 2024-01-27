@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    api("jakarta.websocket:jakarta.websocket-api:2.1.1")
+    api("org.eclipse.jetty.websocket:websocket-jakarta-server:11.0.19")
     api("jakarta.websocket:jakarta.websocket-client-api:2.1.1")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
