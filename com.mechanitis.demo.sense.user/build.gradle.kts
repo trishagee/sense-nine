@@ -1,6 +1,5 @@
 plugins {
     id("application")
-    id("org.gradlex.extra-java-module-info").version("1.4.2")
 }
 
 dependencies {
@@ -19,12 +18,4 @@ java {
 
 application {
     mainClass.set("com.mechanitis.demo.sense.user.UserService")
-}
-
-extraJavaModuleInfo {
-    // this I seem to need
-    automaticModule("jakarta.websocket-api-1.1.jar", "jakarta.websocket.api")
-    // these I don"t need explicitly, but the build fails without them
-    automaticModule("jakarta.websocket-client-api-1.0.jar", "org.eclipse.jetty.websocket.client")
-    automaticModule("javax.servlet-api-3.1.0.jar", "javax.servlet.api")
 }
