@@ -1,9 +1,9 @@
 module com.mechanitis.demo.sense.service {
     requires java.logging;
-    requires jetty.server;
-    requires jetty.servlet;
+    requires org.eclipse.jetty.server;
+    requires org.eclipse.jetty.servlet;
+    requires org.eclipse.jetty.websocket.javax.websocket.server;
     requires javax.websocket.api;
-    requires javax.websocket.server.impl;
 
     exports com.mechanitis.demo.sense.service;
 }

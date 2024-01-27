@@ -5,6 +5,7 @@ import com.mechanitis.demo.sense.service.BroadcastingServerEndpoint;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
@@ -23,6 +24,7 @@ public class CannedTweetsService implements Runnable {
     private final BroadcastingServerEndpoint tweetsEndpoint
             = new BroadcastingServerEndpoint("/tweets/", 8081);
     private final Path filePath;
+    private AtomicBoolean running = new AtomicBoolean(true);
 
     CannedTweetsService(Path filePath) {
         this.filePath = filePath;
@@ -65,6 +67,7 @@ public class CannedTweetsService implements Runnable {
     }
 
     void stop() {
+        running.set(false);
         tweetsEndpoint.close();
     }
 }

@@ -4,5 +4,8 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
+    <bytecodeTargetLevel target="17">
+      <module name="sense-nine.com.mechanitis.demo.sense.mood" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>

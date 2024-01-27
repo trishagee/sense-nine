@@ -50,4 +50,11 @@ public class MoodChartData implements Flow.Subscriber<String> {
         portion.setPieValue(portion.getPieValue() + 1);
     }
 
+    PieChart.Data getHappyPortion() {
+        return happyPortion;
+    }
+
+    PieChart.Data getSadPortion() {
+        return sadPortion;
+    }
 }

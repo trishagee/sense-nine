@@ -27,10 +27,10 @@ public class Dashboard extends Application {
         moodEndpoint.subscribe(happinessChartData);
 
         // initialise the UI
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
         primaryStage.setTitle("Twitter Dashboard");
         Scene scene = new Scene(loader.load(), 900, 700);
-        scene.getStylesheets().add(getClass().getResource("resources/dashboard.css").toString());
+        scene.getStylesheets().add(getClass().getResource("/dashboard.css").toString());
 
         // wire up the models to the controllers
         DashboardController dashboardController = loader.getController();

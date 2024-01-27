@@ -1,5 +1,0 @@
-ext.moduleName = 'com.mechanitis.demo.sense.service.test'
-
-dependencies {
-    compile project(':com.mechanitis.demo.sense.service')
-}
