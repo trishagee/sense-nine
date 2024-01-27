@@ -1,17 +1,15 @@
 plugins {
     id("application")
-    id("org.gradlex.extra-java-module-info").version("1.4.2")
 }
 
 dependencies {
     implementation(project(":com.mechanitis.demo.sense.flow"))
     implementation(project(":com.mechanitis.demo.sense.service"))
-    implementation(project(":com.mechanitis.demo.sense.service"))
 
     implementation("io.reactivex.rxjava2:rxjava:2.2.21")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
 
     testImplementation("org.hamcrest:hamcrest:2.2")
 }
@@ -30,8 +28,3 @@ application {
     mainClass.set("com.mechanitis.demo.sense.twitter.CannedTweetsService")
 }
 
-extraJavaModuleInfo {
-    automaticModule("jakarta.websocket-api-1.1.jar", "jakarta.websocket.api")
-    automaticModule("jakarta.websocket-client-api-1.0.jar", "org.eclipse.jetty.websocket.client")
-    automaticModule("javax.servlet-api-3.1.0.jar", "javax.servlet.api")
-}
