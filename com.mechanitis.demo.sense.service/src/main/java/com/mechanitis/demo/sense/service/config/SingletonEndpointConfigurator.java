@@ -1,7 +1,7 @@
 package com.mechanitis.demo.sense.service.config;
 
-import javax.websocket.Endpoint;
-import javax.websocket.server.ServerEndpointConfig;
+import jakarta.websocket.Endpoint;
+import jakarta.websocket.server.ServerEndpointConfig;
 
 public final class SingletonEndpointConfigurator extends ServerEndpointConfig.Configurator {
     private final Endpoint singletonInstance;
