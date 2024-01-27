@@ -7,10 +7,10 @@ dependencies {
     implementation("org.eclipse.jetty.websocket:javax-websocket-server-impl:9.4.52.v20230823")
     api("javax.websocket:javax.websocket-api:1.1")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
 
-    testImplementation("org.mockito:mockito-core:5.5.0")
+    testImplementation("org.mockito:mockito-core:5.10.0")
 }
 
 tasks.test {
