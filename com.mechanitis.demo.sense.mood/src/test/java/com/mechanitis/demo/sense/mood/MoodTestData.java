@@ -12,18 +12,11 @@ class MoodTestData {
     public static void main(String[] args) {
         Random random = new Random();
         new StubService("/moods/", 8082,
-                () -> getRandomMood(random.nextInt(2))).run();
+                () -> getRandomMood(random)).run();
     }
 
-    private static String getRandomMood(int requiredIndex) {
-        int i = 0;
-        for (String handle : POSSIBLE_MOODS) {
-            if (i == requiredIndex) {
-                return handle;
-            }
-            i = i + 1;
-        }
-        return null;
+    private static String getRandomMood(Random random) {
+        int requiredIndex = random.nextInt(POSSIBLE_MOODS.size());
+        return POSSIBLE_MOODS.toArray()[requiredIndex].toString();
     }
-
 }
