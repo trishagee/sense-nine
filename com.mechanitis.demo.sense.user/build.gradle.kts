@@ -16,6 +16,10 @@ java {
     }
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 application {
     mainClass.set("com.mechanitis.demo.sense.user.UserService")
 }
