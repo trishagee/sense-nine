@@ -5,15 +5,15 @@ plugins {
 dependencies {
     implementation(project(":com.mechanitis.demo.sense.flow"))
     implementation(project(":com.mechanitis.demo.sense.service"))
-    implementation("io.projectreactor:reactor-core:3.5.10")
+    implementation("io.projectreactor:reactor-core:3.6.5")
 
     testImplementation(project(":com.mechanitis.demo.sense.service.test"))
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.2")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.1")
-    testImplementation("org.mockito:mockito-core:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.2")
+    testImplementation("org.mockito:mockito-core:5.11.0")
 }
 
 tasks.test {

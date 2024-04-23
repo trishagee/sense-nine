@@ -7,7 +7,7 @@ dependencies {
     implementation(project(":com.mechanitis.demo.sense.service"))
 
     testImplementation(project(":com.mechanitis.demo.sense.service.test"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
 }
 
 java {
