@@ -30,11 +30,11 @@ class MoodAnalyserTest {
     @Test
     @DisplayName("should correctly identify sad messages")
     void ShouldIdentifySadMessages() {
-//        when:
+        // when:
         String moodyMessage = MoodService.mapMessageToMoodsCSV(format(TWITTER_MESSAGE_TEMPLATE,
                 "I am so sad today"));
 
-//        then:
+        // then:
         assertEquals("SAD", moodyMessage);
     }
 
@@ -43,22 +43,22 @@ class MoodAnalyserTest {
     @ValueSource(strings = {"I am so sad today it almost makes me happy",
                             "Yesterday I was sad sad sad, but today is awesome"})
     void shouldIdentifyMixedMessages(String message) {
-//        when:
+        // when:
         String moodyMessage = MoodService.mapMessageToMoodsCSV(format(TWITTER_MESSAGE_TEMPLATE,
                 message));
 
-//        then:
+        // then:
         assertEquals("SAD,HAPPY", moodyMessage);
     }
 
     @Test
     @DisplayName("should not have any mood for messages that are neither happy or sad")
     void shouldNotHaveMoodsForOtherMessages() {
-//        when:
+        // when:
         String moodyMessage = MoodService.mapMessageToMoodsCSV(format(TWITTER_MESSAGE_TEMPLATE,
                 "I don't care"));
 
-//        then:
+        // then:
         assertEquals("", moodyMessage);
     }
 

@@ -33,28 +33,6 @@ class MoodAnalyser {
     }
 
     static Optional<Mood> getMood(String key) {
-        final Optional<Mood> optional = Optional.ofNullable(WORD_TO_MOOD.get(key));
-
-        //new Optional features in Java 9
-        optional.or(() -> getAlternativeOptionalValue());
-
-        optional.ifPresentOrElse(MoodAnalyser::doSomething, MoodAnalyser::doSomethingElse);
-
-        optional.stream();
-
         return Optional.ofNullable(WORD_TO_MOOD.get(key));
     }
-
-    private static void doSomethingElse() {
-
-    }
-
-    private static void doSomething(Mood mood) {
-
-    }
-
-    private static Optional<? extends Mood> getAlternativeOptionalValue() {
-        return Optional.empty();
-    }
-
 }
