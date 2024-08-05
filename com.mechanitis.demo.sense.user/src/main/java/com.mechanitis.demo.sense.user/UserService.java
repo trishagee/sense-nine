@@ -16,7 +16,7 @@ public class UserService implements Runnable {
         service.run();
     }
 
-    private static String getTwitterHandleFromTweet(String fullTweet) {
+    static String getTwitterHandleFromTweet(String fullTweet) {
         int fieldStartIndex = fullTweet.indexOf("\"screen_name\":\"")+ "\"screen_name\":\"".length();
         int fieldEndIndex = fullTweet.indexOf("\"", fieldStartIndex);
         return fullTweet.substring(fieldStartIndex, fieldEndIndex);
