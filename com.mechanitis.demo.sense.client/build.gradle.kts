@@ -4,7 +4,7 @@ plugins {
 }
 
 javafx {
-    version = "21.0.3"
+    version = "22.0.2"
     modules("javafx.controls", "javafx.graphics", "javafx.fxml")
 }
 
@@ -22,7 +22,7 @@ tasks.test {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(22))
     }
 }
 
