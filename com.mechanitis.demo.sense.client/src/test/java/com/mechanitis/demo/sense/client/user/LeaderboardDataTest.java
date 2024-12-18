@@ -1,5 +1,6 @@
 package com.mechanitis.demo.sense.client.user;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,8 +21,10 @@ class LeaderboardDataTest {
         leaderboardData.onNext("Trisha");
 
         // then:
-        assertUserAt(leaderboardData, 2, "Trisha", 0);
-        assertUserAt(leaderboardData, 1, "Someone else", 1);
+        assertAll(() -> {
+            assertUserAt(leaderboardData, 1, "Someone else", 1);
+            assertUserAt(leaderboardData, 2, "Trisha", 0);
+        });
     }
 
     @Test
