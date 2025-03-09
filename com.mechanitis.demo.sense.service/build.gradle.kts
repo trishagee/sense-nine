@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api("org.eclipse.jetty.websocket:websocket-jakarta-server:11.0.21")
+    api("org.eclipse.jetty.websocket:websocket-jakarta-server:12.0.12")
     api("jakarta.websocket:jakarta.websocket-client-api:2.2.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.4")
