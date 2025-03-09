@@ -7,13 +7,17 @@ dependencies {
     implementation(project(":com.mechanitis.demo.sense.service"))
 
     testImplementation(project(":com.mechanitis.demo.sense.service.test"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.3")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(22))
+        languageVersion.set(JavaLanguageVersion.of(23))
     }
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 application {
