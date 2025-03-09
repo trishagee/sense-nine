@@ -12,7 +12,7 @@ dependencies {
     testImplementation("org.hamcrest:hamcrest:2.2")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.4")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.4")
 }
 
 tasks.test {
@@ -31,4 +31,3 @@ repositories {
 application {
     mainClass.set("com.mechanitis.demo.sense.twitter.CannedTweetsService")
 }
-
