@@ -5,7 +5,7 @@ plugins {
 dependencies {
     implementation(project(":com.mechanitis.demo.sense.flow"))
     implementation(project(":com.mechanitis.demo.sense.service"))
-    implementation("io.projectreactor:reactor-core:3.6.7")
+    implementation("io.projectreactor:reactor-core:3.7.12")
 
     testImplementation(project(":com.mechanitis.demo.sense.service.test"))
 
