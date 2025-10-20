@@ -2,3 +2,4 @@ out
 .gradle
 com.mechanitis.demo.sense.twitter/tweetdata60-mins.txt
 classes
+build
