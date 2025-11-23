@@ -17,7 +17,7 @@ class MoodService implements Runnable {
 
     private MoodService() {
         service = new Service("ws://localhost:8081/tweets/", "/moods/", PORT,
-                MoodService::filterMessagesForMoods);
+                              MoodService::filterMessagesForMoods);
     }
 
     @SuppressWarnings("unused")
@@ -47,11 +47,23 @@ class MoodService implements Runnable {
 
     private static String[] splitMessageIntoWords(String s) {
         // magical regex that splits by punctuation and numbers and leaves unicode characters
-        return s.split("\\s*[^\\p{IsAlphabetic}]+\\s*");
+        String[] split = s.split("\\s*[^\\p{IsAlphabetic}]+\\s*");
+        int length = split.length;
+        // TODO write a test for this. I do not know why, but the whole Flux operation fails (the flatmap?) if this string split returns an array of size zero or 1
+        if (length == 0 || length == 1) {
+            String[] result = { "1", "2" };
+            return result;
+        }
+        return split;
     }
 
     private static String getTweetMessageFrom(String fullTweet) {
-        int fieldStartIndex = fullTweet.indexOf("\"text\":\"") + "\"text\":\"".length();
+        // TODO: this also needs a test - it's the case when the tweet data has no message for some reason
+        int startIndex = fullTweet.indexOf("\"text\":\"");
+        if (startIndex == -1) {
+            return "";
+        }
+        int fieldStartIndex = startIndex + "\"text\":\"".length();
         int fieldEndIndex = fullTweet.indexOf("\"", fieldStartIndex);
         return fullTweet.substring(fieldStartIndex, fieldEndIndex);
     }
