@@ -4,7 +4,7 @@ plugins {
 }
 
 javafx {
-    version = "22.0.2"
+    version = "25.0.1"
     modules("javafx.controls", "javafx.graphics", "javafx.fxml")
 }
 
