@@ -1,0 +1,51 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Java 25
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '25'
+        cache: 'gradle'
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew build --no-daemon --stacktrace
+
+    - name: Run tests
+      run: ./gradlew test --no-daemon --stacktrace
+
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v4
+      if: always()
+      with:
+        report_paths: '**/build/test-results/test/TEST-*.xml'
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results
+        path: '**/build/test-results/test/'
+
+    - name: Upload test reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-reports
+        path: '**/build/reports/tests/test/'
